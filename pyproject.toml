@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ewr-so-se-2024"
+version = "0.1.0"
+description = ""
+authors = ["Michael van Straten <michael@vanstraten.de>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
