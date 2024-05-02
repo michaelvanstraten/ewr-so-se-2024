@@ -1,9 +1,9 @@
 from functools import partial
 from itertools import accumulate, repeat
-
-from typing import Any
+from typing import Any, cast
 
 import click
+from numpy import ndarray
 
 
 def py_logspace(
@@ -26,15 +26,15 @@ def py_logspace(
 def main(start, stop, number_of_samples, basis):
     import matplotlib.pyplot as plt
 
-    sample = py_logspace(start, stop, num=number_of_samples, basis=basis)
+    samples = py_logspace(start, stop, num=number_of_samples, basis=basis)
 
     fig = plt.figure(
         f"py_logspace({start}, {stop}, num={number_of_samples}, basis={basis})"
     )
-    axes = fig.subplots(nrows=1, ncols=2)
-    axes[0].plot(sample)
-    axes[1].plot(sample)
-    axes[1].set_yscale("log")
+    axis_one, axis_two = cast(ndarray, fig.subplots(nrows=1, ncols=2))
+    axis_one.plot(samples)
+    axis_two.plot(samples)
+    axis_two.set_yscale("log")
 
     plt.show()
 
