@@ -8,3 +8,9 @@ def py_logspace(start: int, stop: int, num: int = 5, basis: int = 10) -> list[in
     items = map(int, map(partial(pow, basis), accumulate(offset, initial = start)))
     # Would be more efficiant if they let us return an iterator instead of a list
     return list(items)
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
