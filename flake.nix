@@ -8,6 +8,7 @@
       url = "github:nix-community/poetry2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs =
@@ -16,6 +17,7 @@
       nixpkgs,
       flake-utils,
       poetry2nix,
+      pre-commit-hooks,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -25,10 +27,30 @@
       in
       {
         packages.default = mkPoetryApplication { projectDir = self; };
+        checks = {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt-rfc-style;
+              };
+              # Python checks
+              mypy.enable = true;
+              black.enable = true;
+              pylint.enable = true;
+            };
+          };
+        };
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [ self.packages.${system}.default ];
-          packages = [ pkgs.poetry ];
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+          packages = with pkgs; [
+            poetry
+            pyright
+          ];
         };
       }
     );
