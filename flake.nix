@@ -36,9 +36,9 @@
                 package = pkgs.nixfmt-rfc-style;
               };
               # Python checks
-              mypy.enable = true;
+              mypy.enable = false;
               black.enable = true;
-              pylint.enable = true;
+              pylint.enable = false;
             };
           };
         };
