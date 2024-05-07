@@ -1,11 +1,13 @@
-from typing import cast
+from typing import Any, cast
 
 import click
 from numpy import ndarray
 import matplotlib.pyplot as plt
 
 
-def py_logspace(start: int, stop: int, num: int=5, basis: int=10) -> list[int]:
+def py_logspace(
+    start: int, stop: int, num: int = 5, basis: int = 10, dtype: Any = int
+) -> list[int]:
     """
         Erstellung von Liste ganzer Zahlen mit logarithmisch konstantem Abstand
         von M. van Straten und P. Merz
@@ -21,8 +23,8 @@ def py_logspace(start: int, stop: int, num: int=5, basis: int=10) -> list[int]:
     for i in range(0 ,num):     # Iteratives Erstellen neuer ELemente
         step = (stop - start)/(num - 1)     # step ist der logarithmisch gesehene konstante Abstand
         log_add = start + i*step            # logarithmischer konstanter Abstand wird addiert
-        exp_add = int(basis**log_add)       # Neues Element für die Liste wird erstellt
-        exp_liste.append(exp_add)           # Das neue Element wird zur Liste hinzugefügt
+        exp_add = dtype(basis**log_add)  # Neues Element für die Liste wird erstellt
+        exp_liste.append(exp_add)  # Das neue Element wird zur Liste hinzugefügt
     return exp_liste
 
 
