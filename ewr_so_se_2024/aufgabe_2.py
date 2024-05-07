@@ -52,4 +52,5 @@ def main(start, stop, number_of_samples, basis):
 
 
 if __name__ == "__main__":
+    # pylint: disable=no-value-for-parameter
     main()
