@@ -1,21 +1,28 @@
-from functools import partial
-from itertools import accumulate, repeat
-from typing import Any, cast
+from typing import cast
 
 import click
 from numpy import ndarray
 
 
-def py_logspace(
-    start: int, stop: int, num: int = 5, basis: int = 10, dtype: Any = int
-) -> list:
+def py_logspace(start: int, stop: int, num: int=5, basis: int=10) -> list[int]:
+    """
+        Erstellung von Liste ganzer Zahlen mit logarithmisch konstantem Abstand
+        von M. van Straten und P. Merz
+        params: start - Legt kleinstes Element der auszugebenden Liste mit basis^start fest
+                stop  - Legt größtes Element der auszugebenden Liste mit basis^stop fest
+                num   - Anzahl der Elemente in der auszugebenden Liste
+                basis - Legt mit start und stop erstes und letztes Element fest, standardmäßig = 10
+        returns: Liste mit num Anzahl an Elementen zwischen basis^start und basis^stop
+    """
     if num < 3:
         raise ValueError
-    offset = repeat((stop - start) / (num - 1), num - 1)
-    # Would be cleaner with https://github.com/EntilZha/PyFunctional
-    items = map(dtype, map(partial(pow, basis), accumulate(offset, initial=start)))
-    # Would be more efficiant if they let us return an iterator instead of a list
-    return list(items)
+    exp_liste = []  # Leere Liste wird erstellt, die später mit den gesuchten Elementen gefüllt wird
+    for i in range(0 ,num):     # Iteratives Erstellen neuer ELemente
+        step = (stop - start)/(num - 1)     # step ist der logarithmisch gesehene konstante Abstand
+        log_add = start + i*step            # logarithmischer konstanter Abstand wird addiert
+        exp_add = int(basis**log_add)       # Neues Element für die Liste wird erstellt
+        exp_liste.append(exp_add)           # Das neue Element wird zur Liste hinzugefügt
+    return exp_liste
 
 
 @click.command()
