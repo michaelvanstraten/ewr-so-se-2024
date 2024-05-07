@@ -2,6 +2,7 @@ from typing import cast
 
 import click
 from numpy import ndarray
+import matplotlib.pyplot as plt
 
 
 def py_logspace(start: int, stop: int, num: int=5, basis: int=10) -> list[int]:
@@ -31,8 +32,6 @@ def py_logspace(start: int, stop: int, num: int=5, basis: int=10) -> list[int]:
 @click.option("-s", "--number-of-samples", default=5, type=int)
 @click.option("--basis", default=10, type=float)
 def main(start, stop, number_of_samples, basis):
-    import matplotlib.pyplot as plt
-
     samples = py_logspace(start, stop, num=number_of_samples, basis=basis)
 
     fig = plt.figure(
