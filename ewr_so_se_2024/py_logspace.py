@@ -21,7 +21,7 @@ def py_logspace(
             basis - Legt mit start und stop erstes und letztes Element fest, standardmäßig = 10
     returns: Liste mit num Anzahl an Elementen zwischen basis^start und basis^stop
     """
-    if num < 3:
+    if num < 2:
         raise ValueError
     exp_liste = (
         []
