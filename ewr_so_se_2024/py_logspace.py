@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 def py_logspace(
     start: int, stop: int, num: int = 5, basis: int = 10, dtype: Any = int
-) -> list[int]:
+) -> list[Any]:
     """
     Erstellung von Liste ganzer Zahlen mit logarithmisch konstantem Abstand
     von M. van Straten und P. Merz
