@@ -1,3 +1,7 @@
+"""
+Aufgabe 2.1: Logspace mit ganzen Zahlen in Python berechnen
+"""
+
 from typing import Any, cast
 
 import click
