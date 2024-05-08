@@ -42,6 +42,9 @@ def py_logspace(
 @click.option("-s", "--number-of-samples", default=5, type=int)
 @click.option("--basis", default=10, type=float)
 def main(start, stop, number_of_samples, basis):
+    """
+    Samples `py_logspace` with the given input and then plots the result using matplotlib.
+    """
     samples = py_logspace(start, stop, num=number_of_samples, basis=basis)
 
     fig = plt.figure(
