@@ -23,13 +23,11 @@ def py_logspace(
     """
     if num < 2:
         raise ValueError
-    exp_liste = (
-        []
-    )  # Leere Liste wird erstellt, die später mit den gesuchten Elementen gefüllt wird
+    # Leere Liste wird erstellt, die später mit den gesuchten Elementen gefüllt wird
+    exp_liste = []
     for i in range(0, num):  # Iteratives Erstellen neuer ELemente
-        step = (stop - start) / (
-            num - 1
-        )  # step ist der logarithmisch gesehene konstante Abstand
+        # step ist der logarithmisch gesehene konstante Abstand
+        step = (stop - start) / (num - 1)
         log_add = start + i * step  # logarithmischer konstanter Abstand wird addiert
         exp_add = dtype(basis**log_add)  # Neues Element für die Liste wird erstellt
         exp_liste.append(exp_add)  # Das neue Element wird zur Liste hinzugefügt
