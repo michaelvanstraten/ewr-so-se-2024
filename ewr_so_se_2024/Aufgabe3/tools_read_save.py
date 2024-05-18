@@ -3,7 +3,7 @@ from os import PathLike
 
 def read_number(question: str, data_type: type, lower_limit: float = float("-Inf"), upper_limit: float = float("Inf")) -> "data_type":
     """
-    Erstellung von
+    Einlesen von Zahlen
     von M. van Straten und P. Merz
     params: question - Aufforderung an den Nutzer
             data_type - Datentyp, die vom Nutzer erwartet wird
