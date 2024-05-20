@@ -15,7 +15,10 @@ Example usage of `harmonic_sum`:
     print(harmonic_sum(5, forward_sum, np.float32))
 """
 
+from functools import partial
+
 import numpy as np
+
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
@@ -70,11 +73,7 @@ def harmonic_sum(n: int, method, dtype=np.float32):
     Returns:
         List of harmonic sums calculated using the specified method.
     """
-    A = py_logspace(1, 5, n)
-    B = []
-    for i in range(0, n):
-        B.append(method(A[i], dtype))
-    return B
+    return list(map(partial(method, dtype=dtype), py_logspace(1, 5, n)))
 
 
 def main():
