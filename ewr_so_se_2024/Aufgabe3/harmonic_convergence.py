@@ -1,5 +1,5 @@
 import numpy as np
-from py_logspace import py_logspace
+from ewr_so_se_2024.py_logspace import py_logspace
 
 
 def forward_sum(n: int, dtype=np.float32):
