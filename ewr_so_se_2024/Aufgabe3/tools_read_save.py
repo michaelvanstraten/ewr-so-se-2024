@@ -1,68 +1,110 @@
-import json
-from os import PathLike
+"""
+This module provides functions for reading, saving, and loading data.
+"""
 
-def read_number(question: str, data_type: type, lower_limit: float = float("-Inf"), upper_limit: float = float("Inf")) -> "data_type":
+from __future__ import annotations
+
+import json
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from _typeshed import FileDescriptorOrPath
+    from typing import Any, Callable, List, Tuple, TypeVar
+
+    T = TypeVar("T", bound=Callable)
+
+
+def read_number(
+    question: str,
+    data_type: T,
+    lower_limit: float = float("-inf"),
+    upper_limit: float = float("inf"),
+) -> T:
     """
-    Einlesen von Zahlen
-    von M. van Straten und P. Merz
-    params: question - Aufforderung an den Nutzer
-            data_type - Datentyp, die vom Nutzer erwartet wird
-            lower_limit - Untere valide Grenze der Eingabe
-            upper_limit - Obere valide Grenze der Eingabe
-    returns: Eingabe im Typ data_type
+    Prompts the user to enter a number that matches the specified data type
+    and is within the given limits.
+
+    Args:
+        question: The question to ask the user.
+        data_type: The desired data type (e.g., `int`, `float`).
+        lower_limit: The lower limit.
+        upper_limit: The upper limit.
+
+    Returns:
+        The user's input in the desired data type.
+
+    Raises:
+        ValueError: If the user decides not to retry after an invalid input.
     """
     while True:
         answer = input(question)
         try:
-            # Überprüfung ob Eingabe des Nutzers dem gewünschten Datentyp entspricht
             input_value = data_type(answer)
-            # Überprüfung ob Eingabe des Nutzers innerhalb der Grenzen liegt
             if lower_limit <= input_value <= upper_limit:
                 return input_value
-            else:
-                print(f"Ihre Eingabe ist nicht innerhalb der Grenzen {lower_limit} und {upper_limit}")
-        # Falls ValueError ausgelöst wird der Nutzer gefragt, ob er die Eingabe wiederholen will
+            print(
+                f"Your input is not within the limits {lower_limit} and {upper_limit}."
+            )
         except ValueError:
-            print(f"Ihre Eingabe entspricht nicht dem Datentyp {data_type}")
-        retry = input("Wollen sie es erneut versuchen (J/n): ")
-        # Abbruchbedingung
-        if retry.lower() == 'n':
-            raise ValueError
+            print(f"Your input does not match the data type {data_type}.")
+        retry = input("Do you want to try again (Y/n): ")
+        if retry.lower() == "n":
+            raise ValueError("Invalid input and the user aborted the retry attempt.")
 
-def save_data(folgen_glieder: list, *parameter) -> PathLike:
-    """
-    Speichern von Folgengliedern und Eingabeparametern
-    von M. van Straten und P. Merz
-    params: folgen_glieder - Liste mit Folgengliedern als Elementen
-            *parameter - Beliebige Anzahl an Parametern
-    returns: Pfad als Pathlike zur gespeicherten Datei
-    """
-    data = dict()
-    # Folgenglieder und parameter werden im Dictionary eingespeichert
-    data["folgen_glieder"] = folgen_glieder
-    data["parameter"] = parameter
-    # Das Dictionary data wird in die Datei save.json eingespeichert
-    json.dump(data, open("save.json", mode="w"))
 
-def load_data(pfad: PathLike) -> tuple:
+def save_data(
+    output_path: FileDescriptorOrPath, sequence_elements: List[Any], *parameters: Any
+):
     """
-    Laden von Dateien
-    von M. van Straten und P. Merz
-    params: pfad - Dateipfad von der Datei die geladen werden soll
-    returns: Daten die aus der Datei geladen wurden
+    Saves the sequence elements and input parameters to a file.
+
+    Args:
+        output_path: The path where the data should be saved.
+        sequence: A list of sequence elements.
+        *parameters: Any number of additional parameters.
     """
-    data = json.load(open(pfad))
-    return data["folgen_glieder"], data["parameter"]
+    data = {
+        "sequence_elements": sequence_elements,
+        "parameters": parameters,
+    }
+    with open(output_path, mode="w", encoding="utf-8") as file:
+        json.dump(data, file)
+
+
+def load_data(path: FileDescriptorOrPath) -> Tuple[List[Any], Tuple[Any, ...]]:
+    """
+    Loads data from a file.
+
+    Args:
+        path: The file path of the file to be loaded.
+
+    Returns:
+        A tuple consisting of the list of sequence elements and a tuple of parameters.
+    """
+    with open(path, encoding="utf-8") as file:
+        data = json.load(file)
+    return data["sequence"], tuple(data["parameters"])
+
 
 def main():
-    # Beispiel zur Verwendung von read_number
-    anfrage = "Bitte geben Sie eine ganze Zahl x mit 3 <= x <= 7 ein. "
-    eingabe_zahl = read_number(anfrage, int, 3.0, 7.0)
-    # Beispiel zur Verwendung von save_data
-    save_data([1, 2, 3], 4, 3, 4)
-    #Beispiel zur Verwendung von read_data
-    folgen_glieder, (param_a, param_b, param_c) = load_data("save.json")
-    print(folgen_glieder, param_a, param_b, param_c,)
-    
+    """
+    Main function to demonstrate the usage of `read_number`, `save_data`, and `load_data`.
+    """
+    # Example usage of read_number
+    prompt = "Please enter an integer x with 3 <= x <= 7: "
+    input_number = read_number(prompt, int, 3.0, 7.0)
+    print(f"Entered number: {input_number}")
+
+    # Example usage of save_data
+    output_path = "save.json"
+    save_data(output_path, [1, 2, 3], 4, 3, 4)
+
+    # Example usage of load_data
+    sequence_elements, (param_a, param_b, param_c) = load_data(output_path)
+    print(f"Sequence elements: {sequence_elements}")
+    print(f"Parameters: {param_a}, {param_b}, {param_c}")
+
+
 if __name__ == "__main__":
     main()
