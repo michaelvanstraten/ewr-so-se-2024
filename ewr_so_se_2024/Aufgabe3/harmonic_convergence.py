@@ -46,8 +46,7 @@ def harmonic_sum(n: int, method, dtype=np.float32):
     A = py_logspace(1, 5, n)
     B = []
     for i in range(0, n):
-        tmp = A[i]
-        B.append(method(tmp, dtype))
+        B.append(method(A[i], dtype))
     return B
 
 
