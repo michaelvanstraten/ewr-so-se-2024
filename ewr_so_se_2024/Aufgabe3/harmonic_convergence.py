@@ -9,11 +9,9 @@ def forward_sum(n: int, dtype=np.float32):
             dtype - Datentyp der Summanden. Standardmäßig np.float32
     returns: n-te Harmonische Summe
     """
-    list = py_logspace(1, n, n)
     sum = dtype(0)
-    for i in range(0, n-1):
-        tmp = np.log10(list[i])
-        sum += (dtype(1)/dtype(tmp))
+    for i in range(1, n + 1):
+        sum += (dtype(1)/dtype(i))
     return sum
         
 def kahan_sum(n: int, dtype=np.float32):
@@ -25,7 +23,8 @@ def kahan_sum(n: int, dtype=np.float32):
     returns: n-te Harmonische Summe
     """
     sum = dtype(0)
-    c = dtype(0)  # Korrekturterm
+    # Korrekturterm
+    c = dtype(0)
     for k in range(1, n + 1):
         y = dtype(1) / dtype(k) - c
         t = sum + y
@@ -37,20 +36,23 @@ def harmonic_sum(n:int, method, dtype=np.float32):
     """
     Bestimmung der Summationsmethode zur Berechnung der n-ten Harmonischen Summe
     von M. van Straten und P. Merz
-    params: n - Bestimmung der n-ten Harmonischen Summe
+    params: n - Anzahl der Folgegliedern der Harmonischen Reihe, im logarithmischen Abstand
             dtype - Datentyp der Summanden. Standardmäßig np.float32
-    returns: n-te Harmonische Summe
+    returns:
     """
+    A = py_logspace(1, 5, n)
+    B = []
     if method == "Kahan":
-        return kahan_sum(n, dtype)
+        for i in range(0, n):
+            tmp = A[i]
+            B.append(kahan_sum(tmp, dtype))
+        return B
     elif method =="Forward":
-        return forward_sum(n, dtype)
+        for i in range(0, n):
+            tmp = A[i]
+            B.append(forward_sum(tmp, dtype))
+        return B
     else:
         raise NameError("Invalide Methode")
-
-# Beispiele
-#print(forward_sum(10))
-#print(kahan_sum(10))
-#print(harmonic_sum(10, "Forward", np.float64))
-#print(harmonic_sum(10, "Kahan", np.float16))
-#
+print(harmonic_sum(5, "Kahan", np.float32))
+print(harmonic_sum(5, "Forward", np.float32))
