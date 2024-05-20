@@ -51,5 +51,10 @@ def harmonic_sum(n: int, method, dtype=np.float32):
     return B
 
 
-print(harmonic_sum(5, kahan_sum, np.float32))
-print(harmonic_sum(5, forward_sum, np.float32))
+def main():
+    print(harmonic_sum(10, kahan_sum, np.float32))
+    print(harmonic_sum(5, forward_sum, np.float32))
+
+
+if __name__ == "__main__":
+    main()
