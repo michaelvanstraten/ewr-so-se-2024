@@ -1,14 +1,34 @@
+"""
+This module provides functions for calculating harmonic sums using different summation methods.
+
+Authors: M. van Straten, P. Merz
+
+Usage Examples:
+---------------
+
+Example usage of `harmonic_sum`:
+
+    # Calculate harmonic sums using Kahan summation method
+    print(harmonic_sum(10, kahan_sum, np.float32))
+    
+    # Calculate harmonic sums using forward summation method
+    print(harmonic_sum(5, forward_sum, np.float32))
+"""
+
 import numpy as np
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
 def forward_sum(n: int, dtype=np.float32):
     """
-    Berechnung n-ter Harmonischer Summe mittels Vorwärtssummation
-    von M. van Straten und P. Merz
-    params: n - Bestimmung der n-ten Harmonischen Summe
-            dtype - Datentyp der Summanden. Standardmäßig np.float32
-    returns: n-te Harmonische Summe
+    Calculates the n-th harmonic sum using forward summation method.
+
+    Args:
+        n: Number of terms in the harmonic sum.
+        dtype: Data type of the summands. Default is np.float32.
+
+    Returns:
+        The n-th harmonic sum.
     """
     sum = dtype(0)
     for i in range(1, n + 1):
@@ -18,14 +38,17 @@ def forward_sum(n: int, dtype=np.float32):
 
 def kahan_sum(n: int, dtype=np.float32):
     """
-    Berechnung n-ter Harmonischer Summe mittels Kahan-Summation
-    von M. van Straten und P. Merz
-    params: n - Bestimmung der n-ten Harmonischen Summe
-            dtype - Datentyp der Summanden. Standardmäßig np.float32
-    returns: n-te Harmonische Summe
+    Calculates the n-th harmonic sum using Kahan summation method.
+
+    Args:
+        n: Number of terms in the harmonic sum.
+        dtype: Data type of the summands.
+
+    Returns:
+        The n-th harmonic sum.
     """
     sum = dtype(0)
-    # Korrekturterm
+    # Correction term
     c = dtype(0)
     for k in range(1, n + 1):
         y = dtype(1) / dtype(k) - c
@@ -37,11 +60,15 @@ def kahan_sum(n: int, dtype=np.float32):
 
 def harmonic_sum(n: int, method, dtype=np.float32):
     """
-    Bestimmung der Summationsmethode zur Berechnung der n-ten Harmonischen Summe
-    von M. van Straten und P. Merz
-    params: n - Anzahl der Folgegliedern der Harmonischen Reihe, im logarithmischen Abstand
-            dtype - Datentyp der Summanden. Standardmäßig np.float32
-    returns:
+    Determines the summation method for calculating the n-th harmonic sum.
+
+    Args:
+        n: The number of logarithmically spaced terms to sample the harmonic series at.
+        method: The summation method to be used.
+        dtype: Data type of the summands.
+
+    Returns:
+        List of harmonic sums calculated using the specified method.
     """
     A = py_logspace(1, 5, n)
     B = []
@@ -51,6 +78,9 @@ def harmonic_sum(n: int, method, dtype=np.float32):
 
 
 def main():
+    """
+    Main function to demonstrate the usage of `harmonic_sum` with different summation methods.
+    """
     print(harmonic_sum(10, kahan_sum, np.float32))
     print(harmonic_sum(5, forward_sum, np.float32))
 
