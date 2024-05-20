@@ -1,5 +1,25 @@
 """
 This module provides functions for reading, saving, and loading data.
+
+Usage Examples:
+---------------
+
+Example usage of `read_number`:
+
+    prompt = "Please enter an integer x with 3 <= x <= 7: "
+    input_number = read_number(prompt, int, 3.0, 7.0)
+    print(f"Entered number: {input_number}")
+
+Example usage of `save_data`:
+
+    output_path = "save.json"
+    save_data(output_path, [1, 2, 3], 4, 3, 4)
+
+Example usage of `load_data`:
+
+    sequence_elements, (param_a, param_b, param_c) = load_data("save.json")
+    print(f"Sequence elements: {sequence_elements}")
+    print(f"Parameters: {param_a}, {param_b}, {param_c}")
 """
 
 from __future__ import annotations
