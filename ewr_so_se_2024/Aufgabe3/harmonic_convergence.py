@@ -15,7 +15,7 @@ Example usage of `harmonic_sum`:
     print(harmonic_sum(5, forward_sum, np.float32))
 """
 
-from functools import partial
+from functools import partial, reduce
 
 import numpy as np
 
@@ -33,10 +33,11 @@ def forward_sum(n: int, dtype=np.float32):
     Returns:
         The n-th harmonic sum.
     """
-    sum = dtype(0)
-    for i in range(1, n + 1):
-        sum += dtype(1) / dtype(i)
-    return sum
+    return reduce(
+        lambda partial_sum, n: partial_sum + dtype(1) / dtype(n),
+        range(1, n + 1),
+        dtype(0),
+    )
 
 
 def kahan_sum(n: int, dtype=np.float32):
