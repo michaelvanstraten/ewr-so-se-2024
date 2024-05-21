@@ -51,15 +51,14 @@ def kahan_sum(n: int, dtype=np.float32):
     Returns:
         The n-th harmonic sum.
     """
-    sum = dtype(0)
-    # Correction term
-    c = dtype(0)
+    partial_sum = dtype(0)
+    correction_term = dtype(0)
     for k in range(1, n + 1):
-        y = dtype(1) / dtype(k) - c
-        t = sum + y
-        c = (t - sum) - y
-        sum = t
-    return sum
+        y = dtype(1) / dtype(k) - correction_term
+        t = partial_sum + y
+        correction_term = (t - partial_sum) - y
+        partial_sum = t
+    return partial_sum
 
 
 def harmonic_sum(n: int, method, dtype=np.float32):
