@@ -36,6 +36,8 @@ if TYPE_CHECKING:
 
 __all__ = ["read_number", "save_data", "load_data"]
 
+VERSION = 1.0
+
 
 def read_number(
     question: str,
@@ -84,10 +86,7 @@ def save_data(output_path: FileDescriptorOrPath, sequence: List[Any], *parameter
         sequence: A list of sequence elements.
         *parameters: Any number of additional parameters.
     """
-    data = {
-        "sequence": sequence,
-        "parameters": parameters,
-    }
+    data = {"sequence": sequence, "parameters": parameters, "version": VERSION}
     with open(output_path, mode="w", encoding="utf-8") as file:
         json.dump(data, file)
 
@@ -104,6 +103,12 @@ def load_data(path: FileDescriptorOrPath) -> Tuple[List[Any], Tuple[Any, ...]]:
     """
     with open(path, encoding="utf-8") as file:
         data = json.load(file)
+
+    if data.get("version") != VERSION:
+        raise ValueError(
+            f"Invalid version: expected {VERSION}, but got {data.get('version')}"
+        )
+
     return data["sequence"], tuple(data["parameters"])
 
 
