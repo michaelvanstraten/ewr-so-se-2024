@@ -1,29 +1,163 @@
+"""
+This module provides a command-line interface (CLI) for generating or loading a harmonic sequence
+and performing summation using different algorithms and data types. 
+The results can be optionally displayed and saved to a file.
+"""
+
 import numpy as np
-from harmonic_convergence import harmonic_sum
-import tools_read_save as trs
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import click
+
+from ewr_so_se_2024.utils import NotRequiredIf
+from ewr_so_se_2024.Aufgabe3.harmonic_convergence import (
+    harmonic_sum,
+    forward_sum,
+    kahan_sum,
+)
+from ewr_so_se_2024.Aufgabe3.tools_read_save import load_data, save_data
+from ewr_so_se_2024.py_logspace import py_logspace
 
 
-def main():
+# Define available summation algorithms and data types
+SUMMATION_ALGORITHMS = {"Forward": forward_sum, "Kahan": kahan_sum}
+DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float64}
+
+
+@click.command()
+@click.option(
+    "--start",
+    type=click.IntRange(min=0, max=12),
+    default=0,
+    help="The starting point from which to calculate the logspace.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Enter the starting point of the logspace:",
+)
+@click.option(
+    "--stop",
+    type=click.IntRange(min=1, max=12),
+    default=5,
+    help="The end point from which to calculate the logspace.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Enter the end point of the logspace:",
+)
+@click.option(
+    "-n",
+    "--number-of-terms",
+    type=click.IntRange(min=2),
+    default=20,
+    help="Number of terms to generate or load.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Enter the number of terms:",
+)
+@click.option(
+    "-t",
+    "--data-type",
+    type=click.Choice(list(DATA_TYPES.keys())),
+    default="float64",
+    show_default=True,
+    help="The data type to use for summing.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Choose the data type for summing:",
+)
+@click.option(
+    "-a",
+    "--summation-algorithm",
+    type=click.Choice(list(SUMMATION_ALGORITHMS.keys()), case_sensitive=False),
+    default="Forward",
+    show_default=True,
+    help="The algorithm to use for summation.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Choose the summation algorithm:",
+)
+@click.option(
+    "--display/--no-display",
+    is_flag=True,
+    default=True,
+    show_default=True,
+    help="Display the generated or loaded data.",
+)
+@click.option(
+    "-l",
+    "--load",
+    type=click.Path(exists=True, dir_okay=False),
+    help="Load data from a specified file.",
+)
+@click.option(
+    "-s",
+    "--save",
+    type=click.Path(dir_okay=False),
+    help="Save the generated data to a specified file.",
+)
+# pylint: disable=too-many-arguments
+def main(
+    start,
+    stop,
+    number_of_terms,
+    data_type,
+    summation_algorithm,
+    display,
+    load,
+    save,
+):
     """
-    docstring
+    Generate or load harmonic sequence and perform summation.
     """
-    wahl = input("Wollen sie eigene Parameter eingeben (1), Standardparameter verwenden (2), oder Parameter aus einer Datei laden (3) ")
-    if wahl == "1":
-        n = int(input("Geben sie die Anzahl an Folgegliedern ein: "))
-        method = input("Wählen sie ihre Summationsmethode: Forward/Kahan: ")
-        dtype = input("Geben sie den Datentyp der Zahlen ein: ")
-        summe = harmonic_sum(n, method, eval(dtype))
-        print(summe)
-    elif wahl == "2":
-        n = 10
-        method = "Forward"
-        summe = harmonic_sum(n, method)
-        print(summe)
-    elif wahl == "3":
-                name = input("Geben sie den Namen der Datei, die geladen werden soll, ein: ")
+    if load is not None:
+        # Load data if specified
+        sequence_elements, (
+            start,
+            stop,
+            number_of_terms,
+            data_type,
+            summation_algorithm,
+        ) = load_data(load)
+    else:
+        # Generate harmonic sequence
+        sequence_elements = harmonic_sum(
+            start,
+            stop,
+            number_of_terms,
+            SUMMATION_ALGORITHMS[summation_algorithm],
+            DATA_TYPES[data_type],
+        )
+
+    if save is not None:
+        # Save the generated sequence
+        save_data(
+            save,
+            list(map(float, sequence_elements)),
+            start,
+            stop,
+            number_of_terms,
+            data_type,
+            summation_algorithm,
+        )
+
+    if display:
+        plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
+
+        # Plot the generated data
+        plt.loglog(
+            py_logspace(start, stop, number_of_terms),
+            sequence_elements,
+            label=f"{summation_algorithm} summation using {data_type}",
+            marker="o",
+        )
+
+        # Add labels and legend
+        plt.xlabel("Number of Terms (log scale)")
+        plt.ylabel("Harmonic Sum (log scale)")
+        plt.legend()
+
+        # Show plot
+        plt.show()
 
 
 if __name__ == "__main__":
-       main()
-
+    # pylint: disable=no-value-for-parameter
+    main()
