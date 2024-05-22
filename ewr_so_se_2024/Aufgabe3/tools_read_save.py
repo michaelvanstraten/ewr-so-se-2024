@@ -109,6 +109,11 @@ def load_data(path: FileDescriptorOrPath) -> Tuple[List[Any], Tuple[Any, ...]]:
             f"Invalid version: expected {VERSION}, but got {data.get('version')}"
         )
 
+    if "sequence" not in data:
+        raise KeyError("Missing 'sequence' key in the data")
+    if "parameters" not in data:
+        raise KeyError("Missing 'parameters' key in the data")
+
     return data["sequence"], tuple(data["parameters"])
 
 
