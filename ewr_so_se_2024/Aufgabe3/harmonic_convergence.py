@@ -61,7 +61,7 @@ def kahan_sum(n: int, dtype=np.float32):
     return partial_sum
 
 
-def harmonic_sum(n: int, method, dtype=np.float32):
+def harmonic_sum(start, stop, n: int, method, dtype=np.float32):
     """
     Determines the summation method for calculating the n-th harmonic sum.
 
@@ -73,15 +73,15 @@ def harmonic_sum(n: int, method, dtype=np.float32):
     Returns:
         List of harmonic sums calculated using the specified method.
     """
-    return list(map(partial(method, dtype=dtype), py_logspace(1, 5, n)))
+    return list(map(partial(method, dtype=dtype), py_logspace(start, stop, n)))
 
 
 def main():
     """
     Main function to demonstrate the usage of `harmonic_sum` with different summation methods.
     """
-    print(harmonic_sum(10, kahan_sum, np.float32))
-    print(harmonic_sum(5, forward_sum, np.float32))
+    print(harmonic_sum(0, 5, 10, kahan_sum, np.float32))
+    print(harmonic_sum(0, 5, 10, forward_sum, np.float32))
 
 
 if __name__ == "__main__":
