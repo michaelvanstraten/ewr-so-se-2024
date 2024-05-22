@@ -75,9 +75,7 @@ def read_number(
             raise ValueError("Invalid input and the user aborted the retry attempt.")
 
 
-def save_data(
-    output_path: FileDescriptorOrPath, sequence_elements: List[Any], *parameters: Any
-):
+def save_data(output_path: FileDescriptorOrPath, sequence: List[Any], *parameters: Any):
     """
     Saves the sequence elements and input parameters to a file.
 
@@ -87,7 +85,7 @@ def save_data(
         *parameters: Any number of additional parameters.
     """
     data = {
-        "sequence_elements": sequence_elements,
+        "sequence": sequence,
         "parameters": parameters,
     }
     with open(output_path, mode="w", encoding="utf-8") as file:
