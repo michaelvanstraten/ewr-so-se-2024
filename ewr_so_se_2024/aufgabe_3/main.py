@@ -7,6 +7,7 @@ The results can be optionally displayed and saved to a file.
 import numpy as np
 import matplotlib.pyplot as plt
 import click
+from yaspin import yaspin
 
 from ewr_so_se_2024.utils import NotRequiredIf
 from ewr_so_se_2024.aufgabe_3.harmonic_convergence import (
@@ -118,13 +119,15 @@ def main(
         ) = load_data(load)
     else:
         # Generate harmonic sequence
-        sequence_elements = harmonic_sum(
-            start,
-            stop,
-            number_of_terms,
-            SUMMATION_ALGORITHMS[summation_algorithm],
-            DATA_TYPES[data_type],
-        )
+        with yaspin(text="Calculating harmonic sums...", color="yellow") as spinner:
+            sequence_elements = harmonic_sum(
+                start,
+                stop,
+                number_of_terms,
+                SUMMATION_ALGORITHMS[summation_algorithm],
+                DATA_TYPES[data_type],
+            )
+            spinner.ok("✅")
 
     if save is not None:
         # Save the generated sequence
