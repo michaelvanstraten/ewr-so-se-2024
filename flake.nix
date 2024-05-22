@@ -38,7 +38,10 @@
               # Python checks
               mypy.enable = false;
               black.enable = true;
-              pylint.enable = false;
+              pylint = {
+                enable = true;
+                package = self.packages.${system}.default.python.pkgs.pylint;
+              };
             };
           };
         };
