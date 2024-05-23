@@ -6,3 +6,21 @@ __pycache__
 .pre-commit-config.yaml
 .pytest_cache
 *.json
+
+# latex auxiliary files
+*.aux
+*.auxlock
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.pdf
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
