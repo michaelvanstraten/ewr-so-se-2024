@@ -49,6 +49,10 @@ def read_number(
     Prompts the user to enter a number that matches the specified data type
     and is within the given limits.
 
+    The following flowchart explains the rough function flow:
+
+    ![Function Flowchart](./read_number.png)
+
     Args:
         question: The question to ask the user.
         data_type: The desired data type (e.g., `int`, `float`).
