@@ -93,7 +93,12 @@ mithilfe von Maschinenzahlen}
 
 \usepackage{tikz}
 
-
+% Required for tikzplotlib
+\usepackage{pgfplots}
+\DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\pgfplotsset{compat=newest}
 
 \begin{document}
 \maketitle
@@ -147,25 +152,25 @@ Der Kahansummation Algorithmus addiert zwar auch wie die Vorwärtssummation die 
 doch wird durch Einführung einer Korrektur-Variable dem Fehler, der durch die Rundungsvorschrift entsteht, entgegengewirkt.
 \section{Daten}
 
-\subsubsection{Summation für Datentyp np.float16}
-%% HIER DIAGRAMM FÜR PYLOGSPACE(0, 5, 20, np.float16, Forward) UND PYLOGSPACE(0, 5, 20, np.float16, Kahan)
-%% EINFÜGEN 
+\subsubsection{Summation für Datentyp np.float32}
+\input{forward_float32.tex}
+\input{kahan_float32.tex}
 
 \subsubsection{Summation für Datentyp np.float64}
-%% HIER DIAGRAMM FÜR PYLOGSPACE(0, 5, 20, np.float64, Forward) UND PYLOGSPACE(0, 5, 20, np.float64, Kahan)
-%% EINFÜGEN
+\input{forward_float64.tex}
+\input{kahan_float64.tex}
 
 \section{Auswertung}
-Wie zu beobachten ist, stagniert die harmonische Summe bei der Vorwärtssummatiion für den Datentyp np.float16 und bleibt irgendwann konstant, 
+Wie zu beobachten ist, stagniert die harmonische Summe bei der Vorwärtssummatiion für den Datentyp np.float32 und bleibt irgendwann konstant, 
 während sie für die Kahansummation noch weiter wächst. Für den Datentyp np.float64 hingegen wachsen beide Summationsmethoden und 
 stagnieren nicht für unsere Eingaben von n.
 
-Eine Erklärung dafür ist, dass die einzelnen Terme der harmonischen Reihe irgendwann so klein sind, dass die Präzision vom Datentyp np.float16, 
-nicht ausreicht und die Summanden kleiner als die kleinste von Null verschiedene Maschinenzahl des Typs np.float16 sind, 
+Eine Erklärung dafür ist, dass die einzelnen Terme der harmonischen Reihe irgendwann so klein sind, dass die Präzision vom Datentyp np.float32, 
+nicht ausreicht und die Summanden kleiner als die kleinste von Null verschiedene Maschinenzahl des Typs np.float32 sind, 
 und dann auf die Null abgerundet werden. Das heißt ab einem bestimmten Punkt werden bei der Vorwärtssummation nur noch Nullen summiert, 
 was nichts an dem Wert der Reihe ändert.
 
-Bei der Kahan Summation hingegen stagniert die Summe jedoch trotz Datentyps np.float16 nicht, was diesem Korrekturterm zuzuschreiben ist, 
+Bei der Kahan Summation hingegen stagniert die Summe jedoch trotz Datentyps np.float32 nicht, was diesem Korrekturterm zuzuschreiben ist, 
 da dieser dem Runden und den dadurch entstehenden Fehlern entgegengewirkt.
 
 Für den Datentyp np.float64 ist die Präzision deutlich höher, und die einzelnen Summanden werden daher auch für sehr große n nicht auf die Null abgerundet, 
