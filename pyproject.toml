@@ -2,7 +2,7 @@
 name = "ewr-so-se-2024"
 version = "0.1.0"
 description = ""
-authors = ["Michael van Straten <michael@vanstraten.de>"]
+authors = ["Michael van Straten <michael@vanstraten.de>", "Pascal Merz <merzpascal2003@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
