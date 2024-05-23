@@ -96,7 +96,7 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
 @click.option(
     "-s",
     "--save",
-    type=click.Path(dir_okay=False),
+    type=click.Path(dir_okay=False, writable=True),
     help="Save the generated data to a specified file.",
 )
 # pylint: disable=too-many-arguments
