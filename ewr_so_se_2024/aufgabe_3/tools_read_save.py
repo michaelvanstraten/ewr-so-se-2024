@@ -88,7 +88,7 @@ def save_data(output_path: FileDescriptorOrPath, sequence: List[Any], *parameter
     """
     data = {"sequence": sequence, "parameters": parameters, "version": VERSION}
     with open(output_path, mode="w", encoding="utf-8") as file:
-        json.dump(data, file)
+        json.dump(data, file, indent=4)
 
 
 def load_data(path: FileDescriptorOrPath) -> Tuple[List[Any], Tuple[Any, ...]]:
