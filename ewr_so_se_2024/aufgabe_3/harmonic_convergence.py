@@ -22,6 +22,20 @@ import numpy as np
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
+def vectorized_sum(n: int, dtype=np.float32):
+    """
+    Calculates the n-th harmonic sum using vectorization.
+
+    Args:
+        n: Number of terms in the harmonic sum.
+        dtype: Data type of the summands. Default is np.float32.
+
+    Returns:
+        The n-th harmonic sum.
+    """
+    return np.sum(dtype(1) / np.arange(1, n + 1, dtype=dtype))
+
+
 def forward_sum(n: int, dtype=np.float32):
     """
     Calculates the n-th harmonic sum using forward summation method.

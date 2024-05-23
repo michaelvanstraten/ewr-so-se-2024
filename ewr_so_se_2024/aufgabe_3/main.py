@@ -14,13 +14,18 @@ from ewr_so_se_2024.aufgabe_3.harmonic_convergence import (
     harmonic_sum,
     forward_sum,
     kahan_sum,
+    vectorized_sum,
 )
 from ewr_so_se_2024.aufgabe_3.tools_read_save import load_data, save_data
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
 # Define available summation algorithms and data types
-SUMMATION_ALGORITHMS = {"Forward": forward_sum, "Kahan": kahan_sum}
+SUMMATION_ALGORITHMS = {
+    "Forward": forward_sum,
+    "Kahan": kahan_sum,
+    "Vectorized": vectorized_sum,
+}
 DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float64}
 
 
