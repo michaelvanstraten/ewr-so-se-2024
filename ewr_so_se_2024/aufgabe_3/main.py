@@ -7,6 +7,7 @@ The results can be optionally displayed and saved to a file.
 import numpy as np
 import matplotlib.pyplot as plt
 import click
+import tikzplotlib
 from yaspin import yaspin
 
 from ewr_so_se_2024.utils import NotRequiredIf
@@ -99,6 +100,11 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     type=click.Path(dir_okay=False, writable=True),
     help="Save the generated data to a specified file.",
 )
+@click.option(
+    "--export-as-tex",
+    type=click.Path(dir_okay=False, writable=True),
+    help="Export the generated data to a specified file using `tikzplotlib`.",
+)
 # pylint: disable=too-many-arguments
 def main(
     start,
@@ -109,6 +115,7 @@ def main(
     display,
     load,
     save,
+    export_as_tex,
 ):
     """
     Generate or load harmonic sequence and perform summation.
@@ -146,7 +153,8 @@ def main(
             summation_algorithm,
         )
 
-    if display:
+    if display or export_as_tex is not None:
+        plt.subplots_adjust(left=0.2, right=0.5)
         plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
 
         # Plot the generated data
@@ -160,10 +168,14 @@ def main(
         # Add labels and legend
         plt.xlabel("Number of Terms (log scale)")
         plt.ylabel("Harmonic Sum (log scale)")
-        plt.legend()
 
-        # Show plot
-        plt.show()
+        if display:
+            # Issue with tikzplotlib https://stackoverflow.com/a/75903189
+            plt.legend()
+            # Show plot
+            plt.show()
+        if export_as_tex:
+            tikzplotlib.save(export_as_tex)
 
 
 if __name__ == "__main__":
