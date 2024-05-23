@@ -10,7 +10,7 @@ import click
 import tikzplotlib
 from yaspin import yaspin
 
-from ewr_so_se_2024.utils import NotRequiredIf
+from ewr_so_se_2024.utils import NotRequiredIf, tikzplotlib_fix_ncols
 from ewr_so_se_2024.aufgabe_3.harmonic_convergence import (
     harmonic_sum,
     forward_sum,
@@ -132,6 +132,8 @@ def main(
     else:
         # Generate harmonic sequence
         with yaspin(text="Calculating harmonic sums...", color="yellow") as spinner:
+            # Ignore overflow errors when operation on numpy data
+            np.seterr(over="ignore")
             sequence_elements = harmonic_sum(
                 start,
                 stop,
@@ -155,7 +157,7 @@ def main(
 
     if display or export_as_tex is not None:
         plt.subplots_adjust(left=0.2, right=0.5)
-        plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
+        fig = plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
 
         # Plot the generated data
         plt.loglog(
@@ -169,9 +171,12 @@ def main(
         plt.xlabel("Number of Terms (log scale)")
         plt.ylabel("Harmonic Sum (log scale)")
 
+        plt.legend()
+
+        # Issue with tikzplotlib https://stackoverflow.com/a/75903189
+        tikzplotlib_fix_ncols(fig)
+
         if display:
-            # Issue with tikzplotlib https://stackoverflow.com/a/75903189
-            plt.legend()
             # Show plot
             plt.show()
         if export_as_tex:

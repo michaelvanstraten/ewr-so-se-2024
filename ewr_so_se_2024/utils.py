@@ -31,3 +31,15 @@ class NotRequiredIf(click.Option):
             self.prompt = None
 
         return super().handle_parse_result(ctx, opts, args)
+
+
+# https://stackoverflow.com/a/75903189
+def tikzplotlib_fix_ncols(obj):
+    """
+    workaround for matplotlib 3.6 renamed legend's _ncol to _ncols, which breaks tikzplotlib
+    """
+    if hasattr(obj, "_ncols"):
+        # pylint: disable=protected-access)
+        obj._ncol = obj._ncols
+    for child in obj.get_children():
+        tikzplotlib_fix_ncols(child)
