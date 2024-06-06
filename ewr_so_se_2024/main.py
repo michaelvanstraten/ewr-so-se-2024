@@ -146,7 +146,7 @@ def main(
     else:
         # Generate harmonic sequence
         with yaspin(text="Calculating harmonic sums...", color="yellow") as spinner:
-            # Ignore overflow errors when operation on numpy data
+            # Ignore overflow errors when operating on NumPy data
             np.seterr(over="ignore")
             sequence_elements = harmonic_sum(
                 start,
