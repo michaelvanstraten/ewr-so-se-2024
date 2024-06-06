@@ -105,11 +105,11 @@ eine klassische unendliche Reihe, die in vielen Bereichen der Mathematik und
 Informatik von Interesse ist.
 Obwohl sie divergiert, bietet die Untersuchung ihrer Partialsummen wertvolle
 Einblicke in numerische Methoden und deren Präzision.
-Das Konvergenzverhalten der Folge der Partialsummen bei Berechnung mittels
+Das Konvergenz verhalten der Folge der Partialsummen bei Berechnung mittels
 Computern ist von besonderem Interesse, da es die Grenzen und Genauigkeit
 numerischer Berechnungen darstellt.
 In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen und Datentypen,
-insbesondere diejenigen die von numpy bereitgestellt werden, die Berechnung der
+insbesondere diejenigen die von NumPy bereitgestellt werden, die Berechnung der
 Partialsummen der harmonischen Reihe beeinflussen.
 Dies hat praktische Relevanz für numerische Mathematik, Algorithmendesign und
 die Implementierung in wissenschaftlicher Software.
@@ -123,9 +123,10 @@ beschrieben.
 Computer stellen reelle Zahlen hingegen mit Bits dar, die entweder \(0\) oder
 \(1\) annehmen können.
 Die Anzahl der Bits hängt vom jeweiligen Rechner bzw.
-dem gewählten Datentypen ab, typisch sind aber 32Bit btw. 64Bit.
-Da man aber nur beschränkt viele Bits hat, folgt dass man nur beschränkt viele
-Reelle Zahlen darstellen kann.
+dem gewählten Datentypen
+ab, typisch sind aber 32Bit bzw.\ 64Bit.
+Da man aber nur beschränkt viele Bits hat, folgt, dass man nur beschränkt viele
+reelle Zahlen darstellen kann.
 Wir unterscheiden zwischen den normalisierten Gleitkommazahlen, und den
 subnormalen Gleitkommazahlen.
 \begin{flushleft}
@@ -149,14 +150,14 @@ mit \(x_1 = 0\) und \(N_{min} + 1 = -1021 \)
     % CITE MOODLE KURS
 
     Man definiert die Menge der Maschinenzahlen als \[\mathcal{M} = \mathbb{R}_N
-        \cup \mathbb{R}_D \] also der Vereinugung der normalisierten Gleitkommazahlen
+        \cup \mathbb{R}_D \] also der Vereinigung der normalisierten Gleitkommazahlen
     und der subnormalen Gleitkommazahlen.
     % CITE MOODLE KURS
 \end{flushleft}
 
 \subsubsection{np.float16, np.float32 und np.float64}
-Bei den verschiedenen float typen handelt es sich von Bibliothek Numpy
-bereitgestellte Datentypten.
+Bei den verschiedenen Float Typen handelt es sich von Bibliothek Rugby
+bereitgestellte Dateitypen.
 Diese Datentypen stellen auch Gleitkommazahlen dar, und wie die Namen auch
 verraten entweder mit \(16\), \(32\) oder \(64\)Bit.
 Die Bits werden für die verschiedenen Typen wie folgt verteilt:
@@ -196,7 +197,7 @@ Maschinenzahl ist.
 Diese Rundungsvorschrift erfüllt folgende Eigenschaften
 \begin{itemize}
     \item Eine vorgegebene reelle Zahl wird zur nächstgelegen Maschinenzahl gerundet
-    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet
+    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet.
 \end{itemize}
 Außerdem kann man herleiten, dass \[rd_t(x) = x(1+\varepsilon(x)) =
     \frac{x}{1-\eta(x)}\] mit \[\varepsilon(x) = \frac{rd_t(x) - x}{x} \text{ und}\
@@ -205,11 +206,13 @@ Außerdem kann man herleiten, dass \[rd_t(x) = x(1+\varepsilon(x)) =
 \subsection{Summationsmethoden} \subsubsection{Vorwärtssummation} Die
 Vorwärtssummation ist, wie der Name auch sagt, eine recht simple Methode Zahlen
 aufzuaddieren.
-Die Terme werden hintereinander addiert, das heißt zu erst werden die ersten
+Die Terme werden hintereinander addiert, das heißt zuerst werden die ersten
 beiden Summanden addiert, der Rechner entscheidet dann, ob es sich um eine
-Maschinenzahl handelt, und falls nicht rundet er auf die nächste Maschinenzahl.
-Danach erst wird die dritte Zahl auf diese, gegebenfalls neue Zahl, aufaddiert
-und es wird wieder geschaut, ob es sich um eine Maschinenzahl handelt.
+Maschinenzahl handelt, und falls nicht, rundet er auf die nächste
+Maschinenzahl.
+Danach erst wird die dritte Zahl auf diese, gegebenenfalls neue Zahl,
+aufaddiert und es wird wieder geschaut, ob es sich um eine Maschinenzahl
+handelt.
 Dieser Prozess wird bis zum letzten Summanden durchgeführt.
 Mithilfe von Klammerung lässt sich dies für die harmonische Reihe wie folgt
 ausdrücken.
@@ -227,7 +230,7 @@ mit dem gerechnet wird.
 
 \section{Experimente}
 \subsection{Versuchsaufbau}
-Um zu untersuchen wie sich das Verhalten von Gleitkommazahlen auf die
+Um zu untersuchen, wie sich das Verhalten von Gleitkommazahlen auf die
 Konvergenz der harmonischen Reihe auswirken, haben wir mittels Python zwei
 Programme zu den eben vorgestellten Summationsmethoden geschrieben.
 Aufsummiert haben wir bis zu verschiedenen Werten, die logarithmisch den
@@ -256,8 +259,8 @@ Gleitkommazahl darstellt.
 Abhängig von dem gewählten Datentypen können Zahlen genauer dargestellt werden,
 da ihnen mehr Bits zur Verfügung gestellt.
 Außerdem sind diese Maschinenzahlen nicht abgeschlossen bezüglich Addition,
-Subtraktion, Multiplikation oder Division, weshalb die Summe, das Produkt, etc.
-vom Rechner auf die nächstgelegene Gleitkommazahl gerundet werden muss.
+Subtraktion, Multiplikation oder Division, weshalb die Summe, das Produkt,
+etc.\ vom Rechner auf die nächstgelegene Gleitkommazahl gerundet werden muss.
 \begin{flushleft}
     Die Auswirkungen auf die harmonische Summe, die bekannterweise divergiert, sind
     sehr deutlich.
@@ -266,10 +269,10 @@ vom Rechner auf die nächstgelegene Gleitkommazahl gerundet werden muss.
     Datentypen konvergiert, da ab einem bestimmten Punkt nur noch Nullen addiert
     werden.
     \\
-    Die Genauigkeit des Aufsummieren kann, im Vergleich zur Vorwärtssummation, erhöht werden, indem man eine andere
-    Summationsmethode verwendet, wie zum Beispiel die Kahansummation.
-    Dadurch kann das Konvergerieren zwar verzögert, aber nicht gestoppt werden, da
-    die Kahansummation von einer Laufvariable abhängt, die den Rundungsfehler
+    Die Genauigkeit das Aufsummieren kann, im Vergleich zur vorwärts Summation, erhöht werden, indem man eine andere
+    Summationsmethode verwendet, wie zum Beispiel die Kahan Summation.
+    Dadurch kann das Konvergieren zwar verzögert, aber nicht gestoppt werden, da
+    die Kahan Summation von einer Laufvariable abhängt, die den Rundungsfehler
     ausgleicht, aber die jedoch nur so genau sein kann wie der jeweilige Datentyp.
 \end{flushleft}
 
