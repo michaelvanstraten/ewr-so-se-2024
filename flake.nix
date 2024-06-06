@@ -45,6 +45,12 @@
                 enable = true;
                 package = self.packages.${system}.default.python.pkgs.pylint;
               };
+              latexindent = {
+                enable = true;
+                settings = {
+                  flags = "--local --silent --modifylinebreak --overwriteIfDifferent";
+                };
+              };
             };
           };
         };
