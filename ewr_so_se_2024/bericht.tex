@@ -17,77 +17,24 @@ mithilfe von Maschinenzahlen}
 }
 \date{06.06.2024}
 
-
-
-
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
-% HINT
-% Use http://detexify.kirelabs.org/classify.html to find unknown symbols!
-
-
 
 \usepackage{amsthm}
 
-%%% make tables with nice horizontal rules (avoid vertical rules)
-\usepackage{booktabs}
-%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% define own colors and use colored text
-\usepackage[pdftex,svgnames]{xcolor}
-
-
-%%% FONT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % choose latin modern font (a good general purpose font)
 \usepackage{lmodern}
 % fontenc and microtype improve the appearance of the font
 \usepackage[T1]{fontenc}
 \usepackage{microtype}
-
-%%% HYPERLINKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % automatic generation of hyperlinks for references and URIs
 \usepackage{hyperref}
-
-
-%%% GRAPHICAL ELEMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provides commands to include graphics
 \usepackage{graphicx}
-
-
-%%% TABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provides commands for good-looking tables
 \usepackage{booktabs}
 
-%%% Code Listings %%%%%%%%%%%%%%%%
-% provides commands for including code (python, latex, ...)
-\usepackage{listings}
-\definecolor{keywords}{RGB}{255,0,90}
-\definecolor{comments}{RGB}{0,0,113}
-\definecolor{red}{RGB}{160,0,0}
-\definecolor{green}{RGB}{0,150,0}
-\lstset{language=Python, 
-        basicstyle=\ttfamily\small, 
-        keywordstyle=\color{keywords},
-        commentstyle=\color{comments},
-        stringstyle=\color{red},
-        showstringspaces=false,
-        identifierstyle=\color{green},
-        }
-
-%%% FLOATS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% redefines the numbers of floating environments such that they contain
-% the number of the current chapter
-
-%%% MY USER-DEFINED COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% define your own commands and abbreviations with \newcommand
-% or \DeclareMathOperator
-% e.g. try \R and \Span in math mode
-\newcommand\R{\mathbb{R}}
-\DeclareMathOperator\Span{span}
-
-
-%%% BEGIN OF DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% the type-setting of the document starts here
 \begin{document}
 
 % generating the title page
@@ -98,7 +45,6 @@ mithilfe von Maschinenzahlen}
 % start a new page
 \cleardoublepage{}
 
-%%% BEGIN OF CONTENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einleitung und Motivation}
 Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist
 eine klassische unendliche Reihe, die in vielen Bereichen der Mathematik und
