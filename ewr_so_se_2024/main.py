@@ -131,7 +131,7 @@ def main(
     export_to,
 ):
     """
-    Generate or load harmonic sequence and perform summation.
+    Generate or load a harmonic sequence and perform summation.
     """
     if load is not None:
         # Load data if specified
