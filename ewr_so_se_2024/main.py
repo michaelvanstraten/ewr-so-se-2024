@@ -35,30 +35,30 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     type=click.IntRange(min=0, max=12),
     default=0,
     show_default=True,
-    help="The starting point from which to calculate the logspace.",
+    help="The starting exponent for calculating the logspace (base ^ start).",
     cls=NotRequiredIf,
     not_required_if="load",
-    prompt="Enter the starting point of the logspace:",
+    prompt="Enter the starting exponent of the logspace:",
 )
 @click.option(
     "--stop",
     type=click.IntRange(min=1, max=12),
     default=5,
     show_default=True,
-    help="The end point from which to calculate the logspace.",
+    help="The ending exponent for calculating the logspace (base ^ stop).",
     cls=NotRequiredIf,
     not_required_if="load",
-    prompt="Enter the end point of the logspace:",
+    prompt="Enter the ending exponent of the logspace:",
 )
 @click.option(
     "--basis",
     type=click.IntRange(min=2),
     default=10,
     show_default=True,
-    help="The basis for which to calculate the logspace.",
+    help="The base for the logspace calculation.",
     cls=NotRequiredIf,
     not_required_if="load",
-    prompt="Enter the basis for the logspace:",
+    prompt="Enter the base for the logspace:",
 )
 @click.option(
     "-n",
@@ -77,7 +77,7 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     type=click.Choice(list(DATA_TYPES.keys())),
     default="float64",
     show_default=True,
-    help="The data type to use for summing.",
+    help="The data type to use for summing (float16, float32, float64).",
     cls=NotRequiredIf,
     not_required_if="load",
     prompt="Choose the data type for summing:",
@@ -88,7 +88,7 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     type=click.Choice(list(SUMMATION_ALGORITHMS.keys()), case_sensitive=False),
     default="Forward",
     show_default=True,
-    help="The algorithm to use for summation.",
+    help="The algorithm to use for summation (Forward, Kahan, Vectorized).",
     cls=NotRequiredIf,
     not_required_if="load",
     prompt="Choose the summation algorithm:",
@@ -104,13 +104,13 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     "-l",
     "--load",
     type=click.Path(exists=True, dir_okay=False),
-    help="Load data from a specified file.",
+    help="Load data from a specified JSON file.",
 )
 @click.option(
     "-s",
     "--save",
     type=click.Path(dir_okay=False, writable=True),
-    help="Save the generated data to a specified file.",
+    help="Save the generated data to a specified JSON file. Note: Provide the .json extension.",
 )
 @click.option(
     "--export-to",
