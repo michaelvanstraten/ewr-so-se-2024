@@ -48,8 +48,8 @@ def read_number(
     upper_limit: float = float("inf"),
 ) -> T:
     """
-    Prompts the user to enter a number that matches the specified data type
-    and is within the given limits.
+    Repeatedly prompts the user to enter a number that matches the specified data
+    type and is within the given limits.
 
     The following flowchart explains the rough function flow:
 
