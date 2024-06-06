@@ -100,9 +100,11 @@ def kahan_sum(partial_sum: T, start: int, stop: int, dtype: type[T] = np.float32
     return partial_sum
 
 
+# pylint: disable=too-many-arguments
 def harmonic_sum(
     logspace_start,
     logspace_stop,
+    logspace_basis,
     n: int,
     summation_algorithm,
     dtype: type[T] = np.float32,
@@ -121,7 +123,12 @@ def harmonic_sum(
     return list(
         islice(
             accumulate(
-                pairwise(chain([0], py_logspace(logspace_start, logspace_stop, n))),
+                pairwise(
+                    chain(
+                        [0],
+                        py_logspace(logspace_start, logspace_stop, n, logspace_basis),
+                    )
+                ),
                 lambda partial_sum, start_stop: summation_algorithm(
                     partial_sum, *start_stop, dtype=dtype
                 ),
@@ -137,8 +144,8 @@ def main():
     """
     Main function to demonstrate the usage of `harmonic_sum` with different summation methods.
     """
-    kahan_results = harmonic_sum(0, 5, 10, kahan_sum, np.float32)
-    forward_results = harmonic_sum(0, 5, 10, forward_sum, np.float32)
+    kahan_results = harmonic_sum(0, 5, 10, 10, kahan_sum, np.float32)
+    forward_results = harmonic_sum(0, 5, 10, 10, forward_sum, np.float32)
 
     print(
         "Harmonic sums using Kahan summation method (logarithmic spacing from 1 to 100000):"

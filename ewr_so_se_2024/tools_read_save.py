@@ -38,7 +38,7 @@ T = TypeVar("T", bound=Callable)
 # Exposing symbols to be imported from this module
 __all__ = ["read_number", "save_data", "load_data"]
 
-VERSION = 1.0
+VERSION = 1.1
 
 
 def read_number(

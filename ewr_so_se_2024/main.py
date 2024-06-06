@@ -49,6 +49,15 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     prompt="Enter the end point of the logspace:",
 )
 @click.option(
+    "--basis",
+    type=click.IntRange(min=2),
+    default=10,
+    help="The basis for which to calculate the logspace.",
+    cls=NotRequiredIf,
+    not_required_if="load",
+    prompt="Enter the basis for the logspace:",
+)
+@click.option(
     "-n",
     "--number-of-terms",
     type=click.IntRange(min=2),
@@ -108,6 +117,7 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
 def main(
     start,
     stop,
+    basis,
     number_of_terms,
     data_type,
     summation_algorithm,
@@ -124,6 +134,7 @@ def main(
         sequence_elements, (
             start,
             stop,
+            basis,
             number_of_terms,
             data_type,
             summation_algorithm,
@@ -136,6 +147,7 @@ def main(
             sequence_elements = harmonic_sum(
                 start,
                 stop,
+                basis,
                 number_of_terms,
                 SUMMATION_ALGORITHMS[summation_algorithm],
                 DATA_TYPES[data_type],
