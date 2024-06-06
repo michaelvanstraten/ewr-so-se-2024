@@ -17,12 +17,18 @@ Example usage of `harmonic_sum`:
 
 from functools import partial, reduce
 
+from typing import Any, cast, TypeVar
+
 import numpy as np
 
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
-def vectorized_sum(n: int, dtype=np.float32):
+# Type hint for type checking (only used for static type checkers)
+T = TypeVar("T", bound=np.floating[Any])
+
+
+def vectorized_sum(n: int, dtype: type[T] = np.float32) -> T:
     """
     Calculates the n-th harmonic sum using vectorization.
 
@@ -33,10 +39,10 @@ def vectorized_sum(n: int, dtype=np.float32):
     Returns:
         The n-th harmonic sum.
     """
-    return np.sum(dtype(1) / np.arange(1, n + 1, dtype=dtype))
+    return cast(T, np.sum(dtype(1) / np.arange(1, n + 1, dtype=dtype)))
 
 
-def forward_sum(n: int, dtype=np.float32):
+def forward_sum(n: int, dtype: type[T] = np.float32) -> T:
     """
     Calculates the n-th harmonic sum using forward summation method.
 
@@ -47,14 +53,17 @@ def forward_sum(n: int, dtype=np.float32):
     Returns:
         The n-th harmonic sum.
     """
-    return reduce(
-        lambda partial_sum, n: partial_sum + dtype(1) / dtype(n),
-        range(1, n + 1),
-        dtype(0),
+    return cast(
+        T,
+        reduce(
+            lambda partial_sum, n: partial_sum + dtype(1) / dtype(n),
+            range(1, n + 1),
+            dtype(0),
+        ),
     )
 
 
-def kahan_sum(n: int, dtype=np.float32):
+def kahan_sum(n: int, dtype: type[T] = np.float32) -> T:
     """
     Calculates the n-th harmonic sum using Kahan summation method.
 
@@ -72,10 +81,12 @@ def kahan_sum(n: int, dtype=np.float32):
         t = partial_sum + y
         correction_term = (t - partial_sum) - y
         partial_sum = t
-    return partial_sum
+    return cast(T, partial_sum)
 
 
-def harmonic_sum(start, stop, n: int, summation_algorithm, dtype=np.float32):
+def harmonic_sum(
+    start, stop, n: int, summation_algorithm, dtype: type[T] = np.float32
+) -> list[T]:
     """
     Determines the summation method for calculating the n-th harmonic sum.
 

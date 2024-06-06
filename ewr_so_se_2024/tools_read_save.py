@@ -27,14 +27,13 @@ from __future__ import annotations
 
 import json
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Callable, List, Tuple, TypeVar
 
 # Type hints for type checking (only used for static type checkers)
 if TYPE_CHECKING:
     from _typeshed import FileDescriptorOrPath
-    from typing import Any, Callable, List, Tuple, TypeVar
 
-    T = TypeVar("T", bound=Callable)
+T = TypeVar("T", bound=Callable)
 
 # Exposing symbols to be imported from this module
 __all__ = ["read_number", "save_data", "load_data"]
