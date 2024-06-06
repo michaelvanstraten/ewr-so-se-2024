@@ -107,8 +107,18 @@ def main():
     """
     Main function to demonstrate the usage of `harmonic_sum` with different summation methods.
     """
-    print(harmonic_sum(0, 5, 10, kahan_sum, np.float32))
-    print(harmonic_sum(0, 5, 10, forward_sum, np.float32))
+    kahan_results = harmonic_sum(0, 5, 10, kahan_sum, np.float32)
+    forward_results = harmonic_sum(0, 5, 10, forward_sum, np.float32)
+
+    print(
+        "Harmonic sums using Kahan summation method (logarithmic spacing from 1 to 100000):"
+    )
+    print(kahan_results)
+
+    print(
+        "\nHarmonic sums using forward summation method (logarithmic spacing from 1 to 100000):"
+    )
+    print(forward_results)
 
 
 if __name__ == "__main__":
