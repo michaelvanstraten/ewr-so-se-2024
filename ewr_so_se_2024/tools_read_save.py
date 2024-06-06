@@ -25,7 +25,6 @@ Example usage of `load_data`:
 from __future__ import annotations
 
 import json
-import sys
 
 from typing import TYPE_CHECKING
 
@@ -126,6 +125,12 @@ def main():
     """
     Main function to demonstrate the usage of `read_number`, `save_data`, and `load_data`.
     """
+    # This is imported here outside of the top level imports because it is only used by the
+    # example and thus not required by the code above.
+    # pylint: disable=import-outside-toplevel
+    import numpy
+    import sys
+
     # Example usage of read_number
     prompt = "Please enter an integer x with 3 <= x <= 7: "
     try:
@@ -136,13 +141,15 @@ def main():
         sys.exit(1)
 
     # Example usage of save_data
-    output_path = "save.json"
-    save_data(output_path, [1, 2, 3], 4, 3, 4)
+    example_save_file = "save.json"
+    print(f"Saving entered number and random sequence into `{example_save_file}`")
+    save_data(example_save_file, list(numpy.random.rand(10)), input_number)
 
     # Example usage of load_data
-    sequence_elements, (param_a, param_b, param_c) = load_data(output_path)
-    print(f"Sequence elements: {sequence_elements}")
-    print(f"Parameters: {param_a}, {param_b}, {param_c}")
+    print(f"Loading data from `{example_save_file}`")
+    random_sequence, (input_number, *_) = load_data(example_save_file)
+    print(f"Loaded random sequence: {random_sequence}")
+    print(f"Loaded Input number: {input_number}")
 
 
 if __name__ == "__main__":
