@@ -32,6 +32,7 @@ backend=biber,
 style=alphabetic,
 sorting=ynt
 ]{biblatex}
+\usepackage{pdfpages}
 
 \addbibresource{./ewr_so_se_2024/bericht.bib}
 
@@ -314,5 +315,7 @@ die Kahan-Summation von einer Laufvariable abhängt, die den Rundungsfehler
 ausgleicht, jedoch nur so genau sein kann wie der jeweilige Datentyp.
 
 \printbibliography
+
+\includepdf[pages=-]{./tools_read_save.pdf}
 
 \end{document}
