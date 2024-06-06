@@ -184,7 +184,7 @@ def main(
         # Add labels and legend
         plt.xlabel("Number of Terms (log scale)")
         plt.ylabel("Harmonic Sum (log scale)")
-
+        plt.title("Harmonic Series Summation Convergence")
         plt.legend()
 
         if export_to:
