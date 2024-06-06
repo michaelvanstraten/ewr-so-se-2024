@@ -65,21 +65,3 @@ class NotRequiredIf(click.Option):
             self.prompt = None
 
         return super().handle_parse_result(ctx, opts, args)
-
-
-def tikzplotlib_fix_ncols(obj):
-    """
-    Recursively fixes the '_ncols' attribute in Matplotlib objects for compatibility with
-    tikzplotlib.
-
-    Matplotlib 3.6 renamed the legend's '_ncol' attribute to '_ncols', which breaks tikzplotlib.
-    This function renames '_ncols' back to '_ncol' in the given object and all its children.
-
-    Args:
-        obj: A Matplotlib object, typically a figure or axis, to be fixed.
-    """
-    if hasattr(obj, "_ncols"):
-        # pylint: disable=protected-access
-        obj._ncol = obj._ncols
-    for child in obj.get_children():
-        tikzplotlib_fix_ncols(child)

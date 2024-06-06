@@ -854,23 +854,6 @@ files = [
 tests = ["pytest", "pytest-cov"]
 
 [[package]]
-name = "tikzplotlib"
-version = "0.10.1"
-description = "Convert matplotlib figures into TikZ/PGFPlots"
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "tikzplotlib-0.10.1-py3-none-any.whl", hash = "sha256:bf0451b86fe4db40aa742f7e5a180dfaaadf57c746ddb2ab7e58a5163d8be75f"},
-    {file = "tikzplotlib-0.10.1.tar.gz", hash = "sha256:93d141342d143804fc1dfabe03e6d4e38e547cf72803bdf124615affdd56f59d"},
-]
-
-[package.dependencies]
-matplotlib = ">=1.4.0"
-numpy = "*"
-Pillow = "*"
-webcolors = "*"
-
-[[package]]
 name = "tomlkit"
 version = "0.12.4"
 description = "Style preserving TOML library"
@@ -893,21 +876,6 @@ files = [
 ]
 
 [[package]]
-name = "webcolors"
-version = "1.13"
-description = "A library for working with the color formats defined by HTML and CSS."
-optional = false
-python-versions = ">=3.7"
-files = [
-    {file = "webcolors-1.13-py3-none-any.whl", hash = "sha256:29bc7e8752c0a1bd4a1f03c14d6e6a72e93d82193738fa860cbff59d0fcc11bf"},
-    {file = "webcolors-1.13.tar.gz", hash = "sha256:c225b674c83fa923be93d235330ce0300373d02885cef23238813b0d5668304a"},
-]
-
-[package.extras]
-docs = ["furo", "sphinx", "sphinx-copybutton", "sphinx-inline-tabs", "sphinx-notfound-page", "sphinxext-opengraph"]
-tests = ["pytest", "pytest-cov"]
-
-[[package]]
 name = "yaspin"
 version = "3.0.2"
 description = "Yet Another Terminal Spinner"
@@ -924,4 +892,4 @@ termcolor = "2.3.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3c437270c2b0f0998ba2c63d23f650b0d30bb6c4d8d70b810a578933d2feffe9"
+content-hash = "cdab6fba2b49efeeb28b4128c32c57dc4e89e130287775232d921e1c89dbacdb"

@@ -7,10 +7,9 @@ The results can be optionally displayed and saved to a file.
 import numpy as np
 import matplotlib.pyplot as plt
 import click
-import tikzplotlib
 from yaspin import yaspin
 
-from ewr_so_se_2024.utils import NotRequiredIf, tikzplotlib_fix_ncols
+from ewr_so_se_2024.utils import NotRequiredIf
 from ewr_so_se_2024.harmonic_convergence import (
     harmonic_sum,
     forward_sum,
@@ -101,9 +100,9 @@ DATA_TYPES = {"float16": np.float16, "float32": np.float32, "float64": np.float6
     help="Save the generated data to a specified file.",
 )
 @click.option(
-    "--export-as-tex",
+    "--export-to",
     type=click.Path(dir_okay=False, writable=True),
-    help="Export the generated data to a specified file using `tikzplotlib`.",
+    help="Export the generated plot to a specified file.",
 )
 # pylint: disable=too-many-arguments
 def main(
@@ -115,7 +114,7 @@ def main(
     display,
     load,
     save,
-    export_as_tex,
+    export_to,
 ):
     """
     Generate or load harmonic sequence and perform summation.
@@ -155,9 +154,8 @@ def main(
             summation_algorithm,
         )
 
-    if display or export_as_tex is not None:
-        plt.subplots_adjust(left=0.2, right=0.5)
-        fig = plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
+    if display or export_to is not None:
+        plt.figure("Harmonic Sum Convergence", figsize=(10, 6))
 
         # Plot the generated data
         plt.loglog(
@@ -173,14 +171,11 @@ def main(
 
         plt.legend()
 
-        # Issue with tikzplotlib https://stackoverflow.com/a/75903189
-        tikzplotlib_fix_ncols(fig)
-
+        if export_to:
+            plt.savefig(export_to)
         if display:
             # Show plot
             plt.show()
-        if export_as_tex:
-            tikzplotlib.save(export_as_tex)
 
 
 if __name__ == "__main__":
