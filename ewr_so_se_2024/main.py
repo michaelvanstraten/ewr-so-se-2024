@@ -178,7 +178,7 @@ def main(
             py_logspace(start, stop, number_of_terms),
             sequence_elements,
             label=f"{summation_algorithm} summation using {data_type}",
-            marker="o",
+            marker="o" if number_of_terms <= 100 else "",
         )
 
         # Add labels and legend
