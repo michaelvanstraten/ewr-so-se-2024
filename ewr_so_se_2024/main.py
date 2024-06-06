@@ -11,13 +11,13 @@ import tikzplotlib
 from yaspin import yaspin
 
 from ewr_so_se_2024.utils import NotRequiredIf, tikzplotlib_fix_ncols
-from ewr_so_se_2024.aufgabe_3.harmonic_convergence import (
+from ewr_so_se_2024.harmonic_convergence import (
     harmonic_sum,
     forward_sum,
     kahan_sum,
     vectorized_sum,
 )
-from ewr_so_se_2024.aufgabe_3.tools_read_save import load_data, save_data
+from ewr_so_se_2024.tools_read_save import load_data, save_data
 from ewr_so_se_2024.py_logspace import py_logspace
 
 
