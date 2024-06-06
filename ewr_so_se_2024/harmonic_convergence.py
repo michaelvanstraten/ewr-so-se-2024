@@ -15,8 +15,8 @@ Example usage of `harmonic_sum`:
     print(harmonic_sum(5, forward_sum, np.float32))
 """
 
-from functools import partial, reduce
-
+from functools import reduce
+from itertools import accumulate, chain, islice, pairwise
 from typing import Any, cast, TypeVar
 
 import numpy as np
@@ -28,7 +28,12 @@ from ewr_so_se_2024.py_logspace import py_logspace
 T = TypeVar("T", bound=np.floating[Any])
 
 
-def vectorized_sum(n: int, dtype: type[T] = np.float32) -> T:
+def vectorized_sum(
+    partial_sum: T,
+    start: int,
+    stop: int,
+    dtype: type[T] = np.float32,
+) -> T:
     """
     Calculates the n-th harmonic sum using vectorization.
 
@@ -39,10 +44,22 @@ def vectorized_sum(n: int, dtype: type[T] = np.float32) -> T:
     Returns:
         The n-th harmonic sum.
     """
-    return cast(T, np.sum(dtype(1) / np.arange(1, n + 1, dtype=dtype)))
+    return cast(
+        T,
+        np.sum(
+            np.concatenate(
+                ([partial_sum], dtype(1) / np.arange(start + 1, stop + 1, dtype=dtype))
+            )
+        ),
+    )
 
 
-def forward_sum(n: int, dtype: type[T] = np.float32) -> T:
+def forward_sum(
+    partial_sum: T,
+    start: int,
+    stop: int,
+    dtype: type[T] = np.float32,
+) -> T:
     """
     Calculates the n-th harmonic sum using forward summation method.
 
@@ -57,13 +74,13 @@ def forward_sum(n: int, dtype: type[T] = np.float32) -> T:
         T,
         reduce(
             lambda partial_sum, n: partial_sum + dtype(1) / dtype(n),
-            range(1, n + 1),
-            dtype(0),
+            range(start + 1, stop + 1),
+            partial_sum,
         ),
     )
 
 
-def kahan_sum(n: int, dtype: type[T] = np.float32) -> T:
+def kahan_sum(partial_sum: T, start: int, stop: int, dtype: type[T] = np.float32) -> T:
     """
     Calculates the n-th harmonic sum using Kahan summation method.
 
@@ -74,18 +91,21 @@ def kahan_sum(n: int, dtype: type[T] = np.float32) -> T:
     Returns:
         The n-th harmonic sum.
     """
-    partial_sum = dtype(0)
     correction_term = dtype(0)
-    for k in range(1, n + 1):
+    for k in range(start + 1, stop + 1):
         y = dtype(1) / dtype(k) - correction_term
-        t = partial_sum + y
+        t = cast(T, partial_sum + y)
         correction_term = (t - partial_sum) - y
         partial_sum = t
-    return cast(T, partial_sum)
+    return partial_sum
 
 
 def harmonic_sum(
-    start, stop, n: int, summation_algorithm, dtype: type[T] = np.float32
+    logspace_start,
+    logspace_stop,
+    n: int,
+    summation_algorithm,
+    dtype: type[T] = np.float32,
 ) -> list[T]:
     """
     Determines the summation method for calculating the n-th harmonic sum.
@@ -99,7 +119,17 @@ def harmonic_sum(
         List of harmonic sums calculated using the specified method.
     """
     return list(
-        map(partial(summation_algorithm, dtype=dtype), py_logspace(start, stop, n))
+        islice(
+            accumulate(
+                pairwise(chain([0], py_logspace(logspace_start, logspace_stop, n))),
+                lambda partial_sum, start_stop: summation_algorithm(
+                    partial_sum, *start_stop, dtype=dtype
+                ),
+                initial=dtype(0),
+            ),
+            1,
+            None,
+        )
     )
 
 
