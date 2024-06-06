@@ -92,35 +92,35 @@ Die Menge der Maschinenzahlen wird definiert als: \[ \mathcal{M} = \mathbb{R}_N
     \cup \mathbb{R}_D \] also der Vereinigung der normalisierten und der
 subnormalen Gleitkommazahlen.
 
-\subsubsection{np.float16, np.float32 und np.float64}
+\subsubsection{\texttt{np.float16}, \texttt{np.float32} und \texttt{np.float64}}
 Bei den verschiedenen Float-Typen handelt es sich um von der Bibliothek NumPy
 bereitgestellte Datentypen.
 Diese Datentypen stellen auch Gleitkommazahlen dar, und wie die Namen schon
 verraten, entweder mit \( 16 \), \( 32 \) oder \( 64 \) Bit.
 Die Bits werden für die verschiedenen Typen wie folgt verteilt:
 
-Für float16 \cite{half-precision_floating-point_format}:
+Für \texttt{float16} \cite{half-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl % CITE https://en.wikipedia.org/wiki/Half-precision_floating-point_format
     \item 5 Bits für den Exponenten
     \item 10 Bits für die Mantisse
 \end{itemize}
 
-Für float32 \cite{single-precision_floating-point_format}:
+Für \texttt{float32} \cite{single-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl % CITE MOODLE KURS FÜR float32 UND float64
     \item 8 Bits für den Exponenten
     \item 23 Bits für die Mantisse
 \end{itemize}
 
-Für float64 \cite{double-precision_floating-point_format}:
+Für \texttt{float64} \cite{double-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl
     \item 11 Bits für den Exponenten
     \item 52 Bits für die Mantisse
 \end{itemize}
 
-Es ist also sehr einfach zu sehen, dass Zahlen des Datentyps float64 mit
+Es ist also sehr einfach zu sehen, dass Zahlen des Datentyps \texttt{float64} mit
 höherer Präzision dargestellt werden können als die der anderen Datentypen.
 
 \subsection{Runden von Gleitkommazahlen und Rundungsfehler}
