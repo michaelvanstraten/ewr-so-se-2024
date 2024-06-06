@@ -119,7 +119,6 @@ mithilfe von Maschinenzahlen}
 % start a new page
 \cleardoublepage{}
 
-
 %%% BEGIN OF CONTENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einleitung und Motivation}
 Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist
@@ -134,110 +133,136 @@ In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen und Datentypen,
 insbesondere diejenigen die von numpy bereitgestellt werden, die Berechnung der
 Partialsummen der harmonischen Reihe beeinflussen.
 Dies hat praktische Relevanz für numerische Mathematik, Algorithmendesign und
-die Implementierung in wissenschaftlicher Software.                                             % HIER CITE BERICHT HANDOUT
+die Implementierung in wissenschaftlicher Software.
+% HIER CITE BERICHT HANDOUT
 
 \section{Theorie}
 \subsection{Darstellung reeller Zahlen auf Rechnern}
-Wenn man an reelle Zahlen denkt, dann meistens in Basis \(10\), das heißt reelle Zahlen werden mit den Ziffern aus
-\(B_{10} = \{0, 1, 2, \dots, 9\} \) beschrieben. 
-Computer stellen reelle Zahlen hingegen mit Bits dar, die entweder \(0\) oder \(1\) annehmen können.                            
-Die Anzahl der Bits hängt vom jeweiligen Rechner bzw. dem gewählten Datentypen ab, typisch sind aber 32Bit btw. 64Bit.
-Da man aber nur beschränkt viele Bits hat, folgt dass man nur beschränkt viele Reelle Zahlen darstellen kann.
-Wir unterscheiden zwischen den normalisierten Gleitkommazahlen, und den subnormalen Gleitkommazahlen.
+Wenn man an reelle Zahlen denkt, dann meistens in Basis \(10\), das heißt
+reelle Zahlen werden mit den Ziffern aus \(B_{10} = \{0, 1, 2, \dots, 9\} \)
+beschrieben.
+Computer stellen reelle Zahlen hingegen mit Bits dar, die entweder \(0\) oder
+\(1\) annehmen können.
+Die Anzahl der Bits hängt vom jeweiligen Rechner bzw.
+dem gewählten Datentypen ab, typisch sind aber 32Bit btw. 64Bit.
+Da man aber nur beschränkt viele Bits hat, folgt dass man nur beschränkt viele
+Reelle Zahlen darstellen kann.
+Wir unterscheiden zwischen den normalisierten Gleitkommazahlen, und den
+subnormalen Gleitkommazahlen.
 \begin{flushleft}
-Für eine normalisierte \(t\)-stellige Gleitkommazahl \(x\) gilt:
-\end{flushleft} 
-\[ x = (-1)^{v}\sum_{i=1}^{t} x_i 2^{-i} = (-1)^v 2^N (0.x_1x_2 ... x_t)_2 \]                              
+    Für eine normalisierte \(t\)-stellige Gleitkommazahl \(x\) gilt:
+\end{flushleft} \[ x = (-1)^{v}\sum_{i=1}^{t} x_i 2^{-i} = (-1)^v 2^N (0.x_1x_2
+    .
+    .. x_t)_2 \]
 
 \begin{flushleft}
-für \(v \in \{0, 1\}, N \in \mathbb{Z}, -1021 < N \leqslant 1024\) und \(\forall i = 1,...,n: x_i \in \{0, 1\} \). \\
-Die Zahl \( m =  \sum_{i=1}^{t}x_i 2^{-i} = (0.x_1x_2...x_t)_2 \) wird die Mantisse von \(x\) und \(t\) die Mantissenlänge genannt.        \\ 
-Man schreibt \(x \in \mathbb{R}_N \), die Menge der normalisierten Gleitkommazahlen. 
-Für eine subnormale Gleitkommazahl \(x\) gilt:                                                   % CITE MOODLE KURS
-\end{flushleft}
-\[x = (-1)^v 2^{N_{min}} (0.x_2x_3...x_t) = (-1)^v 2^{N_{min}+1} \sum_{i=1}^{t} 2^{-i}x_i \]
+    für \(v \in \{0, 1\}, N \in \mathbb{Z}, -1021 < N \leqslant 1024\) und \(\forall i = 1,...,n: x_i \in \{0, 1\} \). \\
+    Die Zahl \( m =  \sum_{i=1}^{t}x_i 2^{-i} = (0.x_1x_2...x_t)_2 \) wird die Mantisse von \(x\) und \(t\) die Mantissenlänge genannt.        \\
+    Man schreibt \(x \in \mathbb{R}_N \), die Menge der normalisierten Gleitkommazahlen.
+    Für eine subnormale Gleitkommazahl \(x\) gilt: \end{flushleft} \[x = (-1)^v
+    2^{N_{min}} (0.x_2x_3.
+    % CITE MOODLE KURS
+    ..x_t) = (-1)^v 2^{N_{min}+1} \sum_{i=1}^{t} 2^{-i}x_i \]
 mit \(x_1 = 0\) und \(N_{min} + 1 = -1021 \)
 \begin{flushleft}
-  Man schreibt \(x \in \mathbb{R}_N \), die Menge der subnormalen Gleitkommazahlen.                              % CITE MOODLE KURS
- 
-  Man definiert die Menge der Maschinenzahlen als 
-\[\mathcal{M} = \mathbb{R}_N \cup \mathbb{R}_D \]
-also der Vereinugung der normalisierten Gleitkommazahlen und der subnormalen Gleitkommazahlen.                    % CITE MOODLE KURS
+    Man schreibt \(x \in \mathbb{R}_N \), die Menge der subnormalen
+    Gleitkommazahlen.
+    % CITE MOODLE KURS
+
+    Man definiert die Menge der Maschinenzahlen als \[\mathcal{M} = \mathbb{R}_N
+        \cup \mathbb{R}_D \] also der Vereinugung der normalisierten Gleitkommazahlen
+    und der subnormalen Gleitkommazahlen.
+    % CITE MOODLE KURS
 \end{flushleft}
 
 \subsubsection{np.float16, np.float32 und np.float64}
-Bei den verschiedenen float typen handelt es sich von Bibliothek Numpy bereitgestellte Datentypten.
-Diese Datentypen stellen auch Gleitkommazahlen dar, und wie die Namen auch verraten entweder mit \(16\), \(32\) oder \(64\)Bit.
+Bei den verschiedenen float typen handelt es sich von Bibliothek Numpy
+bereitgestellte Datentypten.
+Diese Datentypen stellen auch Gleitkommazahlen dar, und wie die Namen auch
+verraten entweder mit \(16\), \(32\) oder \(64\)Bit.
 Die Bits werden für die verschiedenen Typen wie folgt verteilt:
 Für float16
 \begin{itemize}
-  \item 1 Bit für das Vorzeichen der Zahl                                                               %CITE https://en.wikipedia.org/wiki/Half-precision_floating-point_format
-  \item 5 Bits für den Exponenten
-  \item 10 Bits für die Mantisse
+    \item 1 Bit für das Vorzeichen der Zahl                                                               %CITE https://en.wikipedia.org/wiki/Half-precision_floating-point_format
+    \item 5 Bits für den Exponenten
+    \item 10 Bits für die Mantisse
 \end{itemize}
 Für float32
 \begin{itemize}
-  \item 1 Bit für das Vorzeichen der Zahl                                                                 % CITE MOODLE KURS FÜR float32 UND float64
-  \item 8 Bits für den Exponenten
-  \item 23 Bits für die Mantisse
+    \item 1 Bit für das Vorzeichen der Zahl                                                                 % CITE MOODLE KURS FÜR float32 UND float64
+    \item 8 Bits für den Exponenten
+    \item 23 Bits für die Mantisse
 \end{itemize}
-und für float64 
+und für float64
 \begin{itemize}
-  \item 1 Bit für das Vorzeichen der Zahl
-  \item 11 Bits für den Exponenten
-  \item 52 Bits für die Mantisse
+    \item 1 Bit für das Vorzeichen der Zahl
+    \item 11 Bits für den Exponenten
+    \item 52 Bits für die Mantisse
 \end{itemize}
-Es ist also sehr einfach zu sehen, dass Zahlen des Datentyps float64 mit höherer Präzision dargestellt werden können, als die
-der anderen Datentypen.
+Es ist also sehr einfach zu sehen, dass Zahlen des Datentyps float64 mit
+höherer Präzision dargestellt werden können, als die der anderen Datentypen.
 
 \subsection{Runden von Gleitkommazahlen und Rundungsfehler}
-Da nur beschränkt viele Bits zur Darstellung von Gleitkommazahlen verwendet werden, können einige reelle Zahlen gar nicht dargestellt werden.
-Zum Beispiel ist \\ 
-\((0.1)_{10} = (0. \overline{0011})_2 \). Da sich in der Darstellung die \(0011\) wiederholt, kann diese Zahl nicht exakt vom Rechner dargestellt werden;
-sie muss also gerundet werden.
-Dafür wird eine Rundungsvorschrift
-\[rd_t: \mathbb{R}_N \cup \mathbb{R}_D \rightarrow \mathbb{R}_N \cup \mathbb{R}_D\]
-mit \(t\) Mantissenlänge, eingeführt, damit die Verknüpfung zweier Maschinenzahlen auch wieder eine Maschinenzahl ist.  \\
+Da nur beschränkt viele Bits zur Darstellung von Gleitkommazahlen verwendet
+werden, können einige reelle Zahlen gar nicht dargestellt werden.
+Zum Beispiel ist \\ \((0.1)_{10} = (0.
+\overline{0011})_2 \).
+Da sich in der Darstellung die \(0011\) wiederholt, kann diese Zahl nicht exakt
+vom Rechner dargestellt werden; sie muss also gerundet werden.
+Dafür wird eine Rundungsvorschrift \[rd_t: \mathbb{R}_N \cup \mathbb{R}_D
+    \rightarrow \mathbb{R}_N \cup \mathbb{R}_D\] mit \(t\) Mantissenlänge,
+eingeführt, damit die Verknüpfung zweier Maschinenzahlen auch wieder eine
+Maschinenzahl ist.
+\\
 Diese Rundungsvorschrift erfüllt folgende Eigenschaften
 \begin{itemize}
-  \item Eine vorgegebene reelle Zahl wird zur nächstgelegen Maschinenzahl gerundet
-  \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet
+    \item Eine vorgegebene reelle Zahl wird zur nächstgelegen Maschinenzahl gerundet
+    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet
 \end{itemize}
-Außerdem kann man herleiten, dass
-\[rd_t(x) = x(1+\varepsilon(x)) = \frac{x}{1-\eta(x)}\]
-mit
-\[\varepsilon(x) = \frac{rd_t(x) - x}{x} \text{  und}\   \eta(x) = \frac{rd_t(x) - x}{rd_t(x)} \]
+Außerdem kann man herleiten, dass \[rd_t(x) = x(1+\varepsilon(x)) =
+    \frac{x}{1-\eta(x)}\] mit \[\varepsilon(x) = \frac{rd_t(x) - x}{x} \text{ und}\
+    \eta(x) = \frac{rd_t(x) - x}{rd_t(x)} \]
 
-\subsection{Summationsmethoden}
-\subsubsection{Vorwärtssummation}
-Die Vorwärtssummation ist, wie der Name auch sagt, eine recht simple Methode Zahlen aufzuaddieren.
-Die Terme werden hintereinander addiert, das heißt zu erst werden die ersten beiden Summanden addiert, 
-der Rechner entscheidet dann, ob es sich um eine Maschinenzahl handelt, und falls nicht rundet er auf die 
-nächste Maschinenzahl. Danach erst wird die dritte Zahl auf diese, gegebenfalls neue Zahl, aufaddiert und es wird 
-wieder geschaut, ob es sich um eine Maschinenzahl handelt. Dieser Prozess wird bis zum letzten Summanden durchgeführt.
-Mithilfe von Klammerung lässt sich dies für die harmonische Reihe wie folgt ausdrücken.
+\subsection{Summationsmethoden} \subsubsection{Vorwärtssummation} Die
+Vorwärtssummation ist, wie der Name auch sagt, eine recht simple Methode Zahlen
+aufzuaddieren.
+Die Terme werden hintereinander addiert, das heißt zu erst werden die ersten
+beiden Summanden addiert, der Rechner entscheidet dann, ob es sich um eine
+Maschinenzahl handelt, und falls nicht rundet er auf die nächste Maschinenzahl.
+Danach erst wird die dritte Zahl auf diese, gegebenfalls neue Zahl, aufaddiert
+und es wird wieder geschaut, ob es sich um eine Maschinenzahl handelt.
+Dieser Prozess wird bis zum letzten Summanden durchgeführt.
+Mithilfe von Klammerung lässt sich dies für die harmonische Reihe wie folgt
+ausdrücken.
 \[ \sum_{k=1}^{n} \frac{1}{k} = ((...((1+\frac{1}{2})+\frac{1}{3})+ ...) + \frac{1}{n}) \]
 \subsubsection{Kahansummation}
-Da die Maschinenzahlen unter den vier grundlegenden arithmetischen Operationen nicht abgeschlossen, und der Rechner
-möglicherweise Runden muss, so wird sich, vor allem bei einer sehr großen Anzahl an Zahlen, bei der Addition 
-ein Genauigkeitsfehler einschleichen. Um diesen Fehler auszugleichen wird bei der Kahan Summation eine Laufvariable eingeführt, 
-in die nach jeder Addition der Fehler eingespeichert wird, um ihn in der nächsten Addition wieder zu beheben. Natürlich kann diese
-Laufvariable nur so genau sein, wie der jeweilige Datentyp mit dem gerechnet wird.
+Da die Maschinenzahlen unter den vier grundlegenden arithmetischen Operationen
+nicht abgeschlossen, und der Rechner möglicherweise Runden muss, so wird sich,
+vor allem bei einer sehr großen Anzahl an Zahlen, bei der Addition ein
+Genauigkeitsfehler einschleichen.
+Um diesen Fehler auszugleichen wird bei der Kahan Summation eine Laufvariable
+eingeführt, in die nach jeder Addition der Fehler eingespeichert wird, um ihn
+in der nächsten Addition wieder zu beheben.
+Natürlich kann diese Laufvariable nur so genau sein, wie der jeweilige Datentyp
+mit dem gerechnet wird.
 
 \section{Experimente}
 \subsection{Versuchsaufbau}
-Um zu untersuchen wie sich das Verhalten von Gleitkommazahlen auf die Konvergenz der harmonischen Reihe auswirken, haben wir
-mittels Python zwei Programme zu den eben vorgestellten Summationsmethoden geschrieben. Aufsummiert haben wir bis zu verschiedenen Werten, 
-die logarithmisch den gleichen Abstand haben. Generiert haben wir uns diese Zahlen mittels unseres pylogspace Programms, welches eine Liste an ganzen
-Zahlen in einer gegebenen Basis (hier standardmäßig \(10)\) zwischen einer oberen und unteren Grenze generiert.
+Um zu untersuchen wie sich das Verhalten von Gleitkommazahlen auf die
+Konvergenz der harmonischen Reihe auswirken, haben wir mittels Python zwei
+Programme zu den eben vorgestellten Summationsmethoden geschrieben.
+Aufsummiert haben wir bis zu verschiedenen Werten, die logarithmisch den
+gleichen Abstand haben.
+Generiert haben wir uns diese Zahlen mittels unseres pylogspace Programms,
+welches eine Liste an ganzen Zahlen in einer gegebenen Basis (hier
+standardmäßig \(10)\) zwischen einer oberen und unteren Grenze generiert.
 
 \subsection{Daten}
 
 Summation für Datentyp np.float16
 
-
-Summation für Datentyp np.float32
-
+Summation für Datentyp
+np.float32
 
 Summation für Datentyp np.float64
 
@@ -246,18 +271,27 @@ Summation für Datentyp np.float64
 \section{Auswertung}
 
 \section{Zusammenfassung}
-Zusammengefasst kann man sagen, dass der Rechner reelle Zahlen im Binärsystem darstellt und diese je nach Größe entweder als normalisierte oder subnormale Gleitkommazahl 
-darstellt. Abhängig von dem gewählten Datentypen können Zahlen genauer dargestellt werden, da ihnen mehr Bits zur Verfügung gestellt. Außerdem sind diese Maschinenzahlen
-nicht abgeschlossen bezüglich Addition, Subtraktion, Multiplikation oder Division, weshalb die Summe, das Produkt, etc. vom Rechner auf die nächstgelegene Gleitkommazahl 
-gerundet werden muss.
+Zusammengefasst kann man sagen, dass der Rechner reelle Zahlen im Binärsystem
+darstellt und diese je nach Größe entweder als normalisierte oder subnormale
+Gleitkommazahl darstellt.
+Abhängig von dem gewählten Datentypen können Zahlen genauer dargestellt werden,
+da ihnen mehr Bits zur Verfügung gestellt.
+Außerdem sind diese Maschinenzahlen nicht abgeschlossen bezüglich Addition,
+Subtraktion, Multiplikation oder Division, weshalb die Summe, das Produkt, etc.
+vom Rechner auf die nächstgelegene Gleitkommazahl gerundet werden muss.
 \begin{flushleft}
-Die Auswirkungen auf die harmonische Summe, die bekannterweise divergiert, sind sehr deutlich.
-Die Summanden werden sehr klein und werden für bestimmte Datentypen dann auf die Null abgerundet, was dazu führt, dass die harmonische Reihe für eben diese Datentypen konvergiert,
-da ab einem bestimmten Punkt nur noch Nullen addiert werden. \\
-Die Genauigkeit des Aufsummieren kann, im Vergleich zur Vorwärtssummation, erhöht werden, indem man eine andere 
-Summationsmethode verwendet, wie zum Beispiel die Kahansummation. Dadurch kann das Konvergerieren zwar verzögert, aber nicht gestoppt werden, da die Kahansummation von
-einer Laufvariable abhängt, die den Rundungsfehler ausgleicht, aber die jedoch nur so genau sein kann wie der jeweilige Datentyp.
+    Die Auswirkungen auf die harmonische Summe, die bekannterweise divergiert, sind
+    sehr deutlich.
+    Die Summanden werden sehr klein und werden für bestimmte Datentypen dann auf
+    die Null abgerundet, was dazu führt, dass die harmonische Reihe für eben diese
+    Datentypen konvergiert, da ab einem bestimmten Punkt nur noch Nullen addiert
+    werden.
+    \\
+    Die Genauigkeit des Aufsummieren kann, im Vergleich zur Vorwärtssummation, erhöht werden, indem man eine andere
+    Summationsmethode verwendet, wie zum Beispiel die Kahansummation.
+    Dadurch kann das Konvergerieren zwar verzögert, aber nicht gestoppt werden, da
+    die Kahansummation von einer Laufvariable abhängt, die den Rundungsfehler
+    ausgleicht, aber die jedoch nur so genau sein kann wie der jeweilige Datentyp.
 \end{flushleft}
-
 
 \end{document}
