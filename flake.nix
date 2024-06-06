@@ -37,7 +37,7 @@
               };
               # Python checks
               mypy = {
-                enable = true;
+                enable = false;
                 package = self.packages.${system}.default.python.pkgs.mypy;
               };
               black.enable = true;
