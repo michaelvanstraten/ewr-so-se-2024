@@ -27,6 +27,13 @@ mithilfe von Maschinenzahlen}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+
+\addbibresource{./ewr_so_se_2024/bericht.bib}
 
 \begin{document}
 
@@ -91,21 +98,21 @@ Diese Datentypen stellen auch Gleitkommazahlen dar, und wie die Namen schon
 verraten, entweder mit \( 16 \), \( 32 \) oder \( 64 \) Bit.
 Die Bits werden für die verschiedenen Typen wie folgt verteilt:
 
-Für float16:
+Für float16 \cite{half-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl % CITE https://en.wikipedia.org/wiki/Half-precision_floating-point_format
     \item 5 Bits für den Exponenten
     \item 10 Bits für die Mantisse
 \end{itemize}
 
-Für float32:
+Für float32 \cite{single-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl % CITE MOODLE KURS FÜR float32 UND float64
     \item 8 Bits für den Exponenten
     \item 23 Bits für die Mantisse
 \end{itemize}
 
-Für float64:
+Für float64 \cite{double-precision_floating-point_format}:
 \begin{itemize}
     \item 1 Bit für das Vorzeichen der Zahl
     \item 11 Bits für den Exponenten
@@ -213,5 +220,7 @@ Beispiel die Kahan-Summation.
 Dadurch kann das Konvergieren zwar verzögert, aber nicht gestoppt werden, da
 die Kahan-Summation von einer Laufvariable abhängt, die den Rundungsfehler
 ausgleicht, jedoch nur so genau sein kann wie der jeweilige Datentyp.
+
+\printbibliography
 
 \end{document}
