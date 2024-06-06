@@ -175,6 +175,7 @@ Natürlich kann diese Laufvariable nur so genau sein, wie der jeweilige
 Datentyp, mit dem gerechnet wird.
 
 \section{Experimente}
+
 \subsection{Versuchsaufbau}
 Um zu untersuchen, wie sich das Verhalten von Gleitkommazahlen auf die
 Konvergenz der harmonischen Reihe auswirken, haben wir mittels Python zwei
@@ -186,16 +187,107 @@ welches eine Liste an ganzen Zahlen in einer gegebenen Basis (hier
 standardmäßig \(10\)) zwischen einer oberen und unteren Grenze generiert.
 
 \subsection{Daten}
-Summation für Datentyp np.float16
 
-Summation für Datentyp
-np.float32
+\begin{center}
+    \makebox[\textwidth]{\includegraphics[width=\textwidth]{./output.png}}
+\end{center}
 
-Summation für Datentyp np.float64
+\subsection{Beobachtungen zu den Summationsmethoden und Datentypen}
 
-\subsection{Beobachtungen}
+Die folgenden Beobachtungen basieren auf den Ergebnissen der Summationsmethoden
+(Vorwärtssummation und Kahan-Summation) für die Datentypen \texttt{float16} und
+\texttt{float32}.
 
-\section{Auswertung}
+\subsubsection{Forward Summation using float16}
+
+\textbf{Verhalten}
+\begin{itemize}
+    \item Die Summation konvergiert schnell und erreicht einen Punkt, ab dem keine signifikante Änderung mehr erfolgt.
+    \item Die Konvergenz tritt bereits bei relativ kleinen Summanden (ab etwa \(10^3\)) ein.
+\end{itemize}
+
+\textbf{Ursache}
+\begin{itemize}
+    \item Bei der Verwendung von \texttt{float16} treten aufgrund der geringen Präzision früh Rundungsfehler auf.
+          Diese führen dazu, dass kleine Summanden ab einem bestimmten Punkt ignoriert
+          werden, da sie auf Null gerundet werden.
+\end{itemize}
+
+\textbf{Ergebnis}
+\begin{itemize}
+    \item Die harmonische Reihe scheint zu konvergieren, was jedoch auf die beschränkte Genauigkeit und das frühe Auftreten von Rundungsfehlern bei \texttt{float16} zurückzuführen ist.
+\end{itemize}
+
+\subsubsection{Kahan Summation using float16}
+
+\textbf{Verhalten}
+\begin{itemize}
+    \item Die Summation zeigt eine stetigere Zunahme im Vergleich zur Vorwärtssummation und konvergiert langsamer.
+    \item Der Rundungsfehler wird bei jeder Addition kompensiert, was zu einer genaueren Summation führt.
+\end{itemize}
+
+\textbf{Ursache}
+\begin{itemize}
+    \item Die Kahan-Summation kompensiert die Rundungsfehler durch eine zusätzliche Laufvariable, die den Fehler speichert und in die nächste Addition einbezieht.
+\end{itemize}
+
+\textbf{Ergebnis}
+\begin{itemize}
+    \item Trotz der besseren Genauigkeit gegenüber der Vorwärtssummation ist die Präzision von \texttt{float16} immer noch begrenzt, was zu einer Verzögerung, aber nicht zu einer Verhinderung der scheinbaren Konvergenz führt.
+\end{itemize}
+
+\subsubsection{Forward Summation using float32}
+
+\textbf{Verhalten}
+\begin{itemize}
+    \item Die Summation zeigt zunächst eine stetige Zunahme und erreicht dann einen Punkt, an dem keine signifikante Änderung mehr erfolgt.
+    \item Der Konvergenzpunkt tritt später auf als bei \texttt{float16}, aber dennoch deutlich.
+\end{itemize}
+
+\textbf{Ursache}
+\begin{itemize}
+    \item Die höhere Präzision von \texttt{float32} verzögert das Auftreten von Rundungsfehlern, führt jedoch letztendlich zu einem ähnlichen Effekt, bei dem kleine Summanden ignoriert werden.
+\end{itemize}
+
+\textbf{Ergebnis}
+\begin{itemize}
+    \item Die harmonische Reihe scheint auch hier zu konvergieren, was auf die begrenzte Genauigkeit und die später auftretenden Rundungsfehler bei \texttt{float32} zurückzuführen ist.
+\end{itemize}
+
+\subsubsection{Kahan Summation using float32}
+
+\textbf{Verhalten}
+\begin{itemize}
+    \item Die Summation zeigt eine stetige und lineare Zunahme ohne Anzeichen von Konvergenz im beobachteten Bereich.
+    \item Die Kahan-Summation kompensiert effektiv die Rundungsfehler und ermöglicht eine genauere Summation über einen längeren Bereich.
+\end{itemize}
+
+\textbf{Ursache}
+\begin{itemize}
+    \item Durch die höhere Präzision von \texttt{float32} und die Kahan-Summation werden die Rundungsfehler wesentlich besser ausgeglichen, wodurch eine scheinbare Konvergenz verhindert wird.
+\end{itemize}
+
+\textbf{Ergebnis}
+\begin{itemize}
+    \item Die harmonische Reihe zeigt keine Anzeichen von Konvergenz im beobachteten Bereich, was die Effektivität der Kahan-Summation bei Verwendung von \texttt{float32} bestätigt.
+\end{itemize}
+
+\subsection{Zusammenfassung des Vergleichs}
+
+\begin{itemize}
+    \item \textbf{Precision Impact:}
+          Die Präzision des Datentyps hat einen signifikanten Einfluss auf die
+          Genauigkeit der Summation.
+          \texttt{float16} zeigt frühere und stärkere Rundungsfehler als \texttt{float32}.
+    \item \textbf{Summation Method Impact:}
+          Die Kahan-Summation verbessert die Genauigkeit der Summation erheblich, indem
+          sie Rundungsfehler kompensiert, im Gegensatz zur Vorwärtssummation, die
+          anfälliger für Fehler ist.
+    \item \textbf{Practical Implications:}
+          Die Wahl der Summationsmethode und des Datentyps ist entscheidend für
+          numerische Berechnungen, insbesondere bei der Handhabung großer Datensätze oder
+          langer Reihen, um präzise Ergebnisse zu gewährleisten.
+\end{itemize}
 
 \section{Zusammenfassung}
 Zusammengefasst kann man sagen, dass der Rechner reelle Zahlen im Binärsystem
