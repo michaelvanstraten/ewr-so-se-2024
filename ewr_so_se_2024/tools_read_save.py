@@ -25,6 +25,7 @@ Example usage of `load_data`:
 from __future__ import annotations
 
 import json
+import sys
 
 from typing import TYPE_CHECKING
 
@@ -127,8 +128,12 @@ def main():
     """
     # Example usage of read_number
     prompt = "Please enter an integer x with 3 <= x <= 7: "
-    input_number = read_number(prompt, int, 3.0, 7.0)
-    print(f"Entered number: {input_number}")
+    try:
+        input_number = read_number(prompt, int, 3.0, 7.0)
+        print(f"Entered number: {input_number}")
+    except ValueError:
+        print("User did not provide a valid number (exiting).")
+        sys.exit(1)
 
     # Example usage of save_data
     output_path = "save.json"
