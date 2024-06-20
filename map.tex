@@ -1,0 +1,110 @@
+\documentclass{scrartcl}
+\usepackage{scrhack}
+
+\subject{Bericht}
+\titlehead{%
+  Humboldt-Universität zu Berlin\\
+  Mathematisch-Naturwissenschaftliche Fakultät\\
+  Institut für Mathematik
+}
+\title{Annäherungen von \(\pi\)}
+\author{
+  Eingereicht von M. van Straten und P. Merz
+}
+\date{\today}
+
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\usepackage{pdfpages}
+
+\addbibresource{./map.bib}
+
+\newtheorem{definition}{Definition}
+
+\begin{document}
+\maketitle
+\cleardoublepage{}
+\tableofcontents
+\cleardoublepage{}
+
+\section{Einführung}
+
+Die Konstante \(\pi\) hat eine natürliche Definition in der euklidischen
+Geometrie als das Verhältnis zwischen dem Umfang und dem Durchmesser eines
+Kreises \cite{wikipedia:Pi, wikipedia:Euclidean_geometry,
+    wikipedia:Circumference, wikipedia:Diameter}.
+Sie findet sich an vielen anderen Stellen in der Mathematik: zum Beispiel im
+Gaußschen Integral, bei den komplexen Einheitswurzeln und in der
+Cauchy-Verteilung in der Wahrscheinlichkeitstheorie
+\cite{wikipedia:Gaussian_integral, wikipedia:Roots_of_unity,
+    wikipedia:Cauchy_distribution, wikipedia:Probability}.
+
+\subsection{Motivation}
+
+Annäherungen für die mathematische Konstante \(\pi\) in der Geschichte der
+Mathematik erreichten eine Genauigkeit von bis zu 0,04
+
+Weitere Fortschritte wurden erst im 14.
+Jahrhundert erzielt, als Madhava von Sangamagrama Annäherungen entwickelte, die
+bis zu elf und dann dreizehn Stellen korrekt waren
+\cite{wikipedia:Madhava_of_Sangamagrama}, bevor die Zeitrechnung begann
+\cite{wikipedia:Approximation, wikipedia:Pi, wikipedia:History_of_mathematics}.
+In der chinesischen Mathematik wurde dies im 5.
+Jahrhundert auf Annäherungen verbessert, die etwa sieben Dezimalstellen
+entsprachen \cite{wikipedia:Chinese_mathematics}.
+Jamshīd al-Kāshī erreichte als Nächstes sechzehn Stellen
+\cite{wikipedia:Jamshid_al-Kashi}.
+Frühneuzeitliche Mathematiker erreichten eine Genauigkeit von 35 Stellen zu
+Beginn des 17.
+Jahrhunderts (Ludolph van Ceulen) \cite{wikipedia:Ludolph_van_Ceulen}, und 126
+Stellen im 19.
+Jahrhundert (Jurij Vega) \cite{wikipedia:Jurij_Vega}, was die für jede denkbare
+Anwendung außerhalb der reinen Mathematik erforderliche Genauigkeit übertraf.
+
+Mit diesem Bericht möchten wir in die Fußstapfen unserer Mitmathematiker treten
+und verschiedene theoretische Annäherungsmethoden zur Berechnung von \(\pi\)
+untersuchen.
+
+Mit diesem Bericht möchten wir in die Fußstapfen unserer Mitmathematiker treten
+und verschiedene theoretische Annäherungsmethoden zur Berechnung von \(\pi\)
+untersuchen.
+
+\subsection{Einführung in die Theorie}
+\subsubsection{Annäherung}
+
+\begin{definition}[Annäherungsreihe]
+
+\end{definition}
+
+\subsubsection{Bessere und schlechtere Annäherungsreihen}
+
+\section{Annäherungsalgorithmen}
+
+\subsection{Monte-Carlo}
+
+\subsection{Leibniz-Formel für \(\pi\)}
+
+\subsection{Chudnovsky-Algorithmus}
+
+\section{Experimente}
+
+\subsection{Gesammelte Daten}
+
+\subsection{Auswertung}
+
+\section{Zusammenfassung}
+
+\printbibliography
+
+\end{document}
