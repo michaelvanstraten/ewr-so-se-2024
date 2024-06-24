@@ -1,0 +1,101 @@
+\documentclass{beamer}
+\usepackage[ngerman]{babel} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Approximation von Pi}
+\author{M. van Straten und P. Merz}
+\institute{Humboldt-Universität zu Berlin \\
+           Sommersemester 2024}
+\date{08.07.2024}
+
+\usetheme{Berlin}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Inhalt}
+    \begin{itemize}
+        \item<1-> Einführung
+        \item<2-> Theorie
+        \item<3-> Annäherungsalgorithmen
+        \item<4-> Experimente
+        \item<5-> Daten
+        \item<6-> Auswertung
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Einführung}
+
+
+\end{frame}
+\begin{frame}{Theorie}
+\end{frame}
+
+
+\begin{frame}{Annäherungsalgorithmen}
+    \begin{itemize}
+        \item Monte-Carlo Methode
+        \item Leibniz-Reihe
+        \item Gauß-Legendre
+        \item Chudnovsky Methode
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Methode}                                                                                                  %https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
+    \begin{itemize}
+        \item<1-> Monte Carlo Simulationen basieren auf wiederholter Zufallsstichprobe, um numerische Ergebnisse zu erzielen
+        \item<2-> Zufälliges Platzieren von Punkten in einem 1x1 Quadrat, in dem sich ein Viertelkreis mit Radius 1 befindet
+        \item<3-> \( \pi \approx 4 \cdot \frac{Punkte \: innerhalb \: des \: Kreises}{Gesamte \: Punktanzahl} \)
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Annäherungsalgorithmen: Leibniz-Reihe}                                                                                                        %Need citation for proof
+    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]                                                                                                     %https://www.tandfonline.com/doi/epdf/10.1080/0025570X.1990.11977541?needAccess=true ?????
+    \begin{itemize}
+        \item<2-> Konvergiert sehr langsam, präzise: Sublineare Konvergenz \\
+        \item<2-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Annäherungsalgorithmen: Gauß-Legendre}                                                                                                        %https://web.archive.org/web/20080726033059/http://wwwmaths.anu.edu.au/~brent/pd/rpb028.pdf
+    \begin{itemize}                                                                                                                                         %Quadratische Konvergenz, need citation
+        \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen- und geometrischen Mittels zweier Zahlen bedienen
+        \item<2-> \( a_0 = 1 \;\;\; b_0 = \frac{1}{\sqrt{2}} \;\;\; t_0 = \frac{1}{4} \;\;\; p_0 = 1 \)
+        \item<3-> \( a_{n+1} = \frac{a_n + b_n}{2} \)
+        \item<4-> \( b_{n+1} = \sqrt{a_nb_n} \)
+        \item<5-> \( t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \)
+        \item<6-> \( p_{n+1} = 2p_n \)
+        \item<7-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
+    \end{itemize}   
+\end{frame}
+
+
+
+\begin{frame}{Annäherungsalgorithmen: Chudnovsky Methode}                                                                                                   %Need citations beside wikipedia
+    \[ \frac{1}{\pi} = \frac{1}{426880\sqrt{10005}}\sum_{k=0}^{\infty} \frac{(-1)^{k}(6k)!(545140134k + 13591409)}{(3k)!(k!)^{3}{(640320)}^{3k}} \]
+\end{frame}
+
+\begin{frame}{Experimente}  
+\end{frame}
+
+
+\begin{frame}{Daten}
+
+\end{frame}
+
+
+
+\begin{frame}{Auswertung}
+
+\end{frame}
+
+\end{document}
