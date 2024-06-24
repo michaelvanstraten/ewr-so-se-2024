@@ -1,40 +1,45 @@
 """"""
-from decimal import Decimal
-from itertools import count, accumulate
-import math
-from typing import Callable, Iterable
+from collections import abc
+from typing import Iterator
+from dataclasses import dataclass
 
-from math import factorial, pi, sqrt
+from decimal import Decimal
+from math import factorial, sqrt
+
 
 import random
 
-PI = Decimal(pi)
-
-RealValuedSequence = Iterable[Decimal]
-Algoorithm = Callable[[], RealValuedSequence]
+RealValuedSequence = abc.Iterator[Decimal]
 
 
-def leibniz():
-    """"""
-    return map(
-        lambda item: 4 * item,
-        accumulate(
-            count(0),
-            lambda partial_sum, n: partial_sum
-            + ((-1) ** n) * Decimal(1) / Decimal(2 * n + 1),
-            initial=0,
-        ),
-    )
+@dataclass
+class ApproximationSequence(RealValuedSequence):
+    current_position: int = -1
 
-
-class MonteCarlo(RealValuedSequence):
-    """"""
-
-    number_of_samples = 0
-    samples_inside_of_unit_circle = 0
-
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Decimal]:
         return self
+
+
+@dataclass
+class Leibniz(ApproximationSequence):
+    partial_sum: Decimal = Decimal(0)
+    next_n: int = 0
+
+    def __next__(self) -> Decimal:
+        self.partial_sum += (
+            ((-1) ** self.next_n) * Decimal(1) / Decimal(2 * self.next_n + 1)
+        )
+        self.next_n += 1
+
+        return 4 * self.partial_sum
+
+
+@dataclass
+class MonteCarlo(ApproximationSequence):
+    """"""
+
+    number_of_samples: int = 0
+    samples_inside_of_unit_circle: int = 0
 
     def __next__(self) -> Decimal:
         random_x, random_y = random.random(), random.random()
@@ -48,48 +53,44 @@ class MonteCarlo(RealValuedSequence):
         )
 
 
-def monte_carlo(seed: int = 69420) -> RealValuedSequence:
-    """"""
-    random.seed(seed)
+@dataclass
+class GaussLegendre(ApproximationSequence):
+    a: Decimal = Decimal(1)
+    b: Decimal = Decimal(1) / Decimal(2).sqrt()
+    t: Decimal = Decimal(1) / Decimal(4)
+    p: Decimal = Decimal(1)
 
-    number_of_samples = 0
-    samples_inside_of_unit_circle = 0
-
-    while True:
-        random_x, random_y = random.random(), random.random()
-        number_of_samples += 1
-        if sqrt(random_x**2 + random_y**2) <= 1:
-            samples_inside_of_unit_circle += 1
-        yield 4 * Decimal(samples_inside_of_unit_circle) / Decimal(number_of_samples)
-
-
-def gauss_legendre():
-    """"""
-    a = Decimal(1)
-    b = Decimal(1) / Decimal(2).sqrt()
-    t = Decimal(1) / Decimal(4)
-    p = Decimal(1)
-
-    while True:
-        next_a = (a + b) / 2
-        b = (a * b).sqrt()
-        t = t - p * (a - next_a) ** 2
-        p = 2 * p
-        a = next_a
-        yield ((a + b) ** 2) / (4 * t)
+    def __next__(self) -> Decimal:
+        a = (self.a + self.b) / 2
+        self.b = (self.a * self.b).sqrt()
+        self.t = self.t - self.p * (self.a - a) ** 2
+        self.p = 2 * self.p
+        self.a = a
+        return ((self.a + self.b) ** 2) / (4 * self.t)
 
 
-def chudnovsky():
-    """"""
-    c = Decimal(426880) * Decimal(10005).sqrt()
+@dataclass
+class Chudnovsky(ApproximationSequence):
+    partial_sum: Decimal = Decimal(0)
+    next_n: int = 0
+    c: Decimal = Decimal(426880) * Decimal(10005).sqrt()
 
-    return map(
-        lambda x: c * (1 / x),
-        accumulate(
-            count(1),
-            lambda partial_sum, k: partial_sum
-            + Decimal(math.factorial(6 * k) * (13591409 + 545140134 * k))
-            / Decimal(factorial(3 * k) * factorial(k) ** 3 * (-640320) ** (3 * k)),
-            initial=Decimal(13591409),
-        ),
-    )
+    def __next__(self) -> Decimal:
+        self.partial_sum += Decimal(
+            factorial(6 * self.next_n) * (13591409 + 545140134 * self.next_n)
+        ) / Decimal(
+            factorial(3 * self.next_n)
+            * factorial(self.next_n) ** 3
+            * (-640320) ** (3 * self.next_n)
+        )
+        self.next_n += 1
+
+        return self.c * (1 / self.partial_sum)
+
+
+APPROXIMATION_SEQUENCES: dict[str, type] = {
+    "Leibniz": Leibniz,
+    "MonteCarlo": MonteCarlo,
+    "GaussLegendre": GaussLegendre,
+    "Chudnovsky": Chudnovsky,
+}
