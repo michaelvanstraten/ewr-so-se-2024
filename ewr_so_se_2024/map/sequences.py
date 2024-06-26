@@ -68,7 +68,6 @@ class ApproximationSequence(RealValuedSequence):
     @abstractmethod
     def next_element(self) -> Decimal:
         """Calculates the next element in the sequence. Must be implemented by subclasses."""
-        pass
 
     def at(self, position: int) -> Union[Decimal, None]:
         """Returns the approximation at a specific position in the sequence.
@@ -196,7 +195,8 @@ sequences_option = click.option(
 
 if __name__ == "__main__":
     print(
-        f"It follows a calculation of the 20th partial sum of the {', '.join(APPROXIMATION_SEQUENCES.keys())} pi approximation sequence:"
+        f"It follows a calculation of the 20th partial sum of the \
+        {', '.join(APPROXIMATION_SEQUENCES.keys())} pi approximation sequence:"
     )
 
     sequences = [sequence() for sequence in APPROXIMATION_SEQUENCES.values()]
