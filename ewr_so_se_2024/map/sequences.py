@@ -132,3 +132,16 @@ APPROXIMATION_SEQUENCES: dict[str, type] = {
     "GaussLegendre": GaussLegendre,
     "Chudnovsky": Chudnovsky,
 }
+
+if __name__ == "__main__":
+    print(
+        f"It follows a calculation of the 20th partial sum of the {', '.join(APPROXIMATION_SEQUENCES.keys())} pi approximation sequence:"
+    )
+
+    sequences = [sequence() for sequence in APPROXIMATION_SEQUENCES.values()]
+
+    for _ in range(20):
+        for sequence in sequences:
+            next(sequence)
+
+    print(*sequences, sep="\n")
