@@ -36,10 +36,6 @@
                 package = pkgs.nixfmt-rfc-style;
               };
               # Python checks
-              mypy = {
-                enable = false;
-                package = self.packages.${system}.default.python.pkgs.mypy;
-              };
               black.enable = true;
               pylint = {
                 enable = true;
