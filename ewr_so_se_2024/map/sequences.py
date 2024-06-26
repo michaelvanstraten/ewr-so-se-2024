@@ -38,6 +38,16 @@ class ApproximationSequence(RealValuedSequence):
         pass
 
 @dataclass
+    def at(self, position: int) -> Union[Decimal, None]:
+        if self.current_position > position:
+            return None
+
+        while self.current_position < position:
+            next(self)
+
+        return self.current_approximation
+
+
 class Leibniz(ApproximationSequence):
     partial_sum: Decimal = Decimal(0)
 
