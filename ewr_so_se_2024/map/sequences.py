@@ -1,8 +1,6 @@
 """"""
 from collections import abc
-from typing import Iterator
-from dataclasses import dataclass
-
+from dataclasses import InitVar, dataclass
 from decimal import Decimal
 from math import factorial, sqrt
 
@@ -56,11 +54,18 @@ class MonteCarlo(ApproximationSequence):
 @dataclass
 class GaussLegendre(ApproximationSequence):
     a: Decimal = Decimal(1)
-    b: Decimal = Decimal(1) / Decimal(2).sqrt()
+    _b: InitVar[Decimal | None] = None
+    b: Decimal = Decimal("nan")
     t: Decimal = Decimal(1) / Decimal(4)
     p: Decimal = Decimal(1)
 
     def __next__(self) -> Decimal:
+    def __post_init__(self, _b):
+        if _b is None:
+            self.b = Decimal(1) / Decimal(2).sqrt()
+        else:
+            self.b = _b
+
         a = (self.a + self.b) / 2
         self.b = (self.a * self.b).sqrt()
         self.t = self.t - self.p * (self.a - a) ** 2
@@ -73,9 +78,16 @@ class GaussLegendre(ApproximationSequence):
 class Chudnovsky(ApproximationSequence):
     partial_sum: Decimal = Decimal(0)
     next_n: int = 0
-    c: Decimal = Decimal(426880) * Decimal(10005).sqrt()
+    _c: InitVar[Decimal | None] = None
+    c: Decimal = Decimal("nan")
 
     def __next__(self) -> Decimal:
+    def __post_init__(self, _c):
+        if _c is None:
+            self.c = Decimal(426880) * Decimal(10005).sqrt()
+        else:
+            self.c = _c
+
         self.partial_sum += Decimal(
             factorial(6 * self.next_n) * (13591409 + 545140134 * self.next_n)
         ) / Decimal(
