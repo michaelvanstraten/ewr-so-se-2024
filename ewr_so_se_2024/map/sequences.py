@@ -182,7 +182,7 @@ APPROXIMATION_SEQUENCES: dict[str, type] = {
     "Chudnovsky": Chudnovsky,
 }
 
-sequences_option = click.option(
+sequence_names = click.option(
     "-s",
     "--sequence",
     "sequence_names",

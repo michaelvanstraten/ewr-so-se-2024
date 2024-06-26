@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ewr_so_se_2024.map.sequences import (
-    sequences_option,
+    sequence_names,
     APPROXIMATION_SEQUENCES,
     ApproximationSequence,
 )
@@ -62,7 +62,7 @@ class RuntimeAnalysis:
 
 
 @click.command("runtime-analysis")
-@sequences_option
+@sequence_names
 @click.option(
     "--digits",
     type=click.IntRange(min=1),
