@@ -1,4 +1,6 @@
 """"""
+
+from abc import abstractmethod
 from collections import abc
 from dataclasses import InitVar, dataclass
 from decimal import Decimal
@@ -12,22 +14,39 @@ RealValuedSequence = abc.Iterator[Decimal]
 
 @dataclass
 class ApproximationSequence(RealValuedSequence):
-    current_position: int = -1
+    _current_position: int = -1
+    _current_approximation: Decimal = Decimal("nan")
+
+    @property
+    def current_position(self) -> int:
+        return self._current_position
+
+    @property
+    def current_approximation(self) -> Decimal:
+        return self._current_approximation
 
     def __iter__(self) -> Iterator[Decimal]:
         return self
 
+    def __next__(self) -> Decimal:
+        self._current_position += 1
+        self._current_approximation = self.next_element()
+        return self._current_approximation
+
+    @abstractmethod
+    def next_element(self) -> Decimal:
+        pass
 
 @dataclass
 class Leibniz(ApproximationSequence):
     partial_sum: Decimal = Decimal(0)
-    next_n: int = 0
 
-    def __next__(self) -> Decimal:
+    def next_element(self) -> Decimal:
         self.partial_sum += (
-            ((-1) ** self.next_n) * Decimal(1) / Decimal(2 * self.next_n + 1)
+            ((-1) ** self.current_position)
+            * Decimal(1)
+            / Decimal(2 * self.current_position + 1)
         )
-        self.next_n += 1
 
         return 4 * self.partial_sum
 
@@ -36,18 +55,16 @@ class Leibniz(ApproximationSequence):
 class MonteCarlo(ApproximationSequence):
     """"""
 
-    number_of_samples: int = 0
     samples_inside_of_unit_circle: int = 0
 
-    def __next__(self) -> Decimal:
+    def next_element(self) -> Decimal:
         random_x, random_y = random.random(), random.random()
-        self.number_of_samples += 1
         if sqrt(random_x**2 + random_y**2) <= 1:
             self.samples_inside_of_unit_circle += 1
         return (
             4
             * Decimal(self.samples_inside_of_unit_circle)
-            / Decimal(self.number_of_samples)
+            / Decimal(self.current_position + 1)
         )
 
 
@@ -59,13 +76,13 @@ class GaussLegendre(ApproximationSequence):
     t: Decimal = Decimal(1) / Decimal(4)
     p: Decimal = Decimal(1)
 
-    def __next__(self) -> Decimal:
     def __post_init__(self, _b):
         if _b is None:
             self.b = Decimal(1) / Decimal(2).sqrt()
         else:
             self.b = _b
 
+    def next_element(self) -> Decimal:
         a = (self.a + self.b) / 2
         self.b = (self.a * self.b).sqrt()
         self.t = self.t - self.p * (self.a - a) ** 2
@@ -77,25 +94,24 @@ class GaussLegendre(ApproximationSequence):
 @dataclass
 class Chudnovsky(ApproximationSequence):
     partial_sum: Decimal = Decimal(0)
-    next_n: int = 0
     _c: InitVar[Decimal | None] = None
     c: Decimal = Decimal("nan")
 
-    def __next__(self) -> Decimal:
     def __post_init__(self, _c):
         if _c is None:
             self.c = Decimal(426880) * Decimal(10005).sqrt()
         else:
             self.c = _c
 
+    def next_element(self) -> Decimal:
         self.partial_sum += Decimal(
-            factorial(6 * self.next_n) * (13591409 + 545140134 * self.next_n)
+            factorial(6 * self.current_position)
+            * (13591409 + 545140134 * self.current_position)
         ) / Decimal(
-            factorial(3 * self.next_n)
-            * factorial(self.next_n) ** 3
-            * (-640320) ** (3 * self.next_n)
+            factorial(3 * self.current_position)
+            * factorial(self.current_position) ** 3
+            * (-640320) ** (3 * self.current_position)
         )
-        self.next_n += 1
 
         return self.c * (1 / self.partial_sum)
 
