@@ -1,13 +1,21 @@
 \documentclass{beamer}
 \usepackage[ngerman]{babel} 
+\usepackage{textgreek}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\bibliography{presentation.bib}
 
-\title{Approximation von Pi}
+
+\title{Approximation von \textpi}
 \author{M. van Straten und P. Merz}
 \institute{Humboldt-Universität zu Berlin \\
            Sommersemester 2024}
-\date{08.07.2024}
+\date{\today}
 
 \usetheme{Berlin}
 
@@ -28,46 +36,100 @@
 \end{frame}
 
 \begin{frame}{Einführung}
-
-
+Die Kreiszahl \(\pi\) findet in vielen Bereichen der Mathematik Anwendung:
+    \begin{itemize}
+        \item<1-> Geometrie
+        \item<2-> Wahrscheinlichkeitstheorie
+        \item<3-> Cauchy-Verteilung \cite{Cauchy}
+\end{itemize}
+Aber: Zum Berechnen konkreter Werte muss \(\pi\) gerundet werden
 \end{frame}
-\begin{frame}{Theorie}
+
+\begin{frame}{Einführung: Historie}
+    \begin{tabular}{|c||c||c|}
+        \hline
+            Datum & Person & Korrekte Dezimalstellen \\ 
+        \hline
+            ca. 250 v. Chr. & Archimedes & 2\\ 
+        \hline
+            1400 & Madhava & 10\\
+        \hline
+            1981 & Jean Guilloud & 2,000,050\\ 
+        \hline
+            Januar 1988 & \shortstack{Yasumasa Kanada und \\ Yoshiaki Tamura} & 201.326.551\\
+        \hline
+            31.12.2009 & Fabrice Bellard & 2,699,999,990,000\\
+        \hline
+            14.03.2024 & \shortstack{Jordan Ranous, \\
+             Kevin O’Brien \\ und Brian Beeler} & 105,000,000,000,000\\                                                              
+        \hline      
+    \end{tabular}
+    \cite{Chronology}
+\end{frame}
+
+\begin{frame}{Einführung: Motivation}
+Wie viele Nachkommastellen von \(\pi\) benötigt man?
+    \begin{itemize}
+        \item<2-> NASA JPL benutzt 15 Nachkommastellen \cite{NASA}                                                                                         
+    \end{itemize}
+\uncover<3->{Warum also \(\pi\) genauer approximieren?}
+ \begin{itemize}
+    \item<4-> Effizientere Approximationsalgorithmen wurden mit der Zeit entdeckt
+    \item<5-> Untersuchung der Effizienz, sowie Vergleich der Genaugikeit mit dem Rechenaufwand dieser Algorithmen 
+              um Grenzen der modernen Rechner zu testen
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Annäherungsalgorithmen}
+
+\begin{frame}{Theorie: Definitionen}
+    \begin{block}{Definition von \(\pi\) in der euklidischen Geometrie}
+        Verhältnis zwischen Umfang und Durchmesser eines Kreises
+    \end{block}
+    Äquivalente Definitionen z. B. in der Analysis über bestimmte Nullstellen trigonometrischer Funktionen                                            %(siehe Analysis I Skript)
+    \\[10pt]
+\uncover<2-> {
+    \begin{block}{Definition eines Algorithmus}
+        Handlungsvorschrift bestehend aus einer Menge an wohldefinierten Schritten                                                                                             %https://de.wikipedia.org/wiki/Algorithmus see citation [1]
+    \end{block}
+     Nützlich, da Algorithmen von Rechnern ausgeführt werden können}
+\end{frame}
+
+
+\begin{frame}{Theorie: Annäherungsalgorithmen}
     \begin{itemize}
         \item Monte-Carlo Methode
         \item Leibniz-Reihe
         \item Gauß-Legendre
-        \item Chudnovsky Methode
     \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Methode}                                                                                                  %https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
+\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Methode}                                                                                                  %https://groups.uni-paderborn.de/reiss/AnalyseBuch/Grundlagen/Geometrie/pi/area.html?i=index
     \begin{itemize}
         \item<1-> Monte Carlo Simulationen basieren auf wiederholter Zufallsstichprobe, um numerische Ergebnisse zu erzielen
         \item<2-> Zufälliges Platzieren von Punkten in einem 1x1 Quadrat, in dem sich ein Viertelkreis mit Radius 1 befindet
         \item<3-> \( \pi \approx 4 \cdot \frac{Punkte \: innerhalb \: des \: Kreises}{Gesamte \: Punktanzahl} \)
+        \item<4-> Approximationsgenauigkeit abhängig vom gewählten Seed
     \end{itemize}
 \end{frame}
 
 
-
-\begin{frame}{Annäherungsalgorithmen: Leibniz-Reihe}                                                                                                        %Need citation for proof
-    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]                                                                                                     %https://www.tandfonline.com/doi/epdf/10.1080/0025570X.1990.11977541?needAccess=true ?????
+\begin{frame}{Annäherungsalgorithmen: Leibniz-Reihe}
+    Durch Ergebnisse der Analysis leitete Leibniz folgedendes Ergebnis her \cite{Leibniz}                                                                                                       
+    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \] 
+    \uncover<2->{Annäherung von \(\pi\) über \(n\)-te Partialsumme \(\pi \approx \sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\) }                                                                                              
     \begin{itemize}
-        \item<2-> Konvergiert sehr langsam, präzise: Sublineare Konvergenz \\
-        \item<2-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren
+        \item<3-> Konvergiert sehr langsam, präzise: Sublineare Konvergenz \\
+        \item<3-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren
     \end{itemize}
 \end{frame}
 
 
 
 \begin{frame}{Annäherungsalgorithmen: Gauß-Legendre}                                                                                                        %https://web.archive.org/web/20080726033059/http://wwwmaths.anu.edu.au/~brent/pd/rpb028.pdf
-    \begin{itemize}                                                                                                                                         %Quadratische Konvergenz, need citation
+    \begin{itemize}                                                                                                                                         
         \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen- und geometrischen Mittels zweier Zahlen bedienen
         \item<2-> \( a_0 = 1 \;\;\; b_0 = \frac{1}{\sqrt{2}} \;\;\; t_0 = \frac{1}{4} \;\;\; p_0 = 1 \)
         \item<3-> \( a_{n+1} = \frac{a_n + b_n}{2} \)
@@ -75,18 +137,14 @@
         \item<5-> \( t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \)
         \item<6-> \( p_{n+1} = 2p_n \)
         \item<7-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
+        \item<8-> Konvergiert quadratisch gegen \(\pi\) \cite{Gauß-Legendre}
     \end{itemize}   
 \end{frame}
 
 
-
-\begin{frame}{Annäherungsalgorithmen: Chudnovsky Methode}                                                                                                   %Need citations beside wikipedia
-    \[ \frac{1}{\pi} = \frac{1}{426880\sqrt{10005}}\sum_{k=0}^{\infty} \frac{(-1)^{k}(6k)!(545140134k + 13591409)}{(3k)!(k!)^{3}{(640320)}^{3k}} \]
-\end{frame}
-
 \begin{frame}{Experimente}  
+    Setting: Datentyp Decimal
 \end{frame}
-
 
 \begin{frame}{Daten}
 
@@ -94,8 +152,13 @@
 
 
 
-\begin{frame}{Auswertung}
+\begin{frame}{Auswertung und Zusammenfassung}
 
 \end{frame}
+
+\begin{frame}{Literaturverzeichnis}
+\printbibliography
+\end{frame}
+
 
 \end{document}
