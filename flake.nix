@@ -41,6 +41,7 @@
                 enable = true;
                 package = self.packages.${system}.default.python.pkgs.pylint;
               };
+              # Formatting check for LaTeX
               latexindent = {
                 enable = true;
                 settings = {
