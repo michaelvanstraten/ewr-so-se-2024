@@ -29,12 +29,12 @@ import click
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ewr_so_se_2024.map.sequences import (
+from ewr_so_se_2024.pi.sequences import (
     sequence_names,
     APPROXIMATION_SEQUENCES,
     ApproximationSequence,
 )
-from ewr_so_se_2024.map.utils import PI, equal_up_to, samples
+from ewr_so_se_2024.pi.utils import PI, equal_up_to, samples
 
 
 @dataclass(unsafe_hash=True)
@@ -61,7 +61,7 @@ class RuntimeAnalysis:
         return self.total_time
 
 
-@click.command("runtime-analysis")
+@click.command("runtime")
 @sequence_names
 @click.option(
     "--digits",
