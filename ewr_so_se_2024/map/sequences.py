@@ -133,6 +133,17 @@ APPROXIMATION_SEQUENCES: dict[str, type] = {
     "Chudnovsky": Chudnovsky,
 }
 
+sequences_option = click.option(
+    "-s",
+    "--sequence",
+    "sequence_names",
+    type=click.Choice(list(APPROXIMATION_SEQUENCES.keys()), case_sensitive=False),
+    default=list(APPROXIMATION_SEQUENCES.keys()),
+    multiple=True,
+    show_default=True,
+    help="The sequence(s) to use for approximation.",
+)
+
 if __name__ == "__main__":
     print(
         f"It follows a calculation of the 20th partial sum of the {', '.join(APPROXIMATION_SEQUENCES.keys())} pi approximation sequence:"
