@@ -43,12 +43,7 @@
                   src = ./.;
                   name = description;
 
-                  buildInputs =
-                    (with pkgs; [
-                      coreutils
-                      ncurses
-                    ])
-                    ++ [ texlive ];
+                  buildInputs = [ texlive ];
 
                   TEXMFHOME = "./cache";
                   TEXMFVAR = "./cache/var";
