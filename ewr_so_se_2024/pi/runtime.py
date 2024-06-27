@@ -66,13 +66,12 @@ class RuntimeAnalysis:
         return self.total_time
 
 
-@click.command("runtime")
+@click.command("runtime", context_settings={"show_default": True})
 @sequence_names
 @click.option(
     "--digits",
     type=click.IntRange(min=1),
     default=5,
-    show_default=True,
     help="The maximum number of digits to approximate pi to.",
 )
 @samples
