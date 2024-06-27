@@ -85,19 +85,9 @@ class RuntimeAnalysis:
 @samples
 # pylint: disable=too-many-locals
 def main(sequence_names, digits, number_of_samples):
-    """Main function to perform runtime analysis on pi approximation sequences.
-
-    Args:
-        sequence_names (list[str]): Names of the sequences to analyze.
-        digits (int): Number of digits of precision for pi approximation.
-        number_of_samples (int): Number of sample points for the analysis.
-    """
+    """Perform runtime analysis on pi approximation sequences."""
     # Set precision for Decimal calculations
-    decimal.getcontext().prec = digits + 4
-    old_max_str_digits = sys.get_int_max_str_digits()
-    # Disable limit on string conversion for integers
-    sys.set_int_max_str_digits(0)
-
+    setup_decimal_context(digits + 4)
 
     # Generate a range of sample points for approximation
     sample_points = np.linspace(1, digits, min(number_of_samples, digits), dtype=int)
@@ -107,7 +97,7 @@ def main(sequence_names, digits, number_of_samples):
     )
     fig.suptitle("Runtime and Average Digit Time Analysis")
 
-    for sequence_name in tqdm(sequence_names, desc="Sequences Progress"):
+    for sequence_name in tqdm(sequence_names, desc="Sampling sequences"):
         # Create a RuntimeAnalysis instance for each sequence
         sequence = APPROXIMATION_SEQUENCES[sequence_name]()
         runtime_analysis = RuntimeAnalysis(sequence)
@@ -119,7 +109,9 @@ def main(sequence_names, digits, number_of_samples):
                     / 1000,
                     computation_time / digits,
                 )
-                for digits in tqdm(sample_points, desc=f"Processing {sequence_name}")
+                for digits in tqdm(
+                    sample_points, desc=f"Sampling the {sequence_name} sequence"
+                )
             ]
         )
 
