@@ -100,41 +100,47 @@
             };
           };
       }
-      // {
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt = {
-                enable = true;
-                package = pkgs.nixfmt-rfc-style;
-              };
-              # Python checks
-              black.enable = true;
-              pylint = {
-                enable = true;
-                package = self.packages.${system}.default.python.pkgs.pylint;
-              };
-              # Formatting check for LaTeX
-              latexindent = {
-                enable = true;
-                settings = {
-                  flags = "--local --silent --modifylinebreak --overwriteIfDifferent";
+      // (
+        let
+          poetry-enviorment = mkPoetryEnv { projectDir = ./.; };
+        in
+        rec {
+          checks = {
+            pre-commit-check = pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                nixfmt = {
+                  enable = true;
+                  package = pkgs.nixfmt-rfc-style;
+                };
+                # Python checks
+                black.enable = true;
+                pylint = {
+                  enable = true;
+                  settings = {
+                    binPath = "${poetry-enviorment}/bin/python -m pylint";
+                  };
+                };
+                # Formatting check for LaTeX
+                latexindent = {
+                  enable = true;
+                  settings = {
+                    flags = "--local --silent --modifylinebreak --overwriteIfDifferent";
+                  };
                 };
               };
             };
           };
-        };
 
-        devShells.default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${system}.default ];
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-          packages = with pkgs; [
-            poetry
-            pyright
-          ];
-        };
-      }
+          devShells.default = pkgs.mkShell {
+            inputsFrom = [ ewr-so-se-2024 ];
+            inherit (checks.pre-commit-check) shellHook;
+            packages = with pkgs; [
+              poetry
+              pyright
+            ];
+          };
+        }
+      )
     );
 }
