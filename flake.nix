@@ -23,10 +23,85 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-        inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
       in
       {
-        packages.default = mkPoetryApplication { projectDir = self; };
+        packages =
+          (
+            let
+              inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
+            in
+            {
+              default = mkPoetryApplication { projectDir = self; };
+            }
+          )
+          // (
+            let
+              texlive = pkgs.texliveFull;
+              build =
+                { description, root-filename }:
+                pkgs.stdenvNoCC.mkDerivation {
+                  src = ./.;
+                  name = description;
+
+                  buildInputs =
+                    (with pkgs; [
+                      coreutils
+                      ncurses
+                    ])
+                    ++ [ texlive ];
+
+                  TEXMFHOME = "./cache";
+                  TEXMFVAR = "./cache/var";
+
+                  buildPhase = ''
+                      runHook preBuild
+
+                      SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
+                    	-interaction=nonstopmode \
+                    	-pdf \
+                    	-lualatex \
+                    	-pretex="\pdfvariable suppressoptionalinfo 512\relax" \
+                    	-usepretex \
+                    	"${root-filename}"
+
+                      runHook postBuild
+                  '';
+
+                  installPhase = ''
+                    runHook preInstall
+
+                    install -d $out && install -m644 -D *.pdf $out/
+
+                    runHook postInstall
+                  '';
+                };
+
+            in
+            {
+              approximation-of-pi = {
+                report = build {
+                  description = "Approximation of Pi (Report)";
+                  root-filename = "map.tex";
+                };
+                presentation = build {
+                  description = "Approximation of Pi (Presentation)";
+                  root-filename = "presentation.tex";
+                };
+              };
+              harmonic-series = {
+                report = build {
+                  description = "Harmonic series (Report)";
+                  root-filename = "bericht.tex";
+                };
+                handout = build {
+                  description = "Harmonic series (Handout)";
+                  root-filename = "bericht_handout.tex";
+                };
+              };
+            }
+          );
+      }
+      // {
         checks = {
           pre-commit-check = pre-commit-hooks.lib.${system}.run {
             src = ./.;
