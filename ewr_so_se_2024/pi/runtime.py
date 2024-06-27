@@ -21,8 +21,6 @@ Usage:
 
 from dataclasses import dataclass
 import time
-import decimal
-import sys
 
 from tqdm import tqdm
 import click
@@ -35,9 +33,16 @@ from ewr_so_se_2024.pi.sequences import (
     ApproximationSequence,
 )
 from ewr_so_se_2024.pi.utils import PI, equal_up_to, samples
+from ewr_so_se_2024.pi.utils import (
+    PI,
+    find_first_mismatch,
+    get_color_and_marker,
+    samples,
+    setup_decimal_context,
+)
 
 
-@dataclass(unsafe_hash=True)
+@dataclass
 class RuntimeAnalysis:
     """Class to analyze the runtime of a pi approximation sequence."""
 
@@ -86,8 +91,6 @@ def main(sequence_names, digits, number_of_samples):
     # Disable limit on string conversion for integers
     sys.set_int_max_str_digits(0)
 
-    possible_markers = list(".,ov^<>1248spP*hH+xX")
-    possible_colors = list("bgrcmykw")
 
     # Generate a range of sample points for approximation
     sample_points = np.linspace(1, digits, min(number_of_samples, digits), dtype=int)
@@ -101,15 +104,6 @@ def main(sequence_names, digits, number_of_samples):
         # Create a RuntimeAnalysis instance for each sequence
         sequence = APPROXIMATION_SEQUENCES[sequence_name]()
         runtime_analysis = RuntimeAnalysis(sequence)
-
-        # Determine marker and color for the sequence
-        hash_value = hash(sequence_name)
-        marker = (
-            possible_markers[hash_value % len(possible_markers)]
-            if number_of_samples < 100
-            else ""
-        )
-        color = possible_colors[hash_value % len(possible_colors)]
 
         computation_time, average_digit_time = zip(
             *[
@@ -127,19 +121,14 @@ def main(sequence_names, digits, number_of_samples):
             sample_points,
             computation_time,
             label=sequence_name,
-            marker=marker,
-            color=color,
+            **get_color_and_marker(sequence_name, number_of_samples),
         )
         average_position_deltas_ax.plot(
             sample_points,
             average_digit_time,
             label=sequence_name,
-            marker=marker,
-            color=color,
+            **get_color_and_marker(sequence_name, number_of_samples),
         )
-
-    # Restore original max string digits setting
-    sys.set_int_max_str_digits(old_max_str_digits)
 
     # Set plot scale, labels and legends
     computation_times_ax.set_yscale("log")
