@@ -132,11 +132,11 @@ def main(sequence_names, digits, number_of_samples):
     # Set plot scale, labels and legends
     computation_times_ax.set_yscale("log")
     computation_times_ax.set_xlabel("Digits of Precision")
-    computation_times_ax.set_ylabel("Computation Time (ms)")
+    computation_times_ax.set_ylabel("Computation Time (ms) (log scale)")
     computation_times_ax.legend()
     average_position_deltas_ax.set_yscale("log")
     average_position_deltas_ax.set_xlabel("Digits of Precision")
-    average_position_deltas_ax.set_ylabel("Average Time (ms) for One Digit")
+    average_position_deltas_ax.set_ylabel("Average Time (ms) for One Digit (log scale)")
     average_position_deltas_ax.legend()
 
     # Display the plot
