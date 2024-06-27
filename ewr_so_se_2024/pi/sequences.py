@@ -198,7 +198,6 @@ sequence_names = click.option(
     "sequence_names",
     type=click.Choice(list(APPROXIMATION_SEQUENCES.keys()), case_sensitive=False),
     default=list(APPROXIMATION_SEQUENCES.keys()),
-    show_default=True,
     multiple=True,
     help="The sequence(s) to use for approximation.",
 )
