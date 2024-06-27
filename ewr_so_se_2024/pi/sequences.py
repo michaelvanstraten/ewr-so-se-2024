@@ -26,6 +26,7 @@ Usage:
     approximation sequence.
 """
 
+import decimal
 import random
 from abc import abstractmethod
 from collections import abc
@@ -142,6 +143,10 @@ class GaussLegendre(ApproximationSequence):
 
     def next_element(self) -> Decimal:
         """Calculates the next element in the Gauss-Legendre algorithm."""
+        precision = decimal.getcontext().prec
+        if precision < self.current_position or precision < 2**self.current_position:
+            return self.current_approximation
+
         a = (self.a + self.b) / 2
         self.b = (self.a * self.b).sqrt()
         self.t = self.t - self.p * (self.a - a) ** 2
@@ -166,6 +171,9 @@ class Chudnovsky(ApproximationSequence):
 
     def next_element(self) -> Decimal:
         """Calculates the next element in the Chudnovsky algorithm."""
+        if decimal.getcontext().prec < 14 * self.current_position:
+            return self.current_approximation
+
         self.partial_sum += Decimal(
             factorial(6 * self.current_position)
             * (13591409 + 545140134 * self.current_position)
