@@ -58,7 +58,15 @@ class RuntimeAnalysis:
         Returns:
             float: The total time taken to achieve the approximation in nanoseconds.
         """
-        while not equal_up_to(n, self.sequence.current_approximation, PI):
+        while (
+            self.sequence.current_position <= 0
+            or (
+                first_mismatch := find_first_mismatch(
+                    self.sequence.current_approximation.as_tuple()[1], PI.as_tuple()[1]
+                )
+            )
+            and first_mismatch[0] < n
+        ):
             operation_start = time.time_ns()
             next(self.sequence)
             self.total_time += time.time_ns() - operation_start

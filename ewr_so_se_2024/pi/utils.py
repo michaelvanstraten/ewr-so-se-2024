@@ -2,13 +2,14 @@
 
 Functions:
     find_first_mismatch: Find the first mismatch between two iterables.
-    setup_decimal_context: Set up the decimal context with the given precision.
 
 Variables:
     PI: The value of pi read from a file and stored as a Decimal.
     number_of_samples: Click option for specifying the number of samples to take from the sequence.
 """
 
+from collections.abc import Iterable
+from itertools import zip_longest
 import sys
 from decimal import Decimal
 from os import path
@@ -34,26 +35,29 @@ with open(path.join(path.dirname(__file__), "PI"), encoding="utf-8") as PI_file:
     sys.set_int_max_str_digits(old_max_str_digits)
 
 
-def equal_up_to(n: int, a: Decimal, b: Decimal) -> bool:
-    """Check if two Decimal numbers are equal up to n decimal places.
+AItem = TypeVar("AItem")
+BItem = TypeVar("BItem")
+
+
+def find_first_mismatch(
+    xs: Iterable[AItem], ys: Iterable[BItem]
+) -> Optional[tuple[int, AItem, BItem]]:
+    """Find the first mismatch between two iterables.
 
     Args:
-        n (int): The number of decimal places to check.
-        a (Decimal): The first Decimal number.
-        b (Decimal): The second Decimal number.
+        xs: The first iterable.
+        ys: The second iterable.
 
     Returns:
-        bool: True if the numbers are equal up to n decimal places, False otherwise.
+        A tuple containing the index of the first mismatch and the mismatched items, \
+        or None if no mismatch is found.
     """
-    digits_a = a.as_tuple()[1]
-    digits_b = b.as_tuple()[1]
-    point_to_check = min(len(digits_a), n)
+    for idx, (x, y) in enumerate(zip_longest(xs, ys)):
+        if x != y:
+            return idx, x, y
+    return None
 
-    # Check if the length of digits up to the point_to_check is the same for both numbers
-    if point_to_check != min(len(digits_b), n):
-        return False
 
-    return digits_a[:point_to_check] == digits_b[:point_to_check]
 def get_color_and_marker(sequence_name: str, number_of_samples: int) -> dict:
     """Utility function to get color and marker based on sequence name.
 
