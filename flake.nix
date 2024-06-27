@@ -48,7 +48,10 @@
                 src = ./.;
                 name = description;
 
-                buildInputs = [ texlive ];
+                buildInputs = [
+                  texlive
+                  ewr-so-se-2024
+                ];
 
                 TEXMFHOME = "./cache";
                 TEXMFVAR = "./cache/var";
@@ -78,6 +81,8 @@
 
           in
           {
+            default = ewr-so-se-2024;
+
             approximation-of-pi-report = build {
               description = "Approximation of Pi (Report)";
               root-filename = "map.tex";
