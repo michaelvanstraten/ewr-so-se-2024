@@ -203,8 +203,16 @@ sequence_names = click.option(
     help="The sequence(s) to use for approximation.",
 )
 
-if __name__ == "__main__":
-    for sequence_name, sequence in APPROXIMATION_SEQUENCES.items():
+
+@click.command()
+def main():
+    """Run the approximations and display the results."""
+    for sequence_name, sequence_class in APPROXIMATION_SEQUENCES.items():
+        sequence = sequence_class()
         print(
-            f"The 20th approximation of the {sequence_name} sequence is: {sequence().at(20)}."
+            f"The 20th approximation of the {sequence_name} sequence is: {sequence.at(20)}."
         )
+
+
+if __name__ == "__main__":
+    main()
