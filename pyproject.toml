@@ -20,6 +20,9 @@ pylint = "^3.1.0"
 mypy = "^1.1.0"
 pdoc = "^14.5.0"
 
+[tool.poetry.scripts]
+approximation-of-pi = "ewr_so_se_2024.pi.main:cli"
+harmonic-series = "ewr_so_se_2024.main:main"
 
 [build-system]
 requires = ["poetry-core"]

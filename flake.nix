@@ -24,77 +24,85 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in
-      {
+      (
+        let
+          inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
+          ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
+        in
+        {
+          apps = {
+            approximation-of-pi = {
+              type = "app";
+			  program = "${ewr-so-se-2024}/bin/approximation-of-pi";
+            };
+            harmonic-series = {
+              type = "app";
+			  program = "${ewr-so-se-2024}/bin/harmonic-series";
+            };
+          };
+        }
+      )
+      // {
         packages =
-          (
-            let
-              inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
-            in
-            {
-              default = mkPoetryApplication { projectDir = self; };
-            }
-          )
-          // (
-            let
-              texlive = pkgs.texliveFull;
-              build =
-                { description, root-filename }:
-                pkgs.stdenvNoCC.mkDerivation {
-                  src = ./.;
-                  name = description;
+          let
+            texlive = pkgs.texliveFull;
+            build =
+              { description, root-filename }:
+              pkgs.stdenvNoCC.mkDerivation {
+                src = ./.;
+                name = description;
 
-                  buildInputs = [ texlive ];
+                buildInputs = [ texlive ];
 
-                  TEXMFHOME = "./cache";
-                  TEXMFVAR = "./cache/var";
+                TEXMFHOME = "./cache";
+                TEXMFVAR = "./cache/var";
 
-                  buildPhase = ''
-                      runHook preBuild
+                buildPhase = ''
+                    runHook preBuild
 
-                      SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
-                    	-interaction=nonstopmode \
-                    	-pdf \
-                    	-lualatex \
-                    	-pretex="\pdfvariable suppressoptionalinfo 512\relax" \
-                    	-usepretex \
-                    	"${root-filename}"
+                    SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
+                  	-interaction=nonstopmode \
+                  	-pdf \
+                  	-lualatex \
+                  	-pretex="\pdfvariable suppressoptionalinfo 512\relax" \
+                  	-usepretex \
+                  	"${root-filename}"
 
-                      runHook postBuild
-                  '';
+                    runHook postBuild
+                '';
 
-                  installPhase = ''
-                    runHook preInstall
+                installPhase = ''
+                  runHook preInstall
 
-                    install -d $out && install -m644 -D *.pdf $out/
+                  install -d $out && install -m644 -D *.pdf $out/
 
-                    runHook postInstall
-                  '';
-                };
-
-            in
-            {
-              approximation-of-pi = {
-                report = build {
-                  description = "Approximation of Pi (Report)";
-                  root-filename = "map.tex";
-                };
-                presentation = build {
-                  description = "Approximation of Pi (Presentation)";
-                  root-filename = "presentation.tex";
-                };
+                  runHook postInstall
+                '';
               };
-              harmonic-series = {
-                report = build {
-                  description = "Harmonic series (Report)";
-                  root-filename = "bericht.tex";
-                };
-                handout = build {
-                  description = "Harmonic series (Handout)";
-                  root-filename = "bericht_handout.tex";
-                };
+
+          in
+          {
+            approximation-of-pi = {
+              report = build {
+                description = "Approximation of Pi (Report)";
+                root-filename = "map.tex";
               };
-            }
-          );
+              presentation = build {
+                description = "Approximation of Pi (Presentation)";
+                root-filename = "presentation.tex";
+              };
+            };
+            harmonic-series = {
+              report = build {
+                description = "Harmonic series (Report)";
+                root-filename = "bericht.tex";
+              };
+              handout = build {
+                description = "Harmonic series (Handout)";
+                root-filename = "bericht_handout.tex";
+              };
+            };
+          };
       }
       // {
         checks = {
