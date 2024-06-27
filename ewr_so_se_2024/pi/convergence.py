@@ -1,25 +1,16 @@
-import decimal
-import sys
-
 import click
 from matplotlib import pyplot as plt
 from numpy import logspace
 from tqdm import tqdm
 
-import ewr_so_se_2024.pi.utils
-from ewr_so_se_2024.pi.sequences import sequence_names, APPROXIMATION_SEQUENCES
-from ewr_so_se_2024.pi.utils import (
-    PI,
-    find_first_mismatch,
-    get_color_and_marker,
-    samples,
-)
+from ewr_so_se_2024.pi import utils
+from ewr_so_se_2024.pi.sequences import APPROXIMATION_SEQUENCES
 
 
 def calculate_first_mismatches(sequence, sample_points, sequence_name):
     """Calculate the first mismatches for the given sequence and sample points."""
     return [
-        find_first_mismatch(sequence.at(k).as_tuple()[1], PI.as_tuple()[1])
+        utils.find_first_mismatch(sequence.at(k).as_tuple()[1], utils.PI.as_tuple()[1])
         for k in tqdm(
             sample_points,
             desc=f"Calculating convergence of {sequence_name} sequence",
@@ -29,6 +20,7 @@ def calculate_first_mismatches(sequence, sample_points, sequence_name):
 
 @click.command("convergence", context_settings={"show_default": True})
 @utils.sequence_names
+@utils.samples
 @click.option(
     "--precision",
     type=click.IntRange(min=1),
@@ -41,7 +33,6 @@ def calculate_first_mismatches(sequence, sample_points, sequence_name):
     default=4,
     help="The maximum exponent for the logarithmic scale of the sequence positions.",
 )
-@samples
 def main(sequence_names, precision, stop, number_of_samples):
     """
     Perform a convergence analysis of Pi approximation methods.
@@ -49,9 +40,7 @@ def main(sequence_names, precision, stop, number_of_samples):
     This script calculates the number of correctly approximated digits of Pi
     for various sequences and plots the results on a logarithmic scale.
     """
-    # Disable limit on string conversion for integers
-    sys.set_int_max_str_digits(0)
-    decimal.getcontext().prec = precision
+    utils.setup_decimal_context(precision)
 
     sample_points = logspace(0, stop, num=number_of_samples, dtype=int)
 
@@ -70,7 +59,7 @@ def main(sequence_names, precision, stop, number_of_samples):
                 for first_mismatch in first_mismatches
             ],
             label=sequence_name,
-            **get_color_and_marker(sequence_name, number_of_samples),
+            **utils.get_color_and_marker(sequence_name, number_of_samples),
         )
 
     plt.xlabel("Position within the sequence (log scale)")

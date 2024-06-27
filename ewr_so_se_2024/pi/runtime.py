@@ -28,18 +28,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ewr_so_se_2024.pi.sequences import (
-    sequence_names,
     APPROXIMATION_SEQUENCES,
     ApproximationSequence,
 )
-from ewr_so_se_2024.pi.utils import PI, equal_up_to, samples
-from ewr_so_se_2024.pi.utils import (
-    PI,
-    find_first_mismatch,
-    get_color_and_marker,
-    samples,
-    setup_decimal_context,
-)
+from ewr_so_se_2024.pi import utils
 
 
 @dataclass
@@ -61,8 +53,9 @@ class RuntimeAnalysis:
         while (
             self.sequence.current_position <= 0
             or (
-                first_mismatch := find_first_mismatch(
-                    self.sequence.current_approximation.as_tuple()[1], PI.as_tuple()[1]
+                first_mismatch := utils.find_first_mismatch(
+                    self.sequence.current_approximation.as_tuple()[1],
+                    utils.PI.as_tuple()[1],
                 )
             )
             and first_mismatch[0] < n
@@ -75,19 +68,19 @@ class RuntimeAnalysis:
 
 
 @click.command("runtime", context_settings={"show_default": True})
-@sequence_names
+@utils.samples
+@utils.sequence_names
 @click.option(
     "--digits",
     type=click.IntRange(min=1),
     default=5,
     help="The maximum number of digits to approximate pi to.",
 )
-@samples
 # pylint: disable=too-many-locals
 def main(sequence_names, digits, number_of_samples):
     """Perform runtime analysis on pi approximation sequences."""
     # Set precision for Decimal calculations
-    setup_decimal_context(digits + 4)
+    utils.setup_decimal_context(digits + 4)
 
     # Generate a range of sample points for approximation
     sample_points = np.linspace(1, digits, min(number_of_samples, digits), dtype=int)
@@ -120,13 +113,13 @@ def main(sequence_names, digits, number_of_samples):
             sample_points,
             computation_time,
             label=sequence_name,
-            **get_color_and_marker(sequence_name, number_of_samples),
+            **utils.get_color_and_marker(sequence_name, number_of_samples),
         )
         average_position_deltas_ax.plot(
             sample_points,
             average_digit_time,
             label=sequence_name,
-            **get_color_and_marker(sequence_name, number_of_samples),
+            **utils.get_color_and_marker(sequence_name, number_of_samples),
         )
 
     # Set plot scale, labels and legends

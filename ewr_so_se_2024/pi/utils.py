@@ -18,6 +18,8 @@ import decimal
 
 import click
 
+from ewr_so_se_2024.pi.sequences import APPROXIMATION_SEQUENCES
+
 # Click option for specifying the number of samples to take from the sequence
 samples = click.option(
     "--samples",
@@ -25,6 +27,17 @@ samples = click.option(
     type=click.IntRange(min=1),
     default=20,
     help="The number of samples to take from the underlying sequence.",
+)
+
+# Click option for specifying the sequence names to analyse
+sequence_names = click.option(
+    "-s",
+    "--sequence",
+    "sequence_names",
+    type=click.Choice(list(APPROXIMATION_SEQUENCES.keys()), case_sensitive=False),
+    default=list(APPROXIMATION_SEQUENCES.keys()),
+    multiple=True,
+    help="The sequence(s) to use for approximation.",
 )
 
 # Load the value of PI from a file and store it as a Decimal
