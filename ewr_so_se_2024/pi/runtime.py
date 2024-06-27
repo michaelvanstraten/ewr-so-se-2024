@@ -91,7 +91,7 @@ def main(sequence_names, digits, number_of_samples):
     fig.suptitle("Runtime and Average Digit Time Analysis")
 
     for sequence_name in tqdm(sequence_names, desc="Sampling sequences"):
-        # Create a RuntimeAnalysis instance for each sequence
+        # Create a runtime analysis instance for each sequence
         sequence = APPROXIMATION_SEQUENCES[sequence_name]()
         runtime_analysis = RuntimeAnalysis(sequence)
 
