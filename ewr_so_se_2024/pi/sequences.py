@@ -110,7 +110,7 @@ class MonteCarlo(ApproximationSequence):
     """Monte Carlo method for pi approximation."""
 
     samples_inside_of_unit_circle: int = 0
-    generator = random.Random(69420)
+    generator = random.Random(420)
 
     def next_element(self) -> Decimal:
         """Generates a random sample and updates the pi approximation."""
