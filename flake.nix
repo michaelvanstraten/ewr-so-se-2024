@@ -23,25 +23,21 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
+        inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv;
+        ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
       in
-      (
-        let
-          inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
-          ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
-        in
-        {
-          apps = {
-            approximation-of-pi = {
-              type = "app";
-			  program = "${ewr-so-se-2024}/bin/approximation-of-pi";
-            };
-            harmonic-series = {
-              type = "app";
-			  program = "${ewr-so-se-2024}/bin/harmonic-series";
-            };
+      {
+        apps = {
+          approximation-of-pi = {
+            type = "app";
+            program = "${ewr-so-se-2024}/bin/approximation-of-pi";
           };
-        }
-      )
+          harmonic-series = {
+            type = "app";
+            program = "${ewr-so-se-2024}/bin/harmonic-series";
+          };
+        };
+      }
       // {
         packages =
           let
