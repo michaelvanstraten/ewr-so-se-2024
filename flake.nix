@@ -78,25 +78,22 @@
 
           in
           {
-            approximation-of-pi = {
-              report = build {
-                description = "Approximation of Pi (Report)";
-                root-filename = "map.tex";
-              };
-              presentation = build {
-                description = "Approximation of Pi (Presentation)";
-                root-filename = "presentation.tex";
-              };
+            approximation-of-pi-report = build {
+              description = "Approximation of Pi (Report)";
+              root-filename = "map.tex";
             };
-            harmonic-series = {
-              report = build {
-                description = "Harmonic series (Report)";
-                root-filename = "bericht.tex";
-              };
-              handout = build {
-                description = "Harmonic series (Handout)";
-                root-filename = "bericht_handout.tex";
-              };
+            approximation-of-pi-presentation = build {
+              description = "Approximation of Pi (Presentation)";
+              root-filename = "presentation.tex";
+            };
+
+            harmonic-series-report = build {
+              description = "Harmonic series (Report)";
+              root-filename = "bericht.tex";
+            };
+            harmonic-series-handout = build {
+              description = "Harmonic series (Handout)";
+              root-filename = "bericht_handout.tex";
             };
           };
       }
