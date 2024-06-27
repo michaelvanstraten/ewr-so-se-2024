@@ -28,7 +28,7 @@ Usage:
 
 import decimal
 import random
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from collections import abc
 from dataclasses import InitVar, dataclass
 from decimal import Decimal
@@ -41,7 +41,7 @@ RealValuedSequence = abc.Iterator[Decimal]
 
 
 @dataclass
-class ApproximationSequence(RealValuedSequence):
+class ApproximationSequence(ABC, RealValuedSequence):
     """Abstract base class for a sequence that approximates the value of pi."""
 
     _current_position: int = -1
