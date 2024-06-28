@@ -27,18 +27,13 @@ sorting=ynt
 \maketitle
 
 \begin{frame}{Inhalt}
-    \begin{itemize}
-        \item<1-> Einführung
-        \item<2-> Theorie
-        \item<3-> Annäherungsalgorithmen
-        \item<4-> Experimente
-        \item<5-> Daten
-        \item<6-> Auswertung
-    \end{itemize}
+    \tableofcontents[pausesections]
 \end{frame}
 
-\begin{frame}{Einführung}
-Die Kreiszahl \(\pi\) findet in vielen Bereichen der Mathematik Anwendung:
+\section{Einführung}
+
+\begin{frame}
+    Die Kreiszahl \(\pi\) findet in vielen Bereichen der Mathematik Anwendung:
     \begin{itemize}
         \item<1-> Geometrie
         \item<2-> Wahrscheinlichkeitstheorie
@@ -47,7 +42,7 @@ Die Kreiszahl \(\pi\) findet in vielen Bereichen der Mathematik Anwendung:
 Aber: Zum Berechnen konkreter Werte muss \(\pi\) gerundet werden
 \end{frame}
 
-\begin{frame}{Einführung: Historie}
+\begin{frame}{Historie}
     \begin{tabular}{|c||c||c|}
         \hline
             Datum & Person & Korrekte Dezimalstellen \\ 
@@ -69,8 +64,8 @@ Aber: Zum Berechnen konkreter Werte muss \(\pi\) gerundet werden
     \cite{Chronology}
 \end{frame}
 
-\begin{frame}{Einführung: Motivation}
-Wie viele Nachkommastellen von \(\pi\) benötigt man?
+\begin{frame}{Motivation}
+    Wie viele Nachkommastellen von \(\pi\) benötigt man?
     \begin{itemize}
         \item<2-> NASA JPL benutzt 15 Nachkommastellen \cite{NASA}                                                                                         
     \end{itemize}
@@ -82,23 +77,29 @@ Wie viele Nachkommastellen von \(\pi\) benötigt man?
 \end{itemize}
 \end{frame}
 
+\section{Theorie}
 
-
-\begin{frame}{Theorie: Definitionen}
-    \begin{block}{Definition von \(\pi\) in der euklidischen Geometrie}
-        Verhältnis zwischen Umfang und Durchmesser eines Kreises
-    \end{block}
-    Äquivalente Definitionen z. B. in der Analysis über bestimmte Nullstellen trigonometrischer Funktionen                                            %(siehe Analysis I Skript)
-    \\[10pt]
-\uncover<2-> {
-    \begin{block}{Definition eines Algorithmus}
-        Handlungsvorschrift bestehend aus einer Menge an wohldefinierten Schritten                                                                                             %https://de.wikipedia.org/wiki/Algorithmus see citation [1]
-    \end{block}
-     Nützlich, da Algorithmen von Rechnern ausgeführt werden können}
+\begin{frame}{Definitionen}
+    \only<1>{%
+        \begin{definition}[\(\pi\) in der euklidischen Geometrie]
+            Verhältnis zwischen Umfang und Durchmesser eines Kreises
+        \end{definition}
+        % TODO: cite Analysis I Skript
+        Äquivalente Definitionen zum Beispiel in der Analysis über bestimmte
+        Nullstellen trigonometrischer Funktionen
+    }
+    \only<2>{%
+        \begin{definition}[Algorithmus]
+            % TODO: cite https://de.wikipedia.org/wiki/Algorithmus see citation [1]
+            Handlungsvorschrift bestehend aus einer Menge an wohldefinierten Schritten
+        \end{definition}
+        Nützlich, da Algorithmen von Rechnern ausgeführt werden können
+    }
 \end{frame}
 
+\subsection{Annäherungsalgorithmen}
 
-\begin{frame}{Theorie: Annäherungsalgorithmen}
+\begin{frame}{Annäherungsalgorithmen}
     \begin{itemize}
         \item Monte-Carlo Simulation
         \item Leibniz-Reihe
@@ -106,7 +107,7 @@ Wie viele Nachkommastellen von \(\pi\) benötigt man?
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Simulation}
+\begin{frame}{Monte-Carlo Simulation}
     Basierend auf dem Gesetz der Großen Zahl\footnote{Das Gesetz der Großen Zahl
         besagt, dass sich die relative Häufigkeit eines Ereignisses bei großer Anzahl
         von Versuchen dem Erwartungswert annähert.
@@ -125,21 +126,18 @@ Wie viele Nachkommastellen von \(\pi\) benötigt man?
     \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Annäherungsalgorithmen: Leibniz-Reihe}
-    Durch Ergebnisse der Analysis leitete Leibniz folgedendes Ergebnis her \cite{Leibniz}                                                                                                       
-    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \] 
-    \uncover<2->{Annäherung von \(\pi\) über \(n\)-te Partialsumme \(\pi \approx \sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\) }                                                                                              
+\begin{frame}{Leibniz-Reihe}
+    Durch Ergebnisse der Analysis leitete Leibniz folgedendes Ergebnis her \cite{Leibniz}
+    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
+    \uncover<2->{Annäherung von \(\pi\) über \(n\)-te Partialsumme \(\pi \approx \sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\) }
     \begin{itemize}
         \item<3-> Konvergiert sehr langsam, präzise: Sublineare Konvergenz \\
         \item<3-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren
     \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{Annäherungsalgorithmen: Gauß-Legendre}                                                                                                        %https://web.archive.org/web/20080726033059/http://wwwmaths.anu.edu.au/~brent/pd/rpb028.pdf
-    \begin{itemize}                                                                                                                                         
+\begin{frame}{Gauß-Legendre}                                                                                                        %https://web.archive.org/web/20080726033059/http://wwwmaths.anu.edu.au/~brent/pd/rpb028.pdf
+    \begin{itemize}
         \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen- und geometrischen Mittels zweier Zahlen bedienen
         \item<2-> \( a_0 = 1 \;\;\; b_0 = \frac{1}{\sqrt{2}} \;\;\; t_0 = \frac{1}{4} \;\;\; p_0 = 1 \)
         \item<3-> \( a_{n+1} = \frac{a_n + b_n}{2} \)
@@ -148,23 +146,27 @@ Wie viele Nachkommastellen von \(\pi\) benötigt man?
         \item<6-> \( p_{n+1} = 2p_n \)
         \item<7-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
         \item<8-> Konvergiert quadratisch gegen \(\pi\) \cite{Gauß-Legendre}
-    \end{itemize}   
+    \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Experimente}  
-    Setting: Datentyp Decimal
+\section{Experimente}
+
+\subsection{Laufzeitanalyse}
+
+
 \end{frame}
 
-\begin{frame}{Daten}
-
-\end{frame}
-
+\subsection{Konvergenz}
 
 
 \begin{frame}{Auswertung und Zusammenfassung}
 
 \end{frame}
+
+\subsection{Präzision}
+
+\subsection{Speicherbedarf}
 
 \begin{frame}{Literaturverzeichnis}
 \printbibliography
