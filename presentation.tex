@@ -98,20 +98,28 @@ Wie viele Nachkommastellen von \(\pi\) benötigt man?
 
 \begin{frame}{Theorie: Annäherungsalgorithmen}
     \begin{itemize}
-        \item Monte-Carlo Methode
+        \item Monte-Carlo Simulation
         \item Leibniz-Reihe
         \item Gauß-Legendre
     \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Methode}                                                                                                  %https://groups.uni-paderborn.de/reiss/AnalyseBuch/Grundlagen/Geometrie/pi/area.html?i=index
+\begin{frame}{Annäherungsalgorithmen: Monte-Carlo Simulation}
+    Basierend auf dem Gesetz der Großen Zahl\footnote{Das Gesetz der Großen Zahl
+        besagt, dass sich die relative Häufigkeit eines Ereignisses bei großer Anzahl
+        von Versuchen dem Erwartungswert annähert.
+    } wird versucht, über eine unbekannte Menge \(M\) analytische Aussagen zu treffen,
+    indem man sich auf eine endliche uniforme Teilmenge beschränkt.
     \begin{itemize}
-        \item<1-> Monte Carlo Simulationen basieren auf wiederholter Zufallsstichprobe, um numerische Ergebnisse zu erzielen
-        \item<2-> Zufälliges Platzieren von Punkten in einem 1x1 Quadrat, in dem sich ein Viertelkreis mit Radius 1 befindet
-        \item<3-> \( \pi \approx 4 \cdot \frac{Punkte \: innerhalb \: des \: Kreises}{Gesamte \: Punktanzahl} \)
-        \item<4-> Approximationsgenauigkeit abhängig vom gewählten Seed
+        \item<1-> In diesem Fall ist \(M \coloneq \{(x, y) \mid 0 \le x,y \le 1\}\)
+        \item<2-> Mit dem Flächeninhalt eines Kreises folgt, dass
+              \begin{equation*}
+                  \frac{\pi}{4} = \frac{
+                      |\{(x,y) \in M \only<3->{\text{\ mit } \sqrt{x^2 + y^2} \le 1} \}|
+                  }{|M|}
+              \end{equation*}
+              ist.
+        \item<4-> \(\pi\) lässt sich somit approximieren, indem dieses Verhältnis über eine große uniforme Teilmenge von \(M\) gebildet wird.
     \end{itemize}
 \end{frame}
 
