@@ -40,6 +40,13 @@ sequence_names = click.option(
     help="The sequence(s) to use for approximation.",
 )
 
+# Click option to specify a file for exporting to
+export_to = click.option(
+    "--export-to",
+    type=click.Path(dir_okay=False, writable=True),
+    help="Export the generated plot to a specified file.",
+)
+
 # Load the value of PI from a file and store it as a Decimal
 with open(path.join(path.dirname(__file__), "PI"), encoding="utf-8") as PI_file:
     old_max_str_digits = sys.get_int_max_str_digits()

@@ -21,6 +21,7 @@ def calculate_first_mismatches(sequence, sample_points, sequence_name):
 @click.command("convergence", context_settings={"show_default": True})
 @utils.sequence_names
 @utils.samples
+@utils.export_to
 @click.option(
     "--precision",
     type=click.IntRange(min=1),
@@ -33,7 +34,7 @@ def calculate_first_mismatches(sequence, sample_points, sequence_name):
     default=4,
     help="The maximum exponent for the logarithmic scale of the sequence positions.",
 )
-def main(sequence_names, precision, stop, number_of_samples):
+def main(sequence_names, precision, stop, number_of_samples, export_to):
     """
     Perform a convergence analysis of Pi approximation methods.
 
@@ -70,6 +71,11 @@ def main(sequence_names, precision, stop, number_of_samples):
     plt.grid(linestyle="--", linewidth=0.5)
 
     plt.tight_layout()
+
+    if export_to:
+        plt.savefig(export_to)
+        return
+
     plt.show()
 
 

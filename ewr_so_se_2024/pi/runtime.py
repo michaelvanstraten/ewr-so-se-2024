@@ -70,6 +70,7 @@ class RuntimeAnalysis:
 @click.command("runtime", context_settings={"show_default": True})
 @utils.samples
 @utils.sequence_names
+@utils.export_to
 @click.option(
     "--digits",
     type=click.IntRange(min=1),
@@ -77,7 +78,7 @@ class RuntimeAnalysis:
     help="The maximum number of digits to approximate pi to.",
 )
 # pylint: disable=too-many-locals
-def main(sequence_names, digits, number_of_samples):
+def main(sequence_names, digits, number_of_samples, export_to):
     """Perform runtime analysis on pi approximation sequences."""
     # Set precision for Decimal calculations
     utils.setup_decimal_context(digits + 4)
@@ -134,6 +135,11 @@ def main(sequence_names, digits, number_of_samples):
 
     # Display the plot
     plt.tight_layout()
+
+    if export_to:
+        plt.savefig(export_to)
+        return
+
     plt.show()
 
 
