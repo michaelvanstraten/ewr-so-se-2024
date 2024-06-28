@@ -3,6 +3,7 @@
 \usepackage{textgreek}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage[
 backend=biber,
 style=alphabetic,
@@ -97,6 +98,14 @@ sorting=ynt
         \end{definition}
         Nützlich, da Algorithmen von Rechnern ausgeführt werden können
     }
+    \only<3>{%
+        \begin{definition}[Uniforme Teilmenge]
+            Eine uniforme Teilmenge \(U\) einer Menge \(M\) ist eine Teilmenge, in der
+            jedes Element mit gleicher Wahrscheinlichkeit ausgewählt wird.
+            Dies bedeutet, dass für jedes \(x \in M\) die Wahrscheinlichkeit \(P(x \in U)\)
+            konstant ist.
+        \end{definition}
+    }
 \end{frame}
 
 \subsection{Annäherungsalgorithmen}
@@ -105,7 +114,7 @@ sorting=ynt
     \begin{itemize}
         \item Monte-Carlo Simulation
         \item Leibniz-Reihe
-        \item Gauß-Legendre
+        \item Gauß-Legendre Algorithmus
     \end{itemize}
 \end{frame}
 
@@ -116,15 +125,15 @@ sorting=ynt
     } wird versucht, über eine unbekannte Menge \(M\) analytische Aussagen zu treffen,
     indem man sich auf eine endliche uniforme Teilmenge beschränkt.
     \begin{itemize}
-        \item<1-> In diesem Fall ist \(M \coloneq \{(x, y) \mid 0 \le x,y \le 1\}\)
+        \item<1-> In diesem Fall ist \(M \coloneq \{(x, y) \mid 0 \le x,y \in \mathbb{R} \le 1\}\)
         \item<2-> Mit dem Flächeninhalt eines Kreises folgt, dass
               \begin{equation*}
                   \frac{\pi}{4} = \frac{
                       |\{(x,y) \in M \only<3->{\text{\ mit } \sqrt{x^2 + y^2} \le 1} \}|
                   }{|M|}
               \end{equation*}
-              ist.
-        \item<4-> \(\pi\) lässt sich somit approximieren, indem dieses Verhältnis über eine große uniforme Teilmenge von \(M\) gebildet wird.
+              \only<3->{ist.}
+        \item<4-> \(\pi\) lässt sich somit approximieren, indem dieses Verhältnis über eine uniforme Teilmenge von \(M\) gebildet wird.
     \end{itemize}
 \end{frame}
 
