@@ -55,7 +55,6 @@
                   coreutils
                   ncurses
                   texlive
-                  ewr-so-se-2024
                 ];
 
                 TEXMFHOME = "./cache";
@@ -64,9 +63,6 @@
                 buildPhase = ''
                   export PATH="/usr/sbin:$PATH"
                   runHook preBuild
-
-                  approximation-of-pi runtime --export-to runtime.png
-                  approximation-of-pi convergence --export-to convergence.png
 
                   SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
                     -interaction=nonstopmode \
