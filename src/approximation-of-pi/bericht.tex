@@ -13,6 +13,8 @@
 }
 \date{\today}
 
+
+
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -86,7 +88,10 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \subsection{Einführung und Einordnung von Fachbegriffen}
 
 \begin{definition}[Annäherungsfolge]
-    % TODO
+  Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in \mathbb{R}\), sodass
+  \[\lim_{n \to \infty} a_n = P \] gilt.
+  Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
+
 \end{definition}
 
 \begin{definition}[Uniforme Teilmenge]
@@ -97,7 +102,10 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \end{definition}
 
 \begin{definition}[Bessere und schlechtere Annäherungsfolgen]
-
+  Seien \((a_n)_{n \in \mathbb{N}}\) und \((b_n)_{n \in \mathbb{N}}\) zwei Annäherungsfolgen für den Punkt \(P \in \mathbb{R}\), d.h.
+  \[\lim_{n \to \infty} a_n = P = \lim_{n \to \infty} b_n \] Die Annäherungsfolge \(a_n\) nennen wir besser bzw. schlechter als \(b_n\), falls ein
+  \(N \in \mathbb{N}\) existiert, sodass für alle \(n \geq N\) gilt:
+  \[ |(a_n - P)| < |(b_n - P)| \text{ bzw. } |(a_n - P)| > |(b_n - P)|\]
 \end{definition}
 
 \begin{definition}[Sublineare Konvergence]
