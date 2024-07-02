@@ -149,7 +149,6 @@
               pyright
               texlab
               texlive
-              ewr-so-se-2024
             ];
           };
         }
