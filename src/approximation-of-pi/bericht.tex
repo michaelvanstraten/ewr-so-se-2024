@@ -111,9 +111,32 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \begin{definition}[Sublineare Konvergence]
 \end{definition}
 
-\subsection{Wahl eines angemessenen Datentypens}
+\subsection{Wahl eines angemessenen Datentypen}
 
-\subsection{Anäherungsfolgen}
+Für die präzise Berechnung von \(\pi\) ist die Wahl eines angemessenen
+Datentyps von entscheidender Bedeutung.
+Datentypen wie \texttt{float32} oder \texttt{float64} bieten eine begrenzte
+Genauigkeit, die für viele wissenschaftliche Anwendungen ausreichend sein mag,
+aber für die exakte Annäherung von \(\pi\) über \(n\) beliebige Dezimalstellen
+hinweg nicht ausreicht.
+% TODO: Können wie hier die float Darstellung aus der Vorlesung nutzen?
+Diese Datentypen nutzen eine feste Anzahl von Bits für die Mantisse und den
+Exponenten, was ihre Präzision einschränkt.
+
+\texttt{float32} hat eine Genauigkeit von etwa 7 Dezimalstellen, während \texttt{float64} etwa 16 Dezimalstellen bietet.
+Um \(\pi\) jedoch auf eine exakte Anzahl von Stellen genau zu approximieren,
+benötigt man eine höhere Präzision, die durch diese Datentypen nicht erreicht
+werden kann.
+Hier kommt der \texttt{Decimal}-Datentyp ins Spiel, der eine beliebig wählbare,
+feste Mantissen Länge erlaubt.
+
+Eine weitere benötigte Eigenschaft des \texttt{Decimal}-Datentyps ist die
+Vermeidung von Rundungsfehlern, die bei den Standard-Gleitkomma-Datentypen
+auftreten können Diese Fehler summieren sich bei iterativen Berechnungen, wie
+sie zur Annäherung von \(\pi\) notwendig sind, und können zu signifikanten
+Abweichungen führen.
+
+\subsection{Annäherungsfolgen}
 
 \begin{approximation sequence}[Monte-Carlo]
 
