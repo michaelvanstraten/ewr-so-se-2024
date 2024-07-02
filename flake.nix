@@ -25,6 +25,7 @@
         pkgs = import nixpkgs { inherit system; };
         inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv;
         ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
+        texlive = pkgs.texliveFull;
       in
       {
         apps = {
@@ -41,14 +42,18 @@
       // {
         packages =
           let
-            texlive = pkgs.texliveFull;
             build =
-              { description, root-filename }:
+              {
+                src ? ./.,
+                name,
+                root-filename,
+              }:
               pkgs.stdenvNoCC.mkDerivation {
-                src = ./.;
-                name = description;
+                inherit src name;
 
-                buildInputs = [
+                buildInputs = with pkgs; [
+                  coreutils
+                  ncurses
                   texlive
                   ewr-so-se-2024
                 ];
@@ -57,17 +62,21 @@
                 TEXMFVAR = "./cache/var";
 
                 buildPhase = ''
-                    runHook preBuild
+                  export PATH="/usr/sbin:$PATH"
+                  runHook preBuild
 
-                    SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
-                  	-interaction=nonstopmode \
-                  	-pdf \
-                  	-lualatex \
-                  	-pretex="\pdfvariable suppressoptionalinfo 512\relax" \
-                  	-usepretex \
-                  	"${root-filename}"
+                  approximation-of-pi runtime --export-to runtime.png
+                  approximation-of-pi convergence --export-to convergence.png
 
-                    runHook postBuild
+                  SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
+                    -interaction=nonstopmode \
+                    -pdf \
+                    -lualatex \
+                    -pretex="\pdfvariable suppressoptionalinfo 512\relax" \
+                    -usepretex \
+                    "${toString root-filename}"
+
+                  runHook postBuild
                 '';
 
                 installPhase = ''
@@ -78,26 +87,29 @@
                   runHook postInstall
                 '';
               };
-
           in
           {
             default = ewr-so-se-2024;
 
             approximation-of-pi-report = build {
-              description = "Approximation of Pi (Report)";
+              src = ./src/approximation-of-pi;
+              name = "Approximation of Pi (Report)";
               root-filename = "map.tex";
             };
             approximation-of-pi-presentation = build {
-              description = "Approximation of Pi (Presentation)";
+              src = ./src/approximation-of-pi;
+              name = "Approximation of Pi (Presentation)";
               root-filename = "presentation.tex";
             };
 
             harmonic-series-report = build {
-              description = "Harmonic series (Report)";
+              src = ./src/harmonic-series;
+              name = "Harmonic series (Report)";
               root-filename = "bericht.tex";
             };
             harmonic-series-handout = build {
-              description = "Harmonic series (Handout)";
+              src = ./src/harmonic-series;
+              name = "Harmonic series (Handout)";
               root-filename = "bericht_handout.tex";
             };
           };
@@ -140,6 +152,9 @@
             packages = with pkgs; [
               poetry
               pyright
+              texlab
+              texlive
+              ewr-so-se-2024
             ];
           };
         }
