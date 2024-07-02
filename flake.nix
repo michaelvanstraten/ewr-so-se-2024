@@ -94,7 +94,7 @@
             approximation-of-pi-report = build {
               src = ./src/approximation-of-pi;
               name = "Approximation of Pi (Report)";
-              root-filename = "map.tex";
+              root-filename = "bericht.tex";
             };
             approximation-of-pi-presentation = build {
               src = ./src/approximation-of-pi;
