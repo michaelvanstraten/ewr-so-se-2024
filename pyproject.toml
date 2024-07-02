@@ -21,8 +21,8 @@ mypy = "^1.1.0"
 pdoc = "^14.5.0"
 
 [tool.poetry.scripts]
-approximation-of-pi = "ewr_so_se_2024.approximation_of_pi.main:cli"
-harmonic-series = "ewr_so_se_2024.harmonic_series.main:main"
+approximation-of-pi = "ewr_so_se_2024.approximation_of_pi.__main__:cli"
+harmonic-series = "ewr_so_se_2024.harmonic_series.__main__:main"
 
 [build-system]
 requires = ["poetry-core"]
