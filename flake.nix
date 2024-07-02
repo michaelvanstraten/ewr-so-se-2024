@@ -25,7 +25,6 @@
         pkgs = import nixpkgs { inherit system; };
         inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv;
         ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
-        texlive = pkgs.texliveFull;
       in
       {
         apps = {
@@ -54,7 +53,7 @@
                 buildInputs = with pkgs; [
                   coreutils
                   ncurses
-                  texlive
+                  texliveFull
                 ];
 
                 TEXMFHOME = "./cache";
