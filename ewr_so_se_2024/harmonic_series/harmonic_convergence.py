@@ -21,7 +21,7 @@ from typing import Any, cast, TypeVar
 
 import numpy as np
 
-from ewr_so_se_2024.py_logspace import py_logspace
+from ewr_so_se_2024.harmonic_series.py_logspace import py_logspace
 
 
 # Type hint for type checking (only used for static type checkers)

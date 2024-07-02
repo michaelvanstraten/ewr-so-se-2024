@@ -9,15 +9,15 @@ import matplotlib.pyplot as plt
 import click
 from yaspin import yaspin
 
-from ewr_so_se_2024.utils import NotRequiredIf
-from ewr_so_se_2024.harmonic_convergence import (
+from ewr_so_se_2024.harmonic_series.utils import NotRequiredIf
+from ewr_so_se_2024.harmonic_series.harmonic_convergence import (
     harmonic_sum,
     forward_sum,
     kahan_sum,
     vectorized_sum,
 )
-from ewr_so_se_2024.tools_read_save import load_data, save_data
-from ewr_so_se_2024.py_logspace import py_logspace
+from ewr_so_se_2024.harmonic_series.tools_read_save import load_data, save_data
+from ewr_so_se_2024.harmonic_series.py_logspace import py_logspace
 
 
 # Define available summation algorithms and data types

@@ -22,7 +22,7 @@ pdoc = "^14.5.0"
 
 [tool.poetry.scripts]
 approximation-of-pi = "ewr_so_se_2024.approximation_of_pi.main:cli"
-harmonic-series = "ewr_so_se_2024.main:main"
+harmonic-series = "ewr_so_se_2024.harmonic_series.main:main"
 
 [build-system]
 requires = ["poetry-core"]
