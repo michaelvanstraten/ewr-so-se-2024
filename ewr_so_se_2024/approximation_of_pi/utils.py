@@ -18,7 +18,7 @@ import decimal
 
 import click
 
-from ewr_so_se_2024.pi.sequences import APPROXIMATION_SEQUENCES
+from ewr_so_se_2024.approximation_of_pi.sequences import APPROXIMATION_SEQUENCES
 
 # Click option for specifying the number of samples to take from the sequence
 samples = click.option(

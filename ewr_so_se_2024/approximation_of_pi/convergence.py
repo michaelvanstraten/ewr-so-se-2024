@@ -3,8 +3,8 @@ from matplotlib import pyplot as plt
 from numpy import logspace
 from tqdm import tqdm
 
-from ewr_so_se_2024.pi import utils
-from ewr_so_se_2024.pi.sequences import APPROXIMATION_SEQUENCES
+from ewr_so_se_2024.approximation_of_pi import utils
+from ewr_so_se_2024.approximation_of_pi.sequences import APPROXIMATION_SEQUENCES
 
 
 def calculate_first_mismatches(sequence, sample_points, sequence_name):

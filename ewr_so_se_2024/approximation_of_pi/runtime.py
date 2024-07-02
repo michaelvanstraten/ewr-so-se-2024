@@ -27,11 +27,11 @@ import click
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ewr_so_se_2024.pi.sequences import (
+from ewr_so_se_2024.approximation_of_pi.sequences import (
     APPROXIMATION_SEQUENCES,
     ApproximationSequence,
 )
-from ewr_so_se_2024.pi import utils
+from ewr_so_se_2024.approximation_of_pi import utils
 
 
 @dataclass

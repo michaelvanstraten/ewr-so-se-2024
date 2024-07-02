@@ -1,6 +1,6 @@
 import click
 
-from ewr_so_se_2024.pi import (
+from ewr_so_se_2024.approximation_of_pi import (
     runtime,
     convergence,
 )
