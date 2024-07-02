@@ -13,6 +13,8 @@ sorting=ynt
 
 % Disable navigation buttons
 \setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+
 
 \title{Approximation von \textpi}
 \author{M. van Straten und P. Merz}
@@ -165,11 +167,61 @@ sorting=ynt
 
 \subsection{Laufzeitanalyse}
 
+\begin{frame}
+    \textbf{Überblick:}
+    \begin{itemize}
+        \item Führt Laufzeitanalyse für verschiedene Algorithmen zur Approximation von \(\pi\) durch:
+              \begin{itemize}
+                  \item Leibniz-Reihe, Monte Carlo, Gauss-Legendre, Chudnovsky
+              \end{itemize}
+        \item Misst Zeit zur Approximation von \(\pi\) auf bestimmte Dezimalstellen.
+    \end{itemize}
 
+    \visible<2->{
+        \begin{figure}<2->
+            \centering
+            \includegraphics[width=0.6\textwidth]{runtime.png}
+            \caption{Laufzeitanalyse und durchschnittliche Zeit pro Stelle für verschiedene Algorithmen zur Approximation von \(\pi\).}
+        \end{figure}
+    }
+\end{frame}
+
+\begin{frame}{Auswertung}
+    \begin{itemize}
+        \item<1-> \textbf{Leibniz-Reihe}
+              \begin{itemize}
+                  \item Konvergiert langsam
+                  \item Einfache Implementierung
+              \end{itemize}
+        \item<2-> \textbf{Monte-Carlo Simulation}
+              \begin{itemize}
+                  \item Zufällige Punktestreuung zur Flächenberechnung
+                  \item Konvergenz verbessert sich mit Anzahl der Punkte
+              \end{itemize}
+        \item<3-> \textbf{Gauss-Legendre Algorithmus}
+              \begin{itemize}
+                  \item Schnelle Konvergenz
+                  \item Komplexere Implementierung
+              \end{itemize}
+        \item<4-> \textbf{Chudnovsky Algorithmus}
+              \begin{itemize}
+                  \item Extrem schnelle Konvergenz
+                  \item Sehr komplexe Implementierung
+              \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \subsection{Konvergenz}
 
+\begin{frame}{Daten}
+    \begin{figure}
+        \begin{center}
+            \leavevmode
+            \onslide<1>\includegraphics[width=\textwidth]{runtime.png}
+            \onslide<2>\includegraphics[width=\textwidth]{convergence.png}
+        \end{center}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Auswertung und Zusammenfassung}
 
