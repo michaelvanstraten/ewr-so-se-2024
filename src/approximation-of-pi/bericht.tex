@@ -38,45 +38,47 @@ sorting=ynt
 \tableofcontents
 \cleardoublepage{}
 
-\section{Einführung}
+\section{Motivation und Einleitung}
 
 Die Konstante \(\pi\) hat eine natürliche Definition in der euklidischen
 Geometrie als das Verhältnis zwischen dem Umfang und dem Durchmesser eines
-Kreises \cite{wikipedia:Pi, wikipedia:Euclidean_geometry,
-    wikipedia:Circumference, wikipedia:Diameter}.
-Sie findet sich an vielen anderen Stellen in der Mathematik: zum Beispiel im
-Gaußschen Integral, bei den komplexen Einheitswurzeln und in der
-Cauchy-Verteilung in der Wahrscheinlichkeitstheorie
-\cite{wikipedia:Gaussian_integral, wikipedia:Roots_of_unity,
-    wikipedia:Cauchy_distribution, wikipedia:Probability}.
+Kreises.
+Sie ist von fundamentaler Bedeutung in vielen Bereichen der Mathematik und
+Physik.
+Beispielsweise tritt \(\pi\) im Gaußschen Integral auf, bei den komplexen
+Einheitswurzeln und in der Cauchy-Verteilung in der Wahrscheinlichkeitstheorie.
+Die Relevanz von \(\pi\) erstreckt sich dabei über zahlreiche Disziplinen
+hinweg, was sie zu einer der wichtigsten Konstanten in der Wissenschaft macht.
 
-\subsection{Motivation}
+Historisch gesehen haben sich Mathematiker stets bemüht, \(\pi\) immer genauer
+zu approximieren.
+In der Antike reichte die Genauigkeit solcher Annäherungen oft nur bis zur
+zweiten Nachkommastelle.
+Signifikante Fortschritte wurden im 14.
+Jahrhundert durch Madhava von Sangamagrama erzielt, der Methoden entwickelte,
+um \(\pi\) bis auf elf und später dreizehn Stellen genau zu berechnen.
+In der chinesischen Mathematik wurde im 5.
+Jahrhundert eine Genauigkeit von etwa sieben Dezimalstellen erreicht.
+Im 15.
+Jahrhundert erreichte Jamshīd al-Kāshī eine Genauigkeit von sechzehn Stellen.
+Zu Beginn des 17.
+Jahrhunderts konnte Ludolph van Ceulen \(\pi\) bis auf 35 Stellen berechnen,
+und im 19.
+Jahrhundert erreichte Jurij Vega sogar eine Genauigkeit von 126 Stellen.
 
-Annäherungen für die mathematische Konstante \(\pi\) in der Geschichte der
-Mathematik erreichten eine Genauigkeit von bis zu 0,04
+Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
+wissenschaftlichen Fortschritt in der Annäherung von \(\pi\).
+Die genaue Berechnung von \(\pi\) bleibt nicht nur eine mathematische
+Herausforderung, sondern ist auch für viele praktische Anwendungen relevant,
+etwa in der Ingenieurwissenschaft, der Physik und der Informatik.
 
-Weitere Fortschritte wurden erst im 14.
-Jahrhundert erzielt, als Madhava von Sangamagrama Annäherungen entwickelte, die
-bis zu elf und dann dreizehn Stellen korrekt waren
-\cite{wikipedia:Madhava_of_Sangamagrama}, bevor die Zeitrechnung begann
-\cite{wikipedia:Approximation, wikipedia:Pi, wikipedia:History_of_mathematics}.
-In der chinesischen Mathematik wurde dies im 5.
-Jahrhundert auf Annäherungen verbessert, die etwa sieben Dezimalstellen
-entsprachen \cite{wikipedia:Chinese_mathematics}.
-Jamshīd al-Kāshī erreichte als Nächstes sechzehn Stellen
-\cite{wikipedia:Jamshid_al-Kashi}.
-Frühneuzeitliche Mathematiker erreichten eine Genauigkeit von 35 Stellen zu
-Beginn des 17.
-Jahrhunderts (Ludolph van Ceulen) \cite{wikipedia:Ludolph_van_Ceulen}, und 126
-Stellen im 19.
-Jahrhundert (Jurij Vega) \cite{wikipedia:Jurij_Vega}, was die für jede denkbare
-Anwendung außerhalb der reinen Mathematik erforderliche Genauigkeit übertraf.
-\\
-Mit diesem Bericht möchten wir in die Fußstapfen unserer Mitmathematiker treten
-und verschiedene theoretische Annäherungsmethoden zur Berechnung von \(\pi\)
-untersuchen.
-
-\subsection{Einführung in die Theorie}
+Ziel dieses Berichts ist es, verschiedene mathematische Annäherungsmethoden zur
+Berechnung von \(\pi\) zu untersuchen und miteinander zu vergleichen.
+Neben der bereits bekannten Leibnizreihe werden zwei weitere Verfahren
+implementiert und analysiert.
+Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres Speicherbedarfs,
+ihres Konvergenzverhaltens und des Verhältnisses von Rechenaufwand zu
+Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \subsubsection{Annäherung}
 
 \begin{definition}[Annäherungsfolge]
