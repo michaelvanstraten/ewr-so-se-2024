@@ -52,7 +52,8 @@ def calculate_sequence_memory_size(
 @utils.sequence_names
 @utils.digits
 @utils.samples
-def plot_memory_usage(sequence_names, digits, number_of_samples):
+@utils.export_to
+def plot_memory_usage(sequence_names, digits, number_of_samples, export_to):
     """
     Plot the memory usage of different Pi approximation sequences
     over a range of digits of precision.
@@ -81,6 +82,11 @@ def plot_memory_usage(sequence_names, digits, number_of_samples):
     plt.ylabel("Memory Size (bytes)")
     plt.title("Memory Usage of Pi Approximation Sequences")
     plt.grid(True)
+
+    if export_to:
+        plt.savefig(export_to)
+        return
+
     plt.show()
 
 
