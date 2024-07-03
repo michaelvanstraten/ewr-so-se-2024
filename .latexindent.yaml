@@ -1,8 +1,7 @@
 defaultIndent: "    "
 modifyLineBreaks:
-    oneSentencePerLine:
-        manipulateSentences: 1
-        textWrapSentences: 1
     textWrapOptions:
         columns: 80
+        when: after
 onlyOneBackUp: 1
+

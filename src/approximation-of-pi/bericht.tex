@@ -1,6 +1,5 @@
 \documentclass{scrartcl}
 \usepackage{scrhack}
-
 \subject{Bericht}
 \titlehead{%
   Humboldt-Universität zu Berlin\\
@@ -93,9 +92,8 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \subsection{Einführung und Einordnung von Fachbegriffen}
 
 \begin{definition}[Annäherungsfolge]
-  Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in \mathbb{R}\), sodass
-  \[\lim_{n \to \infty} a_n = P \] gilt.
-  Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
+    Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in \mathbb{R}\), sodass
+    \[\lim_{n \to \infty} a_n = P \] gilt. Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
 
 \end{definition}
 
@@ -107,13 +105,16 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \end{definition}
 
 \begin{definition}[Bessere und schlechtere Annäherungsfolgen]
-  Seien \((a_n)_{n \in \mathbb{N}}\) und \((b_n)_{n \in \mathbb{N}}\) zwei Annäherungsfolgen für den Punkt \(P \in \mathbb{R}\), d.h.
-  \[\lim_{n \to \infty} a_n = P = \lim_{n \to \infty} b_n \] Die Annäherungsfolge \(a_n\) nennen wir besser bzw. schlechter als \(b_n\), falls ein
-  \(N \in \mathbb{N}\) existiert, sodass für alle \(n \geq N\) gilt:
-  \[ |(a_n - P)| < |(b_n - P)| \text{ bzw. } |(a_n - P)| > |(b_n - P)|\]
+    Seien \((a_n)_{n \in \mathbb{N}}\) und \((b_n)_{n \in \mathbb{N}}\) zwei
+    Annäherungsfolgen für den Punkt \(P \in \mathbb{R}\), d.h.
+    \[\lim_{n \to \infty} a_n = P = \lim_{n \to \infty} b_n \] Die Annäherungsfolge \(a_n\) nennen wir besser bzw. schlechter als \(b_n\),
+    falls ein \(N \in \mathbb{N}\) existiert, sodass für alle \(n \geq N\)
+    gilt:
+    \[ |(a_n - P)| < |(b_n - P)| \text{ bzw. } |(a_n - P)| > |(b_n - P)|\]
 \end{definition}
 
 \begin{definition}[Sublineare Konvergence]
+    % TODO
 \end{definition}
 
 \subsection{Wahl eines angemessenen Datentypen}
@@ -128,7 +129,8 @@ hinweg nicht ausreicht.
 Diese Datentypen nutzen eine feste Anzahl von Bits für die Mantisse und den
 Exponenten, was ihre Präzision einschränkt.
 
-\texttt{float32} hat eine Genauigkeit von etwa 7 Dezimalstellen, während \texttt{float64} etwa 16 Dezimalstellen bietet.
+\texttt{float32} hat eine Genauigkeit von etwa 7 Dezimalstellen, während
+\texttt{float64} etwa 16 Dezimalstellen bietet.
 Um \(\pi\) jedoch auf eine exakte Anzahl von Stellen genau zu approximieren,
 benötigt man eine höhere Präzision, die durch diese Datentypen nicht erreicht
 werden kann.
@@ -160,10 +162,12 @@ Abweichungen führen.
 \subsection{Konvergenzanalyse}
 
 In diesem Experiment wird die Konvergenz verschiedener Pi-Annäherungsfolgen
-analysiert. Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi
-in Abhängigkeit von der Position innerhalb der Sequenz auf einer
-logarithmischen Skala darzustellen. Die verwendeten Sequenzen umfassen Leibniz,
-Monte Carlo, Gauss-Legendre und Chudnovsky.
+analysiert.
+Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi in
+Abhängigkeit von der Position innerhalb der Sequenz auf einer logarithmischen
+Skala darzustellen.
+Die verwendeten Sequenzen umfassen Leibniz, Monte Carlo, Gauss-Legendre und
+Chudnovsky.
 
 Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
 werden:
@@ -180,20 +184,19 @@ approximation-of-pi convergence --precision 50 --stop 4
 
 \begin{observation}
     Die Analyse zeigt, dass die Gauss-Legendre- und Chudnovsky-Sequenzen sehr
-    schnell konvergieren und eine hohe Anzahl korrekt approximierter Stellen
-    von Pi bereits bei niedrigen Positionen innerhalb der Sequenz erreichen.
-    Die Gauss-Legendre-Sequenz zeigt hierbei die beste Konvergenz. Die
-    Leibniz-Sequenz weist eine deutlich langsamere Konvergenz auf, während die
-    Monte-Carlo-Sequenz erwartungsgemäß die geringste Anzahl korrekt
-    approximierter Stellen liefert, was auf ihre probabilistische Natur
-    zurückzuführen ist.
+    schnell konvergieren und eine hohe Anzahl korrekt approximierter Stellen von Pi
+    bereits bei niedrigen Positionen innerhalb der Sequenz erreichen.
+    Die Gauss-Legendre-Sequenz zeigt hierbei die beste Konvergenz.
+    Die Leibniz-Sequenz weist eine deutlich langsamere Konvergenz auf, während die
+    Monte-Carlo-Sequenz erwartungsgemäß die geringste Anzahl korrekt approximierter
+    Stellen liefert, was auf ihre probabilistische Natur zurückzuführen ist.
 \end{observation}
 
 \subsection{Speicherbedarf}
 
 In diesem Experiment wird der Speicherbedarf der oben genannten
-Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert. Jede
-Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
+Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert.
+Jede Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
 Mantissenlängen untersucht.
 
 Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
@@ -211,11 +214,12 @@ approximation-of-pi memory-usage --digits 512
 
 \begin{observation}
     Die Analyse zeigt, dass der Speicherbedarf mit zunehmender Anzahl der
-    Dezimalstellen für alle Sequenzen linear ansteigt. Dabei ist der
-    Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt von der
-    Chudnovsky-Sequenz. Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen
-    vergleichsweise geringeren Anstieg des Speicherbedarfs. Besonders
-    hervorzuheben ist, dass die Monte-Carlo-Sequenz den geringsten
+    Dezimalstellen für alle Sequenzen linear ansteigt.
+    Dabei ist der Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt
+    von der Chudnovsky-Sequenz.
+    Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen vergleichsweise geringeren
+    Anstieg des Speicherbedarfs.
+    Besonders hervorzuheben ist, dass die Monte-Carlo-Sequenz den geringsten
     Speicherbedarf aufweist, was auf ihre probabilistische Natur und geringere
     Genauigkeit bei höherer Präzision hinweist.
 \end{observation}
