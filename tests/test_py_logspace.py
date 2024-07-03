@@ -5,7 +5,7 @@
 import numpy as np
 from numpy import array, array_equal, logspace
 
-from ewr_so_se_2024.py_logspace import py_logspace
+from ewr_so_se_2024.harmonic_series.py_logspace import py_logspace
 
 
 def test_numpy_compliance():
