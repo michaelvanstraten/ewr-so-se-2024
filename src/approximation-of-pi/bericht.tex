@@ -157,6 +157,38 @@ Abweichungen führen.
 
 \section{Experimente}
 
+\subsection{Konvergenzanalyse}
+
+In diesem Experiment wird die Konvergenz verschiedener Pi-Annäherungsfolgen
+analysiert. Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi
+in Abhängigkeit von der Position innerhalb der Sequenz auf einer
+logarithmischen Skala darzustellen. Die verwendeten Sequenzen umfassen Leibniz,
+Monte Carlo, Gauss-Legendre und Chudnovsky.
+
+Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
+werden:
+\begin{verbatim}
+approximation-of-pi convergence --precision 50 --stop 4
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.6\textwidth]{figures/convergence.svg}
+    \caption{Konvergenzanalyse der verschiedenen Pi-Annäherungsmethoden in Abhängigkeit von der Position innerhalb der Sequenz (logarithmische Skala).}
+    \label{fig:convergence-analysis}
+\end{figure}
+
+\begin{observation}
+    Die Analyse zeigt, dass die Gauss-Legendre- und Chudnovsky-Sequenzen sehr
+    schnell konvergieren und eine hohe Anzahl korrekt approximierter Stellen
+    von Pi bereits bei niedrigen Positionen innerhalb der Sequenz erreichen.
+    Die Gauss-Legendre-Sequenz zeigt hierbei die beste Konvergenz. Die
+    Leibniz-Sequenz weist eine deutlich langsamere Konvergenz auf, während die
+    Monte-Carlo-Sequenz erwartungsgemäß die geringste Anzahl korrekt
+    approximierter Stellen liefert, was auf ihre probabilistische Natur
+    zurückzuführen ist.
+\end{observation}
+
 \subsection{Speicherbedarf}
 
 In diesem Experiment wird der Speicherbedarf der oben genannten
