@@ -71,12 +71,7 @@ class RuntimeAnalysis:
 @utils.samples
 @utils.sequence_names
 @utils.export_to
-@click.option(
-    "--digits",
-    type=click.IntRange(min=1),
-    default=5,
-    help="The maximum number of digits to approximate pi to.",
-)
+@utils.digits
 # pylint: disable=too-many-locals
 def main(sequence_names, digits, number_of_samples, export_to):
     """Perform runtime analysis on pi approximation sequences."""

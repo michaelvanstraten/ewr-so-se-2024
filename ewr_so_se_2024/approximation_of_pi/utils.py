@@ -1,5 +1,4 @@
 """This module provides utility functions and options for pi approximation analysis.
-
 Functions:
     find_first_mismatch: Find the first mismatch between two iterables.
 
@@ -38,6 +37,14 @@ sequence_names = click.option(
     default=list(APPROXIMATION_SEQUENCES.keys()),
     multiple=True,
     help="The sequence(s) to use for approximation.",
+)
+
+# Click option to specify the number of digits to approximate
+digits = click.option(
+    "--digits",
+    type=click.IntRange(min=1),
+    default=5,
+    help="The maximum number of digits to approximate pi to.",
 )
 
 # Click option to specify a file for exporting to
