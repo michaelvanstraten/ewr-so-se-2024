@@ -12,23 +12,18 @@
 }
 \date{\today}
 
-
-
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{float}
-\usepackage{microtype}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{booktabs}
 \usepackage[
 backend=biber,
 style=alphabetic,
 sorting=ynt
 ]{biblatex}
-\usepackage{pdfpages}
 \usepackage{svg}
 
 \addbibresource{./bericht.bib}
@@ -49,43 +44,38 @@ sorting=ynt
 
 Die Konstante \(\pi\) hat eine natürliche Definition in der euklidischen
 Geometrie als das Verhältnis zwischen dem Umfang und dem Durchmesser eines
-Kreises.
-Sie ist von fundamentaler Bedeutung in vielen Bereichen der Mathematik und
-Physik.
-Beispielsweise tritt \(\pi\) im Gaußschen Integral auf, bei den komplexen
-Einheitswurzeln und in der Cauchy-Verteilung in der Wahrscheinlichkeitstheorie.
-Die Relevanz von \(\pi\) erstreckt sich dabei über zahlreiche Disziplinen
-hinweg, was sie zu einer der wichtigsten Konstanten in der Wissenschaft macht.
+Kreises. Sie ist von fundamentaler Bedeutung in vielen Bereichen der Mathematik
+und Physik. Beispielsweise tritt \(\pi\) im Gaußschen Integral auf, bei den
+komplexen Einheitswurzeln und in der Cauchy-Verteilung in der
+Wahrscheinlichkeitstheorie. Die Relevanz von \(\pi\) erstreckt sich dabei über
+zahlreiche Disziplinen hinweg, was sie zu einer der wichtigsten Konstanten in
+der Wissenschaft macht.
 
 Historisch gesehen haben sich Mathematiker stets bemüht, \(\pi\) immer genauer
-zu approximieren.
-In der Antike reichte die Genauigkeit solcher Annäherungen oft nur bis zur
-zweiten Nachkommastelle.
-Signifikante Fortschritte wurden im 14.
-Jahrhundert durch Madhava von Sangamagrama erzielt, der Methoden entwickelte,
-um \(\pi\) bis auf elf und später dreizehn Stellen genau zu berechnen.
-In der chinesischen Mathematik wurde im 5.
-Jahrhundert eine Genauigkeit von etwa sieben Dezimalstellen erreicht.
-Im 15.
-Jahrhundert erreichte Jamshīd al-Kāshī eine Genauigkeit von sechzehn Stellen.
-Zu Beginn des 17.
-Jahrhunderts konnte Ludolph van Ceulen \(\pi\) bis auf 35 Stellen berechnen,
-und im 19.
-Jahrhundert erreichte Jurij Vega sogar eine Genauigkeit von 126 Stellen.
+zu approximieren. In der Antike reichte die Genauigkeit solcher Annäherungen
+oft nur bis zur zweiten Nachkommastelle. Signifikante Fortschritte wurden im
+14. Jahrhundert durch Madhava von Sangamagrama erzielt, der Methoden
+entwickelte, um \(\pi\) bis auf elf und später dreizehn Stellen genau zu
+berechnen. In der chinesischen Mathematik wurde im 5. Jahrhundert eine
+Genauigkeit von etwa sieben Dezimalstellen erreicht. Im 15. Jahrhundert
+erreichte Jamshīd al-Kāshī eine Genauigkeit von sechzehn Stellen. Zu Beginn des
+17. Jahrhunderts konnte Ludolph van Ceulen \(\pi\) bis auf 35 Stellen
+berechnen, und im 19. Jahrhundert erreichte Jurij Vega sogar eine Genauigkeit
+von 126 Stellen.
 
 Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
-wissenschaftlichen Fortschritt in der Annäherung von \(\pi\).
-Die genaue Berechnung von \(\pi\) bleibt nicht nur eine mathematische
-Herausforderung, sondern ist auch für viele praktische Anwendungen relevant,
-etwa in der Ingenieurwissenschaft, der Physik und der Informatik.
+wissenschaftlichen Fortschritt in der Annäherung von \(\pi\). Die genaue
+Berechnung von \(\pi\) bleibt nicht nur eine mathematische Herausforderung,
+sondern ist auch für viele praktische Anwendungen relevant, etwa in der
+Ingenieurwissenschaft, der Physik und der Informatik.
 
 Ziel dieses Berichts ist es, verschiedene mathematische Annäherungsmethoden zur
-Berechnung von \(\pi\) zu untersuchen und miteinander zu vergleichen.
-Neben der bereits bekannten Leibnizreihe werden zwei weitere Verfahren
-implementiert und analysiert.
-Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres Speicherbedarfs,
-ihres Konvergenzverhaltens und des Verhältnisses von Rechenaufwand zu
-Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
+Berechnung von \(\pi\) zu untersuchen und miteinander zu vergleichen. Neben der
+bereits bekannten Leibnizreihe werden zwei weitere Verfahren implementiert und
+analysiert. Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres
+Speicherbedarfs, ihres Konvergenzverhaltens und des Verhältnisses von
+Rechenaufwand zu Approximationsgenauigkeit sowohl analytisch als auch
+experimentell verglichen.
 
 \section{Theorie}
 
@@ -120,11 +110,11 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 \subsection{Wahl eines angemessenen Datentypen}
 
 Für die präzise Berechnung von \(\pi\) ist die Wahl eines angemessenen
-Datentyps von entscheidender Bedeutung.
-Datentypen wie \texttt{float32} oder \texttt{float64} bieten eine begrenzte
-Genauigkeit, die für viele wissenschaftliche Anwendungen ausreichend sein mag,
-aber für die exakte Annäherung von \(\pi\) über \(n\) beliebige Dezimalstellen
-hinweg nicht ausreicht.
+Datentyps von entscheidender Bedeutung. Datentypen wie \texttt{float32} oder
+\texttt{float64} bieten eine begrenzte Genauigkeit, die für viele
+wissenschaftliche Anwendungen ausreichend sein mag, aber für die exakte
+Annäherung von \(\pi\) über \(n\) beliebige Dezimalstellen hinweg nicht
+ausreicht.
 % TODO: Können wie hier die float Darstellung aus der Vorlesung nutzen?
 Diese Datentypen nutzen eine feste Anzahl von Bits für die Mantisse und den
 Exponenten, was ihre Präzision einschränkt.
@@ -159,15 +149,19 @@ Abweichungen führen.
 
 \section{Experimente}
 
+\subsection{Laufzeitverhalten und Rechenaufwand}
+
+\begin{observation}
+
+\end{observation}
+
 \subsection{Konvergenzanalyse}
 
 In diesem Experiment wird die Konvergenz verschiedener Pi-Annäherungsfolgen
-analysiert.
-Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi in
-Abhängigkeit von der Position innerhalb der Sequenz auf einer logarithmischen
-Skala darzustellen.
-Die verwendeten Sequenzen umfassen Leibniz, Monte Carlo, Gauss-Legendre und
-Chudnovsky.
+analysiert. Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi
+in Abhängigkeit von der Position innerhalb der Sequenz auf einer
+logarithmischen Skala darzustellen. Die verwendeten Sequenzen umfassen Leibniz,
+Monte Carlo, Gauss-Legendre und Chudnovsky.
 
 Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
 werden:
@@ -195,8 +189,8 @@ approximation-of-pi convergence --precision 50 --stop 4
 \subsection{Speicherbedarf}
 
 In diesem Experiment wird der Speicherbedarf der oben genannten
-Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert.
-Jede Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
+Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert. Jede
+Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
 Mantissenlängen untersucht.
 
 Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
