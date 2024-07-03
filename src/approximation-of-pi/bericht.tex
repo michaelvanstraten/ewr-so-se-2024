@@ -19,6 +19,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{float}
 \usepackage{microtype}
 \usepackage{hyperref}
 \usepackage{graphicx}
@@ -29,10 +30,12 @@ style=alphabetic,
 sorting=ynt
 ]{biblatex}
 \usepackage{pdfpages}
+\usepackage{svg}
 
 \addbibresource{./bericht.bib}
 \newtheorem{definition}{Definition}
 \newtheorem{approximation sequence}{Annäherungsfolge}
+\newtheorem{observation}{Beobachtung}
 
 \parskip = \baselineskip
 \parindent = 0pt
@@ -154,7 +157,36 @@ Abweichungen führen.
 
 \section{Experimente}
 
-\subsection{Beobachtungen}
+\subsection{Speicherbedarf}
+
+In diesem Experiment wird der Speicherbedarf der oben genannten
+Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert. Jede
+Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
+Mantissenlängen untersucht.
+
+Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
+werden:
+\begin{verbatim}
+python -m ewr_so_se_2024.approximation_of_pi memory-usage --digits 512
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.6\textwidth]{figures/memory-usage.svg}
+    \caption{Speicherbedarf der verschiedenen Pi-Annäherungsfolgen in Abhängigkeit von der Anzahl der Dezimalstellen.}
+    \label{fig:memory-usage}
+\end{figure}
+
+\begin{observation}
+    Die Analyse zeigt, dass der Speicherbedarf mit zunehmender Anzahl der
+    Dezimalstellen für alle Sequenzen linear ansteigt. Dabei ist der
+    Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt von der
+    Chudnovsky-Sequenz. Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen
+    vergleichsweise geringeren Anstieg des Speicherbedarfs. Besonders
+    hervorzuheben ist, dass die Monte-Carlo-Sequenz den geringsten
+    Speicherbedarf aufweist, was auf ihre probabilistische Natur und geringere
+    Genauigkeit bei höherer Präzision hinweist.
+\end{observation}
 
 \section{Auswertung}
 
