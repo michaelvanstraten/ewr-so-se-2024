@@ -82,7 +82,7 @@ def main(sequence_names, digits, number_of_samples, export_to):
     sample_points = np.linspace(1, digits, min(number_of_samples, digits), dtype=int)
 
     fig, (computation_times_ax, average_position_deltas_ax) = plt.subplots(
-        2, figsize=(10, 8)
+        1, 2, figsize=(12, 6)
     )
     fig.suptitle("Runtime and Average Digit Time Analysis")
 
