@@ -63,7 +63,6 @@
                 XDG_CACHE_HOME = "$(mktemp -d)";
 
                 buildPhase = ''
-                  export PATH="/usr/sbin:$PATH"
                   runHook preBuild
 
                   SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
