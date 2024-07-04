@@ -158,7 +158,55 @@ Abweichungen führen.
 
 \subsection{Annäherungsalgorithmen}
 
-\begin{approximation sequence}[Monte-Carlo]
+\begin{approximation sequence}[Monte-Carlo-Simulation]~\\[12pt]
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.5\textwidth]{figures/monte-carlo-pi.svg}
+    \caption{Monte-Carlo-Approximation von \(\pi\)}
+    \label{fig:monte-carlo-approximation}
+\end{figure}
+
+Das Verfahren der Monte-Carlo-Simulation\footnote{Der Name ist eine Anspielung
+auf die Spielbank Monte-Carlo im gleichnamigen Stadtteil des Stadtstaates
+Monaco.\cite{anderson:1986:metropolis}} beruht auf dem Gesetz der großen
+Zahlen. Es ermöglicht die numerische Lösung von Problemen, die analytisch
+schwer oder nur mit großem Aufwand zu lösen sind, durch die Ziehung von
+Stichproben.
+
+Um die Konstante \(\pi\) mit diesem Verfahren zu approximieren, betrachten wir
+zunächst die Menge \(M \coloneq \{(x, y) \mid 0 \le x,y \le 1, x, y \in
+\mathbb{R}\}\), also die Menge der Punkte innerhalb des Einheitsquadrats.
+
+Wir betrachten nun die Wahrscheinlichkeit \(P(M)\), dass ein Punkt in \(M\)
+innerhalb des ersten Quadranten des Einheitskreises liegt, also eine Distanz
+zum Ursprung \(\le 1\) hat:
+
+\begin{equation}
+    P(M) = \frac{\text{Rote Punkte}}{\text{Gesamte Punkte}} = \frac{|\{(x, y) \in M \mid \sqrt{x^2 + y^2} \le 1\}|}{|M|} = \frac{\frac{\pi \cdot 1^2}{4}}{1} = \frac{\pi}{4}
+\end{equation}
+
+Für eine Folge von gleichmäßig verteilten Teilmengen
+\begin{equation}
+    U_1 \subset U_2 \subset \cdots \subset U_n \subset M
+\end{equation}
+folgt nach dem Gesetz der großen Zahlen, dass
+\begin{equation}
+    \lim_{n \to \infty} P(U_n) = P(M)
+\end{equation}
+gilt.
+
+Somit lässt sich \(\pi\) approximieren, indem man immer größere und größere
+gleichmäßig verteilte Teilmengen von \(M\) findet. Solche Mengen \(U_n\) können
+beispielsweise durch das wiederholte Generieren von zwei Zufallszahlen zwischen
+0 und 1 mittels eines einfachen Programms erzeugt werden.
+
+Definieren wir beispielsweise die Teilmenge \(U_{1400} \coloneq \text{Rote
+Punkte} \cup \text{Gesamte Punkte}\) als die Vereinigung der roten und gesamten
+Punkte aus Abbildung \ref{fig:monte-carlo-approximation}, so folgt daraus:
+\begin{equation}
+    P(U_{1400}) = \frac{r}{n} \Rightarrow \pi \approx \frac{4 \cdot r}{n} = \frac{4 \cdot 1100}{1400} = 3.1429
+\end{equation}
+ist.
 
 \end{approximation sequence}
 
