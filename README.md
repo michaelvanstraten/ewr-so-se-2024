@@ -89,3 +89,16 @@ nix develop
 ```
 
 After this, you can proceed as described in the Poetry setup section.
+
+## Build a Document with Nix
+
+This repository contains multiple reports and presentations for the assignments of this course.
+
+To build one of these LaTeX documents using Nix, you can follow the installation instructions for Nix and then execute the following command:
+
+```sh
+nix build github:michaelvanstraten/ewr-so-se-2024#approximation-of-pi-report
+
+```
+
+This command will compile the LaTeX [`approximation-of-pi/bericht.tex`](./src/approximation-of-pi/bericht.tex) Document using the configurations specified in the Nix setup.
