@@ -21,6 +21,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage[
 backend=biber,
 style=alphabetic,
@@ -131,6 +132,14 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
     hier \cite{AGM} nachgelesen werden.
 \end{definition}
 
+\begin{definition}[Lineare Stichproben einer Folge]
+    Für eine Folge \(S_n\) und \(a, b \in \mathbb{R}\) sowie \(k \in
+    \mathbb{N}\) heißt das \(k\)-Tuple
+    \begin{equation}
+        (S_{a + i \cdot \frac{b}{k}})_{i \in \{0, \ldots, k\}}
+    \end{equation}
+    \(k\) lineare Stichproben der Folge über das Intervall \([a, b]\).
+\end{definition}
 
 \subsection{Wahl eines angemessenen Datentypen}
 
@@ -283,23 +292,25 @@ Also liegt die Laufzeit insgesamt in \(\mathcal{O}(\frac{15}{2}n^2log_2(n))\).
 
 \subsection{Konvergenzanalyse}
 
-In diesem Experiment wird die Konvergenz verschiedener Pi-Annäherungsfolgen
-analysiert. Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi
-in Abhängigkeit von der Position innerhalb der Sequenz auf einer
-logarithmischen Skala darzustellen. Die verwendeten Sequenzen umfassen Leibniz,
-Monte Carlo, Gauss-Legendre und Chudnovsky.
+Ein sehr relevanter Faktor für die Auswahl einer Approximationsfolge ist deren
+Konvergenz verhalten.
 
-Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
-werden:
-\begin{verbatim}
-approximation-of-pi convergence --precision 50 --stop 4
-\end{verbatim}
+In diesem Experiment werden \(k\) lineare Stichproben der Folgen für das
+Intervall \([0, b]\) für eine festgesetzte Mantissenlänge \(m \in \mathbb{N}\)
+genommen. Ziel ist es, experimentell eine Darstellung der
+Konvergenzgeschwindigkeit zu approximieren. Eine höhere
+Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
 
 \begin{figure}[H]
     \centering
-    \includesvg[width=0.6\textwidth]{figures/convergence.svg}
-    \caption{Konvergenzanalyse der verschiedenen Pi-Annäherungsmethoden in Abhängigkeit von der Position innerhalb der Sequenz (logarithmische Skala).}
-    \label{fig:convergence-analysis}
+    \subfloat[\centering \(b = 10^2\)]{{\includesvg[width=0.5\textwidth]{figures/convergence-only-fast.svg} }}
+    \subfloat[\centering \(b = 10^6\)]{{\includesvg[width=0.5\textwidth]{figures/convergence-only-slow.svg} }}
+    \caption{
+        Anzahl an korrekt approximierten Dezimalstellen in Abhängigkeit von der
+        Position innerhalb der Sequenz mit \(b\) (Parameter \texttt{--stop} im
+        Skript), \(k = 20\) (Parameter \texttt{--samples} im Skript) und \(m =
+        2^9\) (Parameter \texttt{--precision} im Skript). }
+        \label{fig:convergence-analysis}
 \end{figure}
 
 \begin{observation}
