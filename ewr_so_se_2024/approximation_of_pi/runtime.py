@@ -1,22 +1,30 @@
-"""This script performs runtime analysis for various pi approximation algorithms.
+"""
+Runtime Analysis of Pi Approximation Sequences CLI
 
-It uses the following algorithms:
-- Leibniz series
-- Monte Carlo method
-- Gauss-Legendre algorithm
-- Chudnovsky algorithm
+This module provides a command-line interface (CLI) for performing a runtime 
+analysis of various Pi approximation sequences. It measures and plots the total 
+computation time and average digit computation time for different sequences 
+over a range of digits of precision. The results can be displayed or saved to a file.
 
-The script measures the time taken to approximate pi to a specified number of decimal places
-and plots the results using matplotlib.
+Usage: approximation-of-pi runtime [OPTIONS]
 
-Classes:
-    RuntimeAnalysis: Records and calculates the time taken to approximate pi using a given sequence.
+  Perform runtime analysis on pi approximation sequences.
 
-Functions:
-    main: Command-line interface entry point for the runtime analysis.
+Options:
+  --samples INTEGER RANGE         The number of samples to take from the
+                                  underlying sequence.  [default: 20; x>=1]
+  -s, --sequence [Leibniz|MonteCarlo|GaussLegendre|Chudnovsky]
+                                  The sequence(s) to use for approximation.
+                                  [default: Leibniz, MonteCarlo,
+                                  GaussLegendre, Chudnovsky]
+  --export-to FILE                Export the generated plot to a specified
+                                  file.
+  --digits INTEGER RANGE          The maximum number of digits to approximate
+                                  pi to.  [default: 5; x>=1]
+  --help                          Show this message and exit.
 
-Usage:
-    Run the script with the desired options to perform and plot runtime analysis.
+Example:
+    approximation-of-pi runtime -s Leibniz -s MonteCarlo --digits 100
 """
 
 from dataclasses import dataclass

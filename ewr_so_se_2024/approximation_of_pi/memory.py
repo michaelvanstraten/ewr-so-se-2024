@@ -1,7 +1,29 @@
 """
-This module provides functionality to plot the memory usage of different Pi approximation sequences
-over a range of digits of precision. It uses the `decimal` module for high-precision calculations,
-`pickle` for memory size estimation, and `matplotlib` for plotting the results.
+Memory Usage Analysis of Pi Approximation Sequences CLI
+
+This module provides a command-line interface (CLI) for analyzing the memory usage 
+of various Pi approximation sequences over a range of digits of precision. It plots 
+the memory size of different sequences and can display the plot or save it to a file.
+
+Usage: approximation-of-pi plot-memory-usage [OPTIONS]
+
+  Plot the memory usage of different Pi approximation sequences over a range
+  of digits of precision.
+
+Options:
+  -s, --sequence [Leibniz|MonteCarlo|GaussLegendre|Chudnovsky]
+                                  The sequence(s) to use for approximation.
+  --digits INTEGER RANGE          The maximum number of digits to approximate
+                                  pi to.  [x>=1]
+  --samples INTEGER RANGE         The number of samples to take from the
+                                  underlying sequence.  [x>=1]
+  --export-to FILE                Export the generated plot to a specified
+                                  file.
+  --help                          Show this message and exit.
+
+Example:
+    approximation-of-pi plot-memory-usage -s Leibniz -s MonteCarlo --digits 100
+
 """
 
 import decimal

@@ -1,6 +1,11 @@
 """
 Convergence Analysis of Pi Approximation Methods CLI
 
+This module provides a command-line interface (CLI) for performing a convergence 
+analysis of various Pi approximation sequences. It calculates the number of correctly 
+approximated digits of Pi for different sequences and plots the results on a 
+logarithmic scale. The results can be displayed or saved to a file.
+
 Usage: approximation-of-pi convergence [OPTIONS]
 
   Perform a convergence analysis of Pi approximation methods.
@@ -26,8 +31,7 @@ Options:
 
 
 Example:
-    python convergence.py -s Leibniz -s MonteCarlo --precision 100 --stop 5
-
+    approximation-of-pi convergence -s Leibniz -s MonteCarlo --precision 100 --stop 5
 """
 
 import click
@@ -101,7 +105,6 @@ def main(sequence_names, precision, stop, number_of_samples, export_to):
     plt.legend()
     # Add grid lines
     plt.grid(linestyle="--", linewidth=0.5)
-
     plt.tight_layout()
 
     if export_to:
