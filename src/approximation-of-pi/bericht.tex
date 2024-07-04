@@ -79,7 +79,7 @@ Ingenieurwissenschaft, der Physik und der Informatik.
 
 Ziel dieses Berichts ist es, verschiedene mathematische Annäherungsmethoden zur
 Berechnung von \(\pi\) zu untersuchen und miteinander zu vergleichen.
-Neben der bereits bekannten Leibnizreihe werden zwei weitere Verfahren
+Neben der bereits bekannten Leibniz-Reihe werden zwei weitere Verfahren
 implementiert und analysiert.
 Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres Speicherbedarfs,
 ihres Konvergenzverhaltens und des Verhältnisses von Rechenaufwand zu
@@ -134,11 +134,11 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 
 \begin{definition}[Lineare Stichproben einer Folge]
     Für eine Folge \(S_n\) und \(a, b \in \mathbb{R}\) sowie \(k \in
-    \mathbb{N}\) heißt das \(k\)-Tuple
+    \mathbb{N}\) heißt das \(k\)-Tupel
     \begin{equation}
         \left(S_{a + i \cdot \frac{b}{k}}\right)_{i \in \{0, \ldots, k\}}
     \end{equation}
-    \(k\) lineare Stichproben der Folge über das Intervall \([a, b]\).
+    \(k\) lineare Stichproben der Folge über dem Intervall \([a, b]\).
 \end{definition}
 
 \subsection{Wahl eines angemessenen Datentypen}
@@ -163,7 +163,7 @@ feste Mantissen Länge erlaubt.
 
 Eine weitere benötigte Eigenschaft des \texttt{Decimal}-Datentyps ist die
 Vermeidung von Rundungsfehlern, die bei den Standard-Gleitkomma-Datentypen
-auftreten können Diese Fehler summieren sich bei iterativen Berechnungen, wie
+auftreten können. Diese Fehler summieren sich bei iterativen Berechnungen, wie
 sie zur Annäherung von \(\pi\) notwendig sind, und können zu signifikanten
 Abweichungen führen.
 
@@ -221,8 +221,8 @@ ist.
 
 \end{approximation sequence}
 
-\begin{approximation sequence}[Leibniz-Formel]
-Mit Fortschritten der Analysis wurde die Leibniz Reihe für \(\pi\) bereits im 14. 
+\begin{approximation sequence}[Leibniz-Reihe]
+Mit Fortschritten der Analysis wurde die Leibniz-Reihe für \(\pi\) bereits im 14. 
 oder 15. Jahrhundert von indischen Mathematikern entdeckt, und später dann in 
 Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und James Gregory.
 Sie lautet:
@@ -241,12 +241,12 @@ Da aber für \(|x| \leqslant 1\) gilt: \[|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt
 folgt die obige Aussage
 \[arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \] 
 Und die Folge \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine Approximationsfolge für \(\pi\).
-Außerdem lässt sich mit Definition 3 leicht nachrechnen, dass die Leibnizreihe logarithmisch konvergiert. 
+Außerdem lässt sich mit Definition 3 leicht nachrechnen, dass die Leibniz-Reihe logarithmisch konvergiert. 
 \end{approximation sequence}
 
 
 \begin{approximation sequence}[Gauß-Legendre]
-Der Gauß-Legendre Algorithmus, benannt nach den beiden Mathematikern Carl Friedrich Gauß 
+Der Gauß-Legendre Algorithmus ist benannt nach den beiden Mathematikern Carl Friedrich Gauß 
 und Adrien-Marie Legendre, die inviduell Arbeit beigetragen haben, auf denen dieser Algorithmus basiert.
 Dieser Algorithmus bedient sich vier verschiedener Folgen, sowie dem arithmetisch-geometrischen Mittels, 
 wie in Definition 4, um \(\pi\) zu approximieren.
