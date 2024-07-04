@@ -61,6 +61,8 @@
                 TEXMFVAR = "./cache/var";
 
                 XDG_CACHE_HOME = "$(mktemp -d)";
+                XDG_CONFIG_HOME = "$(mktemp -d)";
+                XDG_DATA_HOME = "$(mktemp -d)";
 
                 buildPhase = ''
                   runHook preBuild
