@@ -303,13 +303,21 @@ approximation-of-pi convergence --precision 50 --stop 4
 \end{figure}
 
 \begin{observation}
-    Die Analyse zeigt, dass die Gauss-Legendre- und Chudnovsky-Sequenzen sehr
-    schnell konvergieren und eine hohe Anzahl korrekt approximierter Stellen von Pi
-    bereits bei niedrigen Positionen innerhalb der Sequenz erreichen.
-    Die Gauss-Legendre-Sequenz zeigt hierbei die beste Konvergenz.
-    Die Leibniz-Sequenz weist eine deutlich langsamere Konvergenz auf, während die
-    Monte-Carlo-Sequenz erwartungsgemäß die geringste Anzahl korrekt approximierter
-    Stellen liefert, was auf ihre probabilistische Natur zurückzuführen ist.
+    Dieses Experiment dient dazu den Rechenaufwand mit der erzielten Präzision zu vergleichen. Dazu haben wir zum einen die Leibniz-Reihe mit 
+    der Monte-Carlo Simulation verglichen, und zum anderen den Gauß-Legendre Algorithmus mit dem Chudnovsky Algorithmus.
+    Grund für diese Aufteilung ist, dass die beiden zuerst aufgeführten Algorithmen auch für sehr viele Iterationen eine geringe Präzision aufweisen.
+    
+    Zuerst vergleichen wir die Leibniz-Reihe mit der Monte-Carlo Simulation. Beide Algorithmen müssen erst ein mal mehrere Iterationen ausführen um eine
+    Dezimalstelle korrekt zu approximieren, ca. 30 für die Leibniz-Reihe und fast 200 für die Monte-Carlo Simulation. Beide approximieren dann nach mehreren 
+    hundert Iteration zwar zwei korrekte Dezimalstellen, fallen dann jedoch wieder auf eine herab.
+    Während die Leibniz-Reihe hiernach, ab ca. 400 Iteration kontinuierlich, wenn auch langsam, an Präzision gewinnt, so schwankt die Monte-Carlo Simulation, was korrekt approximierte 
+    Dezimalstellen angeht.
+    Über 10,000,000 Millionen Iterationen schafft es die Leibniz-Reihe \(\pi\) auf insgesamt sechs korrekte Dezimalstellen zu approximieren, während die Monte-Carlo Simulation nur auf zwei kommt.
+    
+    Als nächstes vergleichen wir den Gauß-Legendre Algorithmus mit dem Chudnovsky Algorithmus. Beide Algorithmen gewinnen sehr schnell an Genauigkeit und während Chudnovsky für die ersten drei
+    Iteration genauer ist als Gauß-Legendre, so wird für vier oder mehr Iterationen der letztere Algorithmus deutlich besser. So hat der Gauß-Legendre Algorithmus die eingestellte Präzision von 512 Dezimalstellen schon nach
+    acht Iterationen erreicht, während der Chudnovsky Algorithmus hierfür etwas mehr als 30 Iterationen benötigt. Was auch zu beobachten ist, in diesem doppelt logarithmisch skaliertem Plot, ist dass der Chudnovsky Algorithmus
+    ungefähr linear ansteigt, während der Gauß-Legendre Algorithmus etwas schneller als linear ansteigt.
 \end{observation}
 
 \subsection{Speicherbedarf}
