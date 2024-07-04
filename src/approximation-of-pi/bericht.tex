@@ -95,7 +95,10 @@ experimentell verglichen.
 \begin{definition}[Annäherungsfolge]
     Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in
     \mathbb{R}\), sodass
-    \[\lim_{n \to \infty} a_n = P \] gilt. Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
+    \begin{equation}
+        \lim_{n \to \infty} a_n = P
+    \end{equation}
+    gilt. Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\).
 \end{definition}
 
 \begin{definition}[Uniforme Teilmenge]
@@ -109,30 +112,40 @@ experimentell verglichen.
     Sei \((s_n)_{n \in \mathbb{N}}\) eine Approximationsfolge mit Grenzwert s,
     wobei O. B. d. A. alle Folgeglieder paarweise verschieden und ungleich dem
     Grenzwert selbst sind. Dann konvergiert \(s_n\) linear, falls
-    \[\limsup_{n \to \infty} c_n < 1 \text{ mit } c_n := \frac{|s_{n+1}-s|}{|s_k-s|} \]
+    \begin{equation*}
+        \limsup_{n \to \infty} c_n < 1 \text{ mit } c_n \coloneq \frac{|s_{n+1}-s|}{|s_k-s|}
+    \end{equation*}
     Falls c = 1, so konvergiert die Folge sublinear. Gilt zusätzlich
-    \[\lim_{n \to \infty} \frac{|s_{n+2}-s_{n+1}|}{|s_{n+1}-s_n|} = 1\]
-    so heißt die Folge logarithmisch konvergent. c wird öfter auch als
-    Konvergenzrate bezeichnet, denn je kleiner c, desto schneller konvergiert
+    \begin{equation*}
+        \lim_{n \to \infty} \frac{|s_{n+2}-s_{n+1}|}{|s_{n+1}-s_n|} = 1
+    \end{equation*}
+    so heißt die Folge logarithmisch konvergent. \(c\) wird öfter auch als
+    Konvergenz rate bezeichnet, denn je kleiner c, desto schneller konvergiert
     die Folge gegen ihren Grenzwert, d.h. für eine gewünschte Präzision werden
     weniger Iterationen benötigt. Zudem lässt sich die Konvergenz der Ordnung q
     wie folgt definieren: Eine Folge \(s_n\) konvergiert mit Ordnung q, falls
-    \(s_n\) gegen einen Wert s konvergiert und ein c \textgreater 0 existiert,
+    \(s_n\) gegen einen Wert s konvergiert und ein \(c \le 0\) existiert,
     sodass
-    \[|s_{n+1} - s| \leqslant c|s_n - s|^q \text{ für alle } n \in \mathbb{N}\]
+    \begin{equation*}
+        |s_{n+1} - s| \leqslant c|s_n - s|^q \text{ für alle } n \in \mathbb{N}
+    \end{equation*}
     Falls
-    \[q = \lim_{n \to \infty} \frac{\log|{\frac{s_{k+1} - s_k}{s_k - s_{k-1}}|}}{\log{|\frac{s_k - s_{k-1}}{s_{k-1} - s_{k-2}}|}} \]
+    \begin{equation*}
+        q = \lim_{n \to \infty} \frac{\log|{\frac{s_{k+1} - s_k}{s_k - s_{k-1}}|}}{\log{|\frac{s_k - s_{k-1}}{s_{k-1} - s_{k-2}}|}}
+    \end{equation*}
     existiert, so heißt dieser Grenzwert exakte q-Ordnung. Für \(q = 2\) heißt
-    die Folge quadaratisch konvergent, für \(q = 3 \) kubisch usw. \\ Eine
+    die Folge quadratisch konvergent, für \(q = 3 \) kubisch usw. \\ Eine
     exakte q-Ordnung größer 1 bedeutet, dass sich die Anzahl der genauen
     Dezimalstellen mit jeder Iteration ver-q-facht.
 \end{definition}
 
 \begin{definition}[Arithmetisch-Geometrisches Mittel]
-    Seien \(a, b \in \mathbb{R}, a,b > 0\). Definiere
-    \[a_0 = a, \;\;\; b_0 = b\]
-    \[a_{n+1} = \frac{a_n + b_n}{2}, \;\;\; b_{n+1} = \sqrt{a_n b_n}\]
-    Dann heißt \(\lim_{n \to \infty}a_n = \lim_{n \to \infty} b_n =: M(a,b) \)
+    Seien \(a, b \in \mathbb{R}, a,b > 0\). Definiere wir
+    \begin{align*}
+        a_0     & = a,                                                    & b_0 & = b \\
+        a_{n+1} & = \frac{a_n + b_n}{2}, \qquad b_{n+1} = \sqrt{a_n b_n},
+    \end{align*}
+    dann heißt \(\lim_{n \to \infty} a_n = \lim_{n \to \infty} b_n =: M(a,b)\)
     das arithmetisch-geometrische Mittel von a und b. Dass die beiden
     Grenzwerte konvergieren, und dass sie gegen denselben Grenzwert
     konvergieren lässt sich recht einfach zeigen und kann hier \cite{AGM}
@@ -253,7 +266,10 @@ innerhalb des ersten Quadranten des Einheitskreises liegt, also eine Distanz
 zum Ursprung \(\le 1\) hat:
 
 \begin{equation}
-    P(M) = \frac{\text{Rote Punkte}}{\text{Gesamte Punkte}} = \frac{|\{(x, y) \in M \mid \sqrt{x^2 + y^2} \le 1\}|}{|M|} = \frac{\frac{\pi \cdot 1^2}{4}}{1} = \frac{\pi}{4}
+    P(M)
+    = \frac{\text{Rote Punkte}}{\text{Gesamte Punkte}}
+    = \frac{|\{(x, y) \in M \mid \sqrt{x^2 + y^2} \le 1\}|}{|M|}
+    = \frac{\frac{\pi \cdot 1^2}{4}}{1} = \frac{\pi}{4}
 \end{equation}
 
 Für eine Folge von gleichmäßig verteilten Teilmengen
@@ -273,7 +289,7 @@ beispielsweise durch das wiederholte Generieren von zwei Zufallszahlen zwischen
 
 Definieren wir beispielsweise die Teilmenge \(U_{1400} \coloneq \text{Rote
 Punkte} \cup \text{Gesamte Punkte}\) als die Vereinigung der roten und gesamten
-Punkte aus Abbildung \ref{fig:monte-carlo-approximation}, so folgt daraus:
+Punkte aus Abbildung \autoref{fig:monte-carlo-approximation}, so folgt daraus:
 \begin{equation}
     P(U_{1400}) = \frac{r}{n} \Rightarrow \pi \approx \frac{4 \cdot r}{n} = \frac{4 \cdot 1100}{1400} = 3.1429
 \end{equation}
@@ -286,25 +302,33 @@ Mit Fortschritten der Analysis wurde die Leibniz-Reihe für \(\pi\) bereits im
 14. oder 15. Jahrhundert von indischen Mathematikern entdeckt, und später dann
 in Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und
 James Gregory. Sie lautet:
-\[ \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
+\begin{equation*}
+    \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1}
+\end{equation*}
 und basiert auf der Taylor-Reihe für den Arkustangens \(arctanx = x -
-   \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \) Für \(x = 1\)
-   erhält man das obige Ergebnis. Ein recht simpler Beweis für die
-   Reihendarstellung von \(arctanx\) wird im folgenden aufgeführt:
-   \cite{Leibniz}
+\frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots\).
+Für \(x = 1\) erhält man das obige Ergebnis. Ein recht simpler Beweis für die
+Reihendarstellung von \(arctanx\) wird im Folgenden aufgeführt:
+\cite{Leibniz}
 \begin{equation}
     \begin{split}
-        arctanx & = \int_{0}^{x} \frac{1}{1+t^2}\,dt                                                              \\
-                & = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt                \\
-                & = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt
+        arctanx & = \int_{0}^{x} \frac{1}{1+t^2}\,dt                                                               \\
+                & = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt                 \\
+                & = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt.
     \end{split}
 \end{equation}
-Da aber für \(|x| \leqslant 1\) gilt: \[|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt| \leqslant |\int_{0}^{x}t^{2n+2}\,dt| = \frac{|x|^{2n+3}}{2n+3} \rightarrow 0 \text{ für } n \rightarrow \infty \]
+Da aber für \(|x| \leqslant 1\) gilt:
+\begin{equation*}
+    \left|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt\right| \leqslant \left|\int_{0}^{x}t^{2n+2}\,dt\right|
+    = \frac{|x|^{2n+3}}{2n+3} \rightarrow 0 \quad \text{für} \quad n \rightarrow \infty
+\end{equation*}
 folgt die obige Aussage
-\[arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \]
-Und die Folge \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine
-   Approximationsfolge für \(\pi\). Außerdem lässt sich mit Definition 3 leicht
-   nachrechnen, dass die Leibniz-Reihe logarithmisch konvergiert.
+\begin{equation*}
+    arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots
+\end{equation*}
+und die Folge \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine
+Approximationsfolge für \(\pi\). Außerdem lässt sich mit Definition 3 leicht
+nachrechnen, dass die Leibniz-Reihe logarithmisch konvergiert.
 \end{approximation sequence}
 
 \begin{approximation sequence}[Gauß-Legendre]
@@ -315,7 +339,9 @@ haben, auf denen dieser Algorithmus basiert. Dieser Algorithmus bedient sich
 vier verschiedener Folgen, sowie dem arithmetisch-geometrischen Mittels, wie in
 Definition 4, um \(\pi\) zu approximieren. Im folgenden wird der Algorithmus
 aufgeführt: \cite{AGM-Gauß-Legendre} Die Startwerte lauten wie folgt:
-\[a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1 \]
+\begin{equation*}
+    a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1.
+\end{equation*}
 Mit den Iterationsvorschriften:
 \[a_{n+1} = \frac{a_n + b_n}{2} \]
 \[b_{n+1} = \sqrt{a_nb_n} \]
@@ -323,48 +349,65 @@ Mit den Iterationsvorschriften:
 \[p_{n+1} = 2p_n \]
 
 Dann gilt für \(g_n := \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}}\):
-\[\lim_{n \to \infty}g_n = \pi \]
+\begin{equation*}
+    \lim_{n \to \infty}g_n = \pi
+\end{equation*}
 
 Als mathematische Grundlagen \cite{Eugene-Salamin} für diesen Algorithmus
 dienen zum einen das arithmetische-geometrische Mittel welches für \(a_0 = 1
 \text{ und } b_0 = \cos(\phi)\) gegen \(\frac{\pi}{2K(\sin(\phi))}\)
 konvergiert, wobei
-\[K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}}d\theta \] das elliptische Integral erster Art ist und zum anderen der Fakt, dass für
-    \(c_0 = \sin(\phi), \\ c_{i+1} = a_i - a_{i+1}\)
-\[ \sum_{i= 0}^{\infty} 2^{i-1} c_{i}^{2} = 1 - \frac{E(sin(\phi))}{K(sin(\phi))} \]
-wobei \[E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta)}d\theta\] das elliptische Integral zweiter Art ist, und einer Identität, die Legendre
-   bewies:
-\[K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2} \]
+\begin{equation*}
+    K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}}d\theta
+\end{equation*}
+das elliptische Integral erster Art ist und zum anderen der Fakt, dass für
+\(c_0 = \sin(\phi), \\ c_{i+1} = a_i - a_{i+1}\)
+\begin{equation*}
+    \sum_{i= 0}^{\infty} 2^{i-1} c_{i}^{2} = 1 - \frac{E(sin(\phi))}{K(sin(\phi))}
+\end{equation*}
+wobei
+\begin{equation*}
+    E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta)}d\theta
+\end{equation*}
+das elliptische Integral zweiter Art ist, und einer Identität, die Legendre
+bewies:
+\begin{equation*}
+    K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2}
+\end{equation*}
 Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\)
-   konvergiert und dazu noch quadratisch konvergiert, ist zu lang für diese
-   Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und hier
-   \cite{Gauß-Legendre} nachgelesen werden. \\ Die Laufzeit für den
-   Gauß-Legendre Algorithmus für eine gegebene Präzision n beträgt
-   \(\mathcal{O}(\frac{15}{2}M(n)log_2(n))\), wobei \(M(n)\) die Zeit ist, um
-   floating-point Zahlen mit n-Bit Bruchteil zu multiplizieren.
-   \cite{AGM-Gauß-Legendre} Für den Datentyp Decimal gilt \(M(n) =
-   n^{\log_{2}(3)}\) mit der Karatsuba Multiplikation für Decimals
-   \cite{Decimal-Multiplication}. Also liegt die Laufzeit insgesamt in
-   \(\mathcal{O}(\frac{15}{2}n^{\log_{2}(3)}log_2(n))\).
+konvergiert und dazu noch quadratisch konvergiert, ist zu lang für diese
+Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und hier
+\cite{Gauß-Legendre} nachgelesen werden. \\ Die Laufzeit für den
+Gauß-Legendre Algorithmus für eine gegebene Präzision n beträgt
+\(\mathcal{O}(\frac{15}{2}M(n)log_2(n))\), wobei \(M(n)\) die Zeit ist, um
+floating-point Zahlen mit n-Bit Bruchteil zu multiplizieren.
+\cite{AGM-Gauß-Legendre} Für den Datentyp Decimal gilt \(M(n) =
+n^{\log_{2}(3)}\) mit der Karatsuba Multiplikation für \texttt{Decimals}
+\cite{Decimal-Multiplication}. Also liegt die Laufzeit insgesamt in
+\(\mathcal{O}(\frac{15}{2}n^{\log_{2}(3)}log_2(n))\).
 \end{approximation sequence}
 
 \begin{approximation sequence}[Chudnovsky-Algorithmus]
 Der Chudnovsky Algorithmus, benannt nach seinen Entdeckern den Chudnovsky
 Brüdern, ist eine schnelle Methode um \(\pi\) zu berechnen. Der Algorithmus
 basiert auf folgender Reihe\cite{Chudnovsky}:
-\[\frac{1}{\pi} = \frac{1}{426880\sqrt{10005}}\sum_{k = 0}^{\infty}\frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}\]
+\begin{equation*}
+    \frac{1}{\pi}
+    = \frac{1}{426880 \sqrt{10005}}
+    \sum_{k = 0}^{\infty}
+    \frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}
+\end{equation*}
 Die Laufzeitkomplexität liegt in \(\mathcal{O}(n(logn)^3)\)
-  \cite{Runtime-Chudnovsky} und der Algorithmus produziert mit jeder Iteration
-  durchschnittlich 14.81 weitere korrekte Dezimalstellen
-  \cite{Nachkommastellen-Chudnovsky}, was ihn zu einem sehr guten
-  Approximationsalgorithmus für \(\pi\) macht. Auf einen Beweis dieser
-  Gleichung wird verzichtet und kann hier \cite{Chudnovsky-Proof} nachgelesen
-  werden. Dieser Algorithmus wurde für viele Weltrekorde, im Bereich \(\pi\)
-  approximieren benutzt, jedoch wurde in diesem Fall eine Optimierung des
-  Algorithmus', das sogenannte Binary-Splitting
-  verwendet\cite{Chudnovsky}.Während es interessant wäre auch diese zu
-  untersuchen, haben wir uns aber dazu entschieden diese wegzulassen, da sie
-  über den Rahmen dieser Arbeit hinausgeht.
+\cite{Runtime-Chudnovsky} und der Algorithmus produziert mit jeder Iteration
+durchschnittlich 14.81 weitere korrekte Dezimalstellen
+\cite{Nachkommastellen-Chudnovsky}, was ihn zu einem sehr guten
+Approximationsalgorithmus für \(\pi\) macht. Auf einen Beweis dieser Gleichung
+wird verzichtet und kann hier \cite{Chudnovsky-Proof} nachgelesen werden.
+Dieser Algorithmus wurde für viele Weltrekorde, im Bereich \(\pi\)
+approximieren benutzt, jedoch wurde in diesem Fall eine Optimierung des
+Algorithmus, das sogenannte Binary-Splitting verwendet \cite{Chudnovsky}.
+Während es interessant wäre auch diese zu untersuchen, haben wir uns aber dazu
+entschieden diese wegzulassen, da sie über den Rahmen dieser Arbeit hinausgeht.
 
 \end{approximation sequence}
 
@@ -410,7 +453,7 @@ festgelegt und hängt von der Anzahl der zu approximierenden Dezimalstellen ab.
     entscheidend für die Effizienz der Approximationsfolge ist.
 \end{observation}
 
-\subsection{Konvergenzanalyse}
+\subsection{Konvergenz Analyse}\label{sec:convergence-analysis}
 
 Ein sehr relevanter Faktor für die Auswahl einer Approximationsfolge ist deren
 Konvergenz verhalten.
@@ -465,9 +508,9 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
     eingestellte Präzision von 512 Dezimalstellen schon nach acht Iterationen
     erreicht, während der Chudnovsky Algorithmus hierfür etwas mehr als 30
     Iterationen benötigt. Was auch zu beobachten ist, in diesem doppelt
-    logarithmisch skaliertem Plot, ist dass der Chudnovsky Algorithmus ungefähr
-    linear ansteigt, während der Gauß-Legendre Algorithmus etwas schneller als
-    linear ansteigt.
+    logarithmisch skaliertem Plot, ist, dass der Chudnovsky Algorithmus
+    ungefähr linear ansteigt, während der Gauß-Legendre Algorithmus etwas
+    schneller als linear ansteigt.
 \end{observation}
 
 \pagebreak
@@ -522,32 +565,32 @@ Laufzeitverhalten und Rechenaufwand an. Wie schon vermutet wird die Laufzeit
 für die Leibniz-Reihe auch für eine geringe Präzision von wenigen
 Dezimalstellen sehr groß, was auf die logarithmische Konvergenz dieser Reihe
 zurückzuführen ist. Auch für die Monte-Carlo Simulation ist die Laufzeit sehr
-hoch, jedoch ist sie im allgemeinen geringer, als für die Leibniz-Reihe, was
+hoch, jedoch ist sie im Allgemeinen geringer, als für die Leibniz-Reihe, was
 auf die probabilistische Natur der Monte-Carlo Simulation zurückschließen
 lässt. Dementsprechend ist auch die durchschnittliche Zeit pro korrekte
-Dezimalstelle höher für Leibniz als für Monte-Carlo. Eine weitere Tatsache, 
-die wir herausgefunden haben, ist dass sowohl die gesamte Rechenzeit, sowie 
-die Durchschnittszeit für eine gegebene Präzision für den Gauß-Legendre 
-Algorithmus höher ist als für den Chudnovsky Algorithmus.
+Dezimalstelle höher für Leibniz als für Monte-Carlo. Eine weitere Tatsache, die
+wir herausgefunden haben, ist, dass sowohl die gesamte Rechenzeit, sowie die
+Durchschnittszeit für eine gegebene Präzision für den Gauß-Legendre Algorithmus
+höher ist als für den Chudnovsky Algorithmus.
 
-Die Ergebnisse unseres Experiments zur Konvergenzanalyse hat die, wie auch
+Die Ergebnisse unseres Experiments zur Konvergenz Analyse hat die, wie auch
 schon in der Erläuterung der Algorithmen, vorhergesagten Eigenschaften zur
-Konvergenzrate bestätigt. Die Leibniz-Reihe konvergiert nur sehr langsam,
+Konvergenz Rate bestätigt. Die Leibniz-Reihe konvergiert nur sehr langsam,
 logarithmisch um genau zu sein, und dies macht sich auch in unserem Experiment
-bemerkbar, da für sieben korrekte Dezimalstellen fast \(10^7\) Iterationen
+bemerkbar, dafür sieben korrekte Dezimalstellen fast \(10^7\) Iterationen
 benötigt werden. Auch das probabilistische Verhalten des Monte-Carlo
-Algorithmus' macht sich in diesem Experiment bemerkbar, denn die Anzahl an
+Algorithmus macht sich in diesem Experiment bemerkbar, denn die Anzahl an
 korrekten Dezimalstellen geht mal hoch und mal runter, wie im Graphen zu sehen
 ist. Auch das extrem schnelle Konvergieren des Chudnovsky und des Gauß-Legendre
-Algorithmus' ist deutlich zu erkennen. Was aber interessanter ist, ist die
+Algorithmus ist deutlich zu erkennen. Was aber interessanter ist, ist die
 Tatsache, dass sich die Verdoppelung der korrekten Dezimalstellen für den
 Gauß-Legendre Algorithmus, was auf seine quadratische Konvergenz zurückzuführen
 ist, im Graphen erkennen lässt. Ein ähnliches Ergebnis ist erkenntlich für den
 Chudnovsky Algorithmus, der pro Iteration grob 15 korrekte Dezimalstellen zur
 Approximation hinzufügt. Dies ist erkennbar durch den linearen Anstieg im
-Graphen für die Konvergenzanalyse.
+Graphen für die Konvergenz Analyse.
 
-Als letztes schauen wir uns unsere Ergebnisse zum Speicherbedarf an.
+Als Letztes schauen wir uns unsere Ergebnisse zum Speicherbedarf an.
 Überraschenderweise weisen alle Algorithmen einen linearen Anstieg im Graphen
 auf, mit dem Unterschied, dass die verschiedenen Geraden verschiedene
 Steigungen haben. So wächst der Speicherbedarf für den Gauß-Legendre
@@ -565,11 +608,12 @@ Konvergenzeigenschaften sehr überzeugt, auch wenn sie vielleicht etwas mehr
 Speicher benötigen.
 
 \section{Zusammenfassung}
+
 Welche Erkenntnisse haben wir also mit unseren Experimenten gewonnen? Zum einen
 stimmen die Experimente mit der Theorie überein, beispielsweise die langsame
 Konvergenz der Monte-Carlo Simulation und der Leibniz-Reihe waren in dem
-Experimentabschnitt "Konvergenzanalyse" deutlich zu sehen. Außerdem waren auch
-konkrete Eigenschaften des Gauß-Legendre Algorithmus, namentlich die
+Experiment \autoref{sec:convergence-analysis} deutlich zu sehen. Außerdem waren
+auch konkrete Eigenschaften des Gauß-Legendre Algorithmus, namentlich die
 quadratische Konvergenz, also die Verdoppelung an korrekten Dezimalstellen mit
 jeder Iteration, sowie die Tatsache, dass der Chudnovsky Algorithmus mit jeder
 Iteration grob 15 weitere korrekte Dezimalstellen produziert, auch im Graphen
