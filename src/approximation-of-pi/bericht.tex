@@ -403,7 +403,6 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
     \caption{%
         Anzahl an korrekt approximierten Dezimalstellen in Abhängigkeit von der
         Position innerhalb der Sequenz mit \(b\) (Parameter \texttt{--stop} im
-        Skript), \(k = 20\) (Parameter \texttt{--samples} im Skript) und \(m =
         2^9\) (Parameter \texttt{--precision} im Skript). }
     \label{fig:convergence-analysis}
 \end{figure}
@@ -460,7 +459,7 @@ ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
 \begin{observation}
     Die Analyse zeigt, dass der Speicherbedarf mit zunehmender Anzahl der
     Dezimalstellen für alle Sequenzen linear ansteigt. Dabei ist der
-    Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt von der
+    Speicherbedarf der Gauß-Legendre-Sequenz am höchsten, gefolgt von der
     Chudnovsky-Sequenz. Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen
     vergleichsweise geringeren Anstieg des Speicherbedarfs, was mit deren
     relativ wenigen internen Variablen zusammenhängt. Besonders hervorzuheben
@@ -470,6 +469,30 @@ ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
 \end{observation}
 
 \section{Auswertung}
+Im folgenden Abschnitt wollen wir uns mit der Auswertung unserer Experimente befassen und vergleichen, ob sie auch mit der Theorie übereinstimmen.
+
+Zunächst schauen wir uns die Ergebnisse unseres Experiments zum Laufzeitverhalten und Rechenaufwand an.
+Wie schon vermutet wird die Laufzeit für die Leibniz-Reihe auch für eine geringe Präzision von wenigen Dezimalstellen sehr groß, was auf die logarithmische Konvergenz dieser Reihe
+zurückzuführen ist. Auch für die Monte-Carlo Simulation ist die Laufzeit sehr hoch, jedoch ist sie im allgemeinen geringer, als für die Leibniz-Reihe, was auf die probabilistische Natur
+der Monte-Carlo Simulation zurückschließen lässt. Dementsprechen ist auch die durchschnittliche Zeit pro korrekte Dezimalstelle höher für Leibniz als für Monte-Carlo.
+
+
+Die Ergebnisse unseres Experiments zur Konvergenzanalyse hat die, wie auch schon in der Erläuterung der Algorithmen, vorhergesagten Eigenschaften zur Konvergenzrate bestätigt.
+Die Leibniz-Reihe konvergiert nur sehr langsam, logarithmisch um genau zu sein, und dies macht sich auch in unserem Experiment bemerkbar, da für sieben korrekte Dezimalstellen fast 
+\(10^7\) Iterationen benötigt werden. Auch das probabilistische Verhalten des Monte-Carlo Algorithmus' macht sich in diesem Experiment bemerkbar, denn die Anzahl an korrekten Dezimalstellen
+geht mal hoch und mal runter, wie im Graphen zu sehen ist.
+Auch das extrem schnelle Konvergieren des Chudnovsky und des Gauß-Legendre Algorithmus' ist deutlich zu erkennen. Was aber interessanter ist, ist die Tatsache, dass sich die Verdoppelung der korrekten 
+Dezimalstellen für den Gauß-Legendre Algorithmus, was auf seine quadratische Konvergenz zurückzuführen ist, im Graphen erkennen lässt.
+Ein ähnliches Ergebnis ist erkenntlich für den Chudnovsky Algorithmus, der pro Iteration grob 15 korrekte Dezimalstellen zur Approximation hinzufügt. Dies ist erkennbar durch den linearen Anstieg im 
+Graphen für die Konvergenzanalyse. 
+
+Als letztes schauen wir uns unsere Ergebnisse zum Speicherbedarf an. Überraschenderweise weisen alle Algorithmen einen linearen Anstieg im Graphen auf, mit dem Unterschied, dass die verschiedenen Geraden verschiedene Steigungen haben.
+So wächst der Speicherbedarf für den Gauß-Legendre Algorithmus am schnellsten an, was für sehr genaue Präzisionen ein Nachteil seien könnte, da sehr viel Speicherplatz verbraucht wird.
+Leibniz und Chudnovsky weisen einen ähnlichen Anstieg an und die Monte-Carlo Simulation den geringsten Anstieg.
+
+Nun stellt sich die Frage, welcher Algorithmus ist der beste, um \(\pi\) zu approximieren? 
+Diese Frage lässt sich nur schwer beantworten und hängt von den Umständen ab, wie z. B. ist Speicherplatz ein Problem oder wie viele Nachkommastellen benötige ich.
+Insgesamt aber haben sowohl der Gauß-Legendre Algorithmus, als auch der Chudnovsky Algorithmus, uns mit ihren Konvergenzeigenschaften sehr überzeugt, auch wenn sie vielleicht etwas mehr Speicher benötigen.
 
 \section{Zusammenfassung}
 Welche Erkenntnisse haben wir also mit unseren Experimenten gewonnen? Zum einen stimmen die Experimente mit der Theorie überein, beispielsweise die 
@@ -481,6 +504,7 @@ Wie wir auch in unserer Analyse zum Speicherbedarfs gesehen haben, steigt dieser
 deren Folgenglieder berechnet werden müssen, am größten. Gefolgt wird dieser vom Chudnovsky Algorithmus, dann der Monte-Carlo Simulation und zuletzt der Leibniz-Reihe, die am wenigsten Speicherplatz pro korrekter Dezimalstelle 
 verbraucht.
 
-\printbibliography
+Abschließend sind wir der Ansicht, dass der Gauß-Legendre, sowie der Chudnovsky Algorithmus, aufgrund ihrer Eigenschaften, deutlich geeigneter zur Approximation von \(\pi\) geeignet sind, als die anderen beiden.
+%\printbibliography
 
 \end{document}
