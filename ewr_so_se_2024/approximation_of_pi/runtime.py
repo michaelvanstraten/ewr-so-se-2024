@@ -103,7 +103,7 @@ def main(sequence_names, digits, number_of_samples, export_to):
             *[
                 (
                     computation_time := runtime_analysis.approximation_up_to(digits)
-                    / 1000,
+                    / 10**6,
                     computation_time / digits,
                 )
                 for digits in tqdm(
