@@ -127,6 +127,13 @@
                   enable = true;
                   package = pkgs.nixfmt-rfc-style;
                 };
+                # Markdown checks
+                prettier = {
+                  enable = true;
+                  settings = {
+                    prose-wrap = "always";
+                  };
+                };
                 # Python checks
                 black.enable = true;
                 pylint = {

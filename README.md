@@ -47,8 +47,7 @@ poetry install
 To run a module within this repository, use the following command:
 
 ```sh
-# Execute `python -m ewr_so_se_2024.approximation_of_pi convergence` within the 
-# virtual environment.
+# Execute `python -m ewr_so_se_2024.approximation_of_pi convergence` within the virtual environment.
 poetry run python -m ewr_so_se_2024.approximation_of_pi convergence
 ```
 
@@ -60,8 +59,9 @@ you can add `--help` to the end of the command, like this:
 poetry run python -m ewr_so_se_2024.approximation_of_pi --help
 ```
 
-The above command will run the [`__main__.py`](./ewr_so_se_2024/approximation_of_pi/__main__.py) 
-file in this repository.
+The above command will run the
+[`__main__.py`](./ewr_so_se_2024/approximation_of_pi/__main__.py) file in this
+repository.
 
 ### Running Tools like `pylint`
 
@@ -92,13 +92,17 @@ After this, you can proceed as described in the Poetry setup section.
 
 ## Build a Document with Nix
 
-This repository contains multiple reports and presentations for the assignments of this course.
+This repository contains multiple reports and presentations for the assignments
+of this course.
 
-To build one of these LaTeX documents using Nix, you can follow the installation instructions for Nix and then execute the following command:
+To build one of these LaTeX documents using Nix, you can follow the installation
+instructions for Nix and then execute the following command:
 
 ```sh
 nix build github:michaelvanstraten/ewr-so-se-2024#approximation-of-pi-report
 
 ```
 
-This command will compile the LaTeX [`approximation-of-pi/bericht.tex`](./src/approximation-of-pi/bericht.tex) Document using the configurations specified in the Nix setup.
+This command will compile the LaTeX
+[`approximation-of-pi/bericht.tex`](./src/approximation-of-pi/bericht.tex)
+Document using the configurations specified in the Nix setup.
