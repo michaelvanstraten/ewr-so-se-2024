@@ -353,13 +353,23 @@ korrekt zu approximieren. Zusätzlich wird die relative Laufzeit für eine
 einzelne Dezimalstelle berechnet. Die Mantissenlänge \(m\) wird hierbei
 festgelegt und hängt von der Anzahl der zu approximierenden Dezimalstellen ab.
 
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
-    \subfloat[\centering \(n = 2^{11}\)]{{\includesvg[width=0.45\textwidth]{figures/runtime-only-fast.svg} }}
-    \hspace{5cm}
-    \subfloat[\centering \(n = 7\)]{{\includesvg[width=0.45\textwidth]{figures/runtime-only-slow.svg} }}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includesvg[width=0.75\textwidth]{figures/runtime-only-fast.svg}
+        \caption{\(n = 2^{11}\)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includesvg[width=0.75\textwidth]{figures/runtime-only-slow.svg}
+        \caption{\(n = 7\)}
+    \end{subfigure}
     \caption{%
-        Laufzeit in Abhängigkeit von der Anzahl der zu approximierenden Dezimalstellen mit \(n\) (Parameter \texttt{--digits} im Skript) und \(k = 20\) (Parameter \texttt{--samples} im Skript).
+        Laufzeit in Abhängigkeit von der Anzahl der zu approximierenden
+        Dezimalstellen mit \(n\) (Parameter \texttt{--digits} im Skript)
+        und \(k = 20\) (Parameter \texttt{--samples} im Skript).
     }
 \end{figure}
 
@@ -380,14 +390,18 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
 
 \begin{figure}[H]
     \centering
-    \subfloat[\centering \(b = 10^2\)]{{\includesvg[width=0.5\textwidth]{figures/convergence-only-fast.svg} }}
-    \subfloat[\centering \(b = 10^6\)]{{\includesvg[width=0.5\textwidth]{figures/convergence-only-slow.svg} }}
+    \subfloat[\centering \(b = 10^2\)]{%
+        \includesvg[width=0.5\textwidth]{figures/convergence-only-fast.svg}
+    }
+    \subfloat[\centering \(b = 10^6\)]{%
+        \includesvg[width=0.5\textwidth]{figures/convergence-only-slow.svg}
+    }
     \caption{%
         Anzahl an korrekt approximierten Dezimalstellen in Abhängigkeit von der
         Position innerhalb der Sequenz mit \(b\) (Parameter \texttt{--stop} im
         Skript), \(k = 20\) (Parameter \texttt{--samples} im Skript) und \(m =
         2^9\) (Parameter \texttt{--precision} im Skript). }
-        \label{fig:convergence-analysis}
+    \label{fig:convergence-analysis}
 \end{figure}
 
 \begin{observation}
