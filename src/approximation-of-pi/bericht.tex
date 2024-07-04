@@ -274,11 +274,19 @@ Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\) konver
 für diese Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und hier \cite{Gauß-Legendre} nachgelesen werden. \\
 Die Laufzeit für den Gauß-Legendre Algorithmus für eine gegebene Präzision n beträgt \(\mathcal{O}(\frac{15}{2}M(n)log_2(n))\),
 wobei \(M(n)\) die Zeit ist, um floating-point Zahlen mit n-Bit Bruchteil zu multiplizieren. \cite{AGM-Gauß-Legendre}
-Für den Datentyp Decimal gilt \(M(n) = n^2\) mit der Karatsuba Multiplikation für Decimals \cite{Decimal-Multiplication}.
-Also liegt die Laufzeit insgesamt in \(\mathcal{O}(\frac{15}{2}n^2log_2(n))\).
+Für den Datentyp Decimal gilt \(M(n) = n^{\log_{2}(3)}\) mit der Karatsuba Multiplikation für Decimals \cite{Decimal-Multiplication}.
+Also liegt die Laufzeit insgesamt in \(\mathcal{O}(\frac{15}{2}n^{\log_{2}(3)}log_2(n))\).
 \end{approximation sequence}
 
 \begin{approximation sequence}[Chudnovsky-Algorithmus]
+Der Chudnovsky Algorithmus, benannt nach seinen Entdeckern den Chudnovsky Brüdern, ist eine schnelle Methode um \(\pi\) zu berechnen. 
+Der Algorithmus basiert auf folgender Reihe\cite{Chudnovsky}:
+\[\frac{1}{\pi} = \frac{1}{426880\sqrt{10005}}\sum_{k = 0}^{\infty}\frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}\]
+Die Laufzeitkomplexität liegt in \(\mathcal{O}(n(logn)^3)\) \cite{Runtime-Chudnovsky} 
+Auf einen Beweis dieser Gleichung wird verzichtet und kann hier \cite{Chudnovsky-Proof} nachgelesen werden.
+Dieser Algorithmus wurde für viele Weltrekorde, im Bereich \(\pi\) approximieren benutzt, jedoch wurde in diesem Fall eine Optimierung 
+des Algorithmus', das sogenannte Binary-Splitting verwendet. Während es interessant wäre auch diese zu untersuchen, haben wir uns aber dazu
+entschieden diese wegzulassen, da sie über den Rahmen dieser Arbeit hinausgeht. \cite{Chudnovsky}  
 
 \end{approximation sequence}
 
