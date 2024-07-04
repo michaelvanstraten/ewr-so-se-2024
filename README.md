@@ -47,20 +47,21 @@ poetry install
 To run a module within this repository, use the following command:
 
 ```sh
-# Execute `python -m ewr_so_se_2024.main` within the virtual environment
-poetry run python -m ewr_so_se_2024.main
+# Execute `python -m ewr_so_se_2024.approximation_of_pi convergence` within the 
+# virtual environment.
+poetry run python -m ewr_so_se_2024.approximation_of_pi convergence
 ```
 
 To see what command-line interface (CLI) options are available with each module,
 you can add `--help` to the end of the command, like this:
 
 ```sh
-# Prints help for the `ewr_so_se_2024.main` module
-poetry run python -m ewr_so_se_2024.main --help
+# Prints help for the `ewr_so_se_2024.approximation_of_pi` module
+poetry run python -m ewr_so_se_2024.approximation_of_pi --help
 ```
 
-The above command will run the [`main.py`](./ewr_so_se_2024/main.py) file in
-this repository.
+The above command will run the [`__main__.py`](./ewr_so_se_2024/approximation_of_pi/__main__.py) 
+file in this repository.
 
 ### Running Tools like `pylint`
 
