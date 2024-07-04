@@ -403,6 +403,7 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
     \caption{%
         Anzahl an korrekt approximierten Dezimalstellen in Abhängigkeit von der
         Position innerhalb der Sequenz mit \(b\) (Parameter \texttt{--stop} im
+        Skript), \(k = 20\) (Parameter \texttt{--samples} im Skript) und \(m =
         2^9\) (Parameter \texttt{--precision} im Skript). }
     \label{fig:convergence-analysis}
 \end{figure}
@@ -433,7 +434,7 @@ Ein weiterer relevanter Faktor für die Auswahl eines Approximationsalgorithmus
 ist der Arbeitsspeicherbedarf während der Laufzeit. Benötigt ein Algorithmus
 beispielsweise einen quadratisch zur Anzahl der zu approximierenden
 Dezimalstellen wachsenden Speicherbedarf, so kann ein herkömmlicher Computer
-mit 16 GB Arbeitsspeicher eine maximale Anzahl von etwa 125.000 Dezimalstellen
+mit 16 GB Arbeitsspeicher eine maximale Anzahl von etwa 125,000 Dezimalstellen
 berechnen, unabhängig von der Rechenzeit.
 
 In diesem Experiment wird der Speicherbedarf der verschiedenen
@@ -505,6 +506,6 @@ deren Folgenglieder berechnet werden müssen, am größten. Gefolgt wird dieser 
 verbraucht.
 
 Abschließend sind wir der Ansicht, dass der Gauß-Legendre, sowie der Chudnovsky Algorithmus, aufgrund ihrer Eigenschaften, deutlich geeigneter zur Approximation von \(\pi\) geeignet sind, als die anderen beiden.
-%\printbibliography
+\printbibliography
 
 \end{document}
