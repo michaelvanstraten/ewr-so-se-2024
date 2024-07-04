@@ -375,6 +375,14 @@ ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
 \section{Auswertung}
 
 \section{Zusammenfassung}
+Welche Erkenntnisse haben wir also mit unseren Experimenten gewonnen? Zum einen stimmen die Experimente mit der Theorie überein, beispielsweise die 
+langsame Konvergenz der Monte-Carlo Simulation und der Leibniz-Reihe waren in dem Experimentabschnitt "Konvergenzanalyse" deutlich zu sehen. 
+Außerdem waren auch konkrete Eigenschaften des Gauß-Legendre Algorithmus, namentlich die quadratische Konvergenz, also die Verdoppelung an korrekten Dezimalstellen 
+mit jeder Iteration, sowie die Tatsache, dass der Chudnovsky Algorithmus mit jeder Iteration grob 15 weitere korrekte Dezimalstellen produziert, auch im Graphen zu erkennen.
+
+Wie wir auch in unserer Analyse zum Speicherbedarfs gesehen haben, steigt dieser linear für jeden Algorithmus mit zunehmenden korrekten Dezimalstellen an, und ist für den Gauß-Legendre Algorithmus, aufgrund seiner vier Folgen,
+deren Folgenglieder berechnet werden müssen, am größten. Gefolgt wird dieser vom Chudnovsky Algorithmus, dann der Monte-Carlo Simulation und zuletzt der Leibniz-Reihe, die am wenigsten Speicherplatz pro korrekter Dezimalstelle 
+verbraucht.
 
 \printbibliography
 
