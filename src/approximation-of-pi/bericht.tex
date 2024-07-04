@@ -141,56 +141,58 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
     \(k\) lineare Stichproben der Folge über dem Intervall \([a, b]\).
 \end{definition}
 
-\subsection{Rechenaufwand von Computerarithmetik}
+% TO-DO: Readd this and Analyse the sequences with it
 
-In diesen Bericht werden wir die Rechenkosten unserer Algorithmen analysieren.
-Um dies zu erleichtern, definieren wir einige allgemeine Parameter wie folgt:
-
-\begin{enumerate}
-    \item \textbf{Basisoperation}:
-          \begin{itemize}
-              \item Die Addition von zwei \texttt{64-Bit-Integern} dient als
-                    Basisoperation, da dies auf den meisten Prozessoren
-                    typischerweise maximal 1 CPU-Zyklus dauert.
-          \end{itemize}
-
-    \item \textbf{Multiplikation von \texttt{64-Bit-Integern}}:
-          \begin{itemize}
-              \item Die Multiplikation von zwei \texttt{64-Bit-Integern} dauert
-                    ungefähr 20 CPU-Zyklen \cite{64-bit-Multiplication}.
-          \end{itemize}
-
-    \item \textbf{Multiplikation von Ganzzahlen mit beliebiger Genauigkeit}:
-          \begin{itemize}
-              \item Die Multiplikation von zwei Ganzzahlen mit beliebiger
-                    Genauigkeit und der Genauigkeit \(n\) erfordert höchstens
-                    \(n^{\log_2(3)}\) Einziffern-Multiplikationen. Daher
-                    betragen die Kosten in Basiseinheiten:
-                    \[
-                        \left\lceil n^{\log_2(3)} \cdot \frac{20}{64} \right\rceil
-                    \]
-          \end{itemize}
-
-    \item \textbf{Addition von Ganzzahlen mit beliebiger Genauigkeit}:
-          \begin{itemize}
-              \item Die Addition von zwei Ganzzahlen mit beliebiger Genauigkeit
-                    und der Genauigkeit \(n\) dauert ungefähr:
-                    \[
-                        \left\lceil \frac{n}{64} \right\rceil
-                    \]
-                    Basiseinheiten.
-          \end{itemize}
-
-    \item \textbf{Addition und Multiplikation von \texttt{Decimal}}:
-          \begin{itemize}
-              \item Die Rechenkosten Addition und Multiplikation von
-                    \texttt{Decimal}-Zahlen sind proportional zu den
-                    Basiseinheiten, die für ihre Gegenstücke mit beliebiger
-                    Genauigkeit erforderlich sind. Die Kosten für das interne
-                    Verschieben des Exponenten sind vernachlässigbar und können
-                    unberücksichtigt bleiben.
-          \end{itemize}
-\end{enumerate}
+% \subsection{Rechenaufwand von Computerarithmetik}
+%
+% In diesen Bericht werden wir die Rechenkosten unserer Algorithmen analysieren.
+% Um dies zu erleichtern, definieren wir einige allgemeine Parameter wie folgt:
+%
+% \begin{enumerate}
+%     \item \textbf{Basisoperation}:
+%           \begin{itemize}
+%               \item Die Addition von zwei \texttt{64-Bit-Integern} dient als
+%                     Basisoperation, da dies auf den meisten Prozessoren
+%                     typischerweise maximal 1 CPU-Zyklus dauert.
+%           \end{itemize}
+%
+%     \item \textbf{Multiplikation von \texttt{64-Bit-Integern}}:
+%           \begin{itemize}
+%               \item Die Multiplikation von zwei \texttt{64-Bit-Integern} dauert
+%                     ungefähr 20 CPU-Zyklen \cite{64-bit-Multiplication}.
+%           \end{itemize}
+%
+%     \item \textbf{Multiplikation von Ganzzahlen mit beliebiger Genauigkeit}:
+%           \begin{itemize}
+%               \item Die Multiplikation von zwei Ganzzahlen mit beliebiger
+%                     Genauigkeit und der Genauigkeit \(n\) erfordert höchstens
+%                     \(n^{\log_2(3)}\) Einziffern-Multiplikationen. Daher
+%                     betragen die Kosten in Basiseinheiten:
+%                     \[
+%                         \left\lceil n^{\log_2(3)} \cdot \frac{20}{64} \right\rceil
+%                     \]
+%           \end{itemize}
+%
+%     \item \textbf{Addition von Ganzzahlen mit beliebiger Genauigkeit}:
+%           \begin{itemize}
+%               \item Die Addition von zwei Ganzzahlen mit beliebiger Genauigkeit
+%                     und der Genauigkeit \(n\) dauert ungefähr:
+%                     \[
+%                         \left\lceil \frac{n}{64} \right\rceil
+%                     \]
+%                     Basiseinheiten.
+%           \end{itemize}
+%
+%     \item \textbf{Addition und Multiplikation von \texttt{Decimal}}:
+%           \begin{itemize}
+%               \item Die Rechenkosten Addition und Multiplikation von
+%                     \texttt{Decimal}-Zahlen sind proportional zu den
+%                     Basiseinheiten, die für ihre Gegenstücke mit beliebiger
+%                     Genauigkeit erforderlich sind. Die Kosten für das interne
+%                     Verschieben des Exponenten sind vernachlässigbar und können
+%                     unberücksichtigt bleiben.
+%           \end{itemize}
+% \end{enumerate}
 
 \subsection{Wahl eines angemessenen Datentypen}
 
