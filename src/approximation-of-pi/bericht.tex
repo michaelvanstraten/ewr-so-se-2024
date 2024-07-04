@@ -269,7 +269,6 @@ Für den Datentyp Decimal gilt \(M(n) = n^2\) mit der Karatsuba Multiplikation f
 Also liegt die Laufzeit insgesamt in \(\mathcal{O}(\frac{15}{2}n^2log_2(n))\).
 \end{approximation sequence}
 
-
 \begin{approximation sequence}[Chudnovsky-Algorithmus]
 
 \end{approximation sequence}
@@ -315,34 +314,43 @@ approximation-of-pi convergence --precision 50 --stop 4
 
 \subsection{Speicherbedarf}
 
-In diesem Experiment wird der Speicherbedarf der oben genannten
-Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert. Jede
-Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
-Mantissenlängen untersucht.
+Ein weiterer relevanter Faktor für die Auswahl eines Approximationsalgorithmus
+ist der Arbeitsspeicherbedarf während der Laufzeit. Benötigt ein Algorithmus
+beispielsweise einen quadratisch zur Anzahl der zu approximierenden
+Dezimalstellen wachsenden Speicherbedarf, so kann ein herkömmlicher Computer
+mit 16 GB Arbeitsspeicher eine maximale Anzahl von etwa 125.000 Dezimalstellen
+berechnen, unabhängig von der Rechenzeit.
 
-Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
-werden:
-\begin{verbatim}
-approximation-of-pi memory-usage --digits 512
-\end{verbatim}
+In diesem Experiment wird der Speicherbedarf der verschiedenen
+Annäherungsfolgen in Abhängigkeit von der zu approximierenden
+Dezimalstellenanzahl analysiert. Jede Sequenz wird auf dem Intervall \((0,
+n)\), wobei \(n \in \mathbb{N}\) die Anzahl der zu approximierenden
+Dezimalstellen ist, \(k \in \mathbb{N}\)-mal mit einer Mantissenlänge von \(\left(i
+\frac{n}{k}\right)_{i \in \{0, \ldots, k\}}\) zu einer festen Position
+ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
 
 \begin{figure}[H]
     \centering
     \includesvg[width=0.6\textwidth]{figures/memory-usage.svg}
-    \caption{Speicherbedarf der verschiedenen Pi-Annäherungsfolgen in Abhängigkeit von der Anzahl der Dezimalstellen.}
+    \caption{
+        Speicherbedarf der verschiedenen Pi-Annäherungsfolgen in Abhängigkeit
+        von der Anzahl der Dezimalstellen mit \(n = 512\) (Parameter
+        \texttt{--digits} im Skript) und \(k = 20\) (Parameter
+        \texttt{--samples} im Skript).
+    }
     \label{fig:memory-usage}
 \end{figure}
 
 \begin{observation}
     Die Analyse zeigt, dass der Speicherbedarf mit zunehmender Anzahl der
-    Dezimalstellen für alle Sequenzen linear ansteigt.
-    Dabei ist der Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt
-    von der Chudnovsky-Sequenz.
-    Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen vergleichsweise geringeren
-    Anstieg des Speicherbedarfs.
-    Besonders hervorzuheben ist, dass die Monte-Carlo-Sequenz den geringsten
-    Speicherbedarf aufweist, was auf ihre probabilistische Natur und geringere
-    Genauigkeit bei höherer Präzision hinweist.
+    Dezimalstellen für alle Sequenzen linear ansteigt. Dabei ist der
+    Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt von der
+    Chudnovsky-Sequenz. Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen
+    vergleichsweise geringeren Anstieg des Speicherbedarfs, was mit deren
+    relativ wenigen internen Variablen zusammenhängt. Besonders hervorzuheben
+    ist, dass die Monte-Carlo-Sequenz den geringsten Speicherbedarf aufweist,
+    was auf ihre probabilistische Natur und geringere Genauigkeit bei höherer
+    Präzision hinweist.
 \end{observation}
 
 \section{Auswertung}
