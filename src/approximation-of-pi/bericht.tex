@@ -43,7 +43,7 @@ sorting=ynt
 \tableofcontents
 \cleardoublepage{}
 
-\section{Motivation und Einleitung}
+\section{Einleitung}
 
 Die Konstante \(\pi\) hat eine natürliche Definition in der euklidischen
 Geometrie als das Verhältnis zwischen dem Umfang und dem Durchmesser eines
@@ -55,6 +55,7 @@ Einheitswurzeln und in der Cauchy-Verteilung in der Wahrscheinlichkeitstheorie.
 Die Relevanz von \(\pi\) erstreckt sich dabei über zahlreiche Disziplinen
 hinweg, was sie zu einer der wichtigsten Konstanten in der Wissenschaft macht.
 
+\subsection{Historie}
 Historisch gesehen haben sich Mathematiker stets bemüht, \(\pi\) immer genauer
 zu approximieren.
 In der Antike reichte die Genauigkeit solcher Annäherungen oft nur bis zur
@@ -64,13 +65,12 @@ Jahrhundert durch Madhava von Sangamagrama erzielt, der Methoden entwickelte,
 um \(\pi\) bis auf elf und später dreizehn Stellen genau zu berechnen.
 In der chinesischen Mathematik wurde im 5.
 Jahrhundert eine Genauigkeit von etwa sieben Dezimalstellen erreicht.
-Im 15.
-Jahrhundert erreichte Jamshīd al-Kāshī eine Genauigkeit von sechzehn Stellen.
-Zu Beginn des 17.
-Jahrhunderts konnte Ludolph van Ceulen \(\pi\) bis auf 35 Stellen berechnen,
-und im 19.
-Jahrhundert erreichte Jurij Vega sogar eine Genauigkeit von 126 Stellen.
+Ende des 20. Jahrhunderts hatte sich diese Präzision auf 2 Millionen Dezimalstellen, erreicht durch Jean Guilloud im Jahr 1981, erhöht und
+ist innerhalb weniger Jahre bis 1988 auf das zehnfache, ca. 200 Millionen Nachkommastellen, angestiegen.
+Bis zum heutigen Jahr gab es viele Fortschritte in diesem Fachgebiet, so wurde \(\pi\) 2009 von Fabrice Bellard auf 2,699,999,990,000 Dezimalstellen approximiert und
+die neueste Entwicklung ist von März 2024, als Jordan Ranous, Kevin O’Brien und Brian Beeler es sogar schafften \(\pi\) auf 105,000,000,000,000 Dezimalstellen zu approximieren.
 
+\subsection{Motivation}
 Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
 wissenschaftlichen Fortschritt in der Annäherung von \(\pi\).
 Die genaue Berechnung von \(\pi\) bleibt nicht nur eine mathematische
@@ -83,7 +83,8 @@ Neben der bereits bekannten Leibnizreihe werden zwei weitere Verfahren
 implementiert und analysiert.
 Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres Speicherbedarfs,
 ihres Konvergenzverhaltens und des Verhältnisses von Rechenaufwand zu
-Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
+Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen
+
 
 \section{Theorie}
 
@@ -103,15 +104,35 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
     konstant ist.
 \end{definition}
 
-\begin{definition}[Bessere und schlechtere Annäherungsfolgen]
-  Seien \((a_n)_{n \in \mathbb{N}}\) und \((b_n)_{n \in \mathbb{N}}\) zwei Annäherungsfolgen für den Punkt \(P \in \mathbb{R}\), d.h.
-  \[\lim_{n \to \infty} a_n = P = \lim_{n \to \infty} b_n \] Die Annäherungsfolge \(a_n\) nennen wir besser bzw. schlechter als \(b_n\), falls ein
-  \(N \in \mathbb{N}\) existiert, sodass für alle \(n \geq N\) gilt:
-  \[ |(a_n - P)| < |(b_n - P)| \text{ bzw. } |(a_n - P)| > |(b_n - P)|\]
+\begin{definition}[Konvergenzgeschwindigkeit \cite{Konvergenzgeschwindigkeit}]
+    Sei \((s_n)_{n \in \mathbb{N}}\) eine Approximationsfolge mit Grenzwert s, wobei O. B. d. A. alle Folgeglieder paarweise verschieden und ungleich dem Grenzwert selbst sind.
+    Dann konvergiert \(s_n\) linear, falls
+    \[\limsup_{n \to \infty} c_n < 1 \text{ mit } c_n := \frac{|s_{n+1}-s|}{|s_k-s|} \]
+    Falls c = 1, so konvergiert die Folge sublinear.
+    Gilt zusätzlich 
+    \[\lim_{n \to \infty} \frac{|s_{n+2}-s_{n+1}|}{|s_{n+1}-s_n|} = 1\]
+    so heißt die Folge logarithmisch konvergent.
+    c wird öfter auch als Konvergenzrate bezeichnet, denn je kleiner c, desto schneller konvergiert die Folge gegen ihren Grenzwert, 
+    d.h. für eine gewünschte Präzision werden weniger Iterationen benötigt.
+    Zudem lässt sich die Konvergenz der Ordnung q wie folgt definieren:
+    Eine Folge \(s_n\) konvergiert mit Ordnung q, falls \(s_n\) gegen einen Wert s konvergiert und ein c > 0 existiert, sodass
+    \[|s_{n+1} - s| \leqslant c|s_n - s|^q \text{ für alle } n \in \mathbb{N}\]
+    Falls
+    \[q = \lim_{n \to \infty} \frac{\log|{\frac{s_{k+1} - s_k}{s_k - s_{k-1}}|}}{\log{|\frac{s_k - s_{k-1}}{s_{k-1} - s_{k-2}}|}} \]
+    existiert, so heißt dieser Grenzwert exakte q-Ordnung.
+    Für \(q = 2\) heißt die Folge quadaratisch konvergent, für \(q = 3 \) kubisch usw. \\
+    Eine exakte q-Ordnung größer 1 bedeutet, dass sich die Anzahl der genauen Dezimalstellen mit jeder Iteration ver-q-facht.
 \end{definition}
 
-\begin{definition}[Sublineare Konvergence]
+\begin{definition}[Arithmetisch-Geometrisches Mittel]
+  Seien \(a, b \in \mathbb{R}, a,b > 0\). Definiere 
+  \[a_0 = a, \;\;\; b_0 = b\]
+  \[a_{n+1} = \frac{a_n + b_n}{2}, \;\;\; b_{n+1} = \sqrt{a_n b_n}\]
+  Dann heißt \(\lim_{n \to \infty}a_n = \lim_{n \to \infty} b_n =: M(a,b) \) das arithmetisch-geometrische Mittel von a und b.
+  Das die beiden Grenzwerte konvergieren, und dass sie gegen denselben Grenzwert konvergieren lässt sich recht einfach zeigen und kann 
+  hier \cite{AGM} nachgelesen werden
 \end{definition}
+
 
 \subsection{Wahl eines angemessenen Datentypen}
 
@@ -138,15 +159,59 @@ auftreten können Diese Fehler summieren sich bei iterativen Berechnungen, wie
 sie zur Annäherung von \(\pi\) notwendig sind, und können zu signifikanten
 Abweichungen führen.
 
-\subsection{Annäherungsfolgen}
+\subsection{Annäherungsalgorithmen}
 
 \begin{approximation sequence}[Monte-Carlo]
 
 \end{approximation sequence}
 
 \begin{approximation sequence}[Leibniz-Formel]
+Mit Fortschritten der Analysis wurde die Leibniz Reihe für \(\pi\) bereits im 14. oder 15. Jahrhundert von indischen Mathematikern entdeckt, und später
+dann in Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und James Gregory.
+Sie lautet:
+\[ \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
+und basiert auf der Taylor-Reihe für den Arkustangens \(arctanx = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \)
+Für \(x = 1\) erhält man das obige Ergebnis.
+Ein recht simpler Beweis für die Reihendarstellung von \(arctanx\) wird im folgenden aufgeführt:
+\[arctanx = \int_{0}^{x} \frac{1}{1+t^2}\,dt \]
+\[arctanx = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt  \]
+\[arctanx = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt  \]
+Da aber für \(|x| \leqslant 1\) gilt: \(|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt| \leqslant |\int_{0}^{x}t^{2n+2}\,dt| = \frac{|x|^{2n+3}}{2n+3} \rightarrow 0 \text{ für } n \rightarrow \infty \)
+folgt die obige Aussage
+\[arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \] 
+Und die Reihe \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine Approximationsreihe für \(\pi\)
+Außerdem lässt sich mit Definition 3 leicht nachrechnen, dass die Leibnizreihe logarithmisch konvergiert. 
+\end{approximation sequence}
+
+
+\begin{approximation sequence}[Gauß-Legendre]
+Der Gauß-Legendre Algorithmus, benannt nach den beiden Mathematikern Carl Friedrich Gauß und Adrien-Marie Legendre, die inviduell Arbeit dazubeigetragen haben, auf denen dieser Algorithmus basiert.
+Dieser Algorithmus bedient sich vier verschiedener Folgen, sowie dem arithmetisch-geomtrischen Mittels, wie in Definition ..., um \(\pi\) zu approximieren.
+Die Startwerte lauten wie folgt:
+\[a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1 \]
+Mit den Iterationsvorschriften:
+\[a_{n+1} = \frac{a_n + b_n}{2} \] 
+\[b_{n+1} = \sqrt{a_nb_n} \]
+\[t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \]
+\[p_{n+1} = 2p_n \]
+
+Dann gilt für \(g_n := \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}}\):
+\[\lim_{n \to \infty}g_n = \pi \]
+
+
+Als mathematische Grundlage für diesen Algorithmus dienen zum einen das arithmetische-geometrische Mittel welches für \(a_0 = 1 \text{ und } b_0 = \cos(\phi)\) gegen \(\frac{\pi}{2K(\sin(\phi))}\) konvergiert, wobei
+\(K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}},d\theta \) das elliptische Integral erster Art ist und zum anderen
+der Fakt, dass für \(c_0 = \sin(\phi), c_{i+1} = a_i - a_{i+1}\)
+\[ \sum_{i= 0}^{\infty} 2^{i-1} c_{i}^{2} = 1 - \frac{E(sin(\phi))}{K(sin(\phi))} \]
+wobei \(E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta),d\theta}\) das elliptische Integral zweiter Art ist,
+und einer Identität, die Legendre bewies:
+\[K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2} \]
+Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\) konvergiert ist zu lang für diese Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und
+hier nachgelesen werden. 
+Es lässt sich dann mit Definition 3 zeigen, dass die Folge \(g_n\) quadratisch gegen \(\pi\) konvergiert.
 
 \end{approximation sequence}
+
 
 \begin{approximation sequence}[Chudnovsky-Algorithmus]
 
