@@ -65,7 +65,7 @@ Jahrhundert eine Genauigkeit von etwa sieben Dezimalstellen erreicht.
 Ende des 20. Jahrhunderts hatte sich diese Präzision auf 2 Millionen Dezimalstellen, erreicht durch Jean Guilloud im Jahr 1981, erhöht und
 ist innerhalb weniger Jahre bis 1988 auf das zehnfache, ca. 200 Millionen Nachkommastellen, angestiegen.
 Bis zum heutigen Jahr gab es viele Fortschritte in diesem Fachgebiet, so wurde \(\pi\) 2009 von Fabrice Bellard auf 2,699,999,990,000 Dezimalstellen approximiert und
-die neueste Entwicklung ist von März 2024, als Jordan Ranous, Kevin O’Brien und Brian Beeler es sogar schafften \(\pi\) auf 105,000,000,000,000 Dezimalstellen zu approximieren.
+die neueste Entwicklung ist von März 2024, als Jordan Ranous, Kevin O’Brien und Brian Beeler es sogar schafften \(\pi\) auf 105,000,000,000,000 Dezimalstellen zu approximieren. \cite{Chronology}
 
 \subsection{Motivation}
 Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
@@ -80,7 +80,7 @@ Neben der bereits bekannten Leibnizreihe werden zwei weitere Verfahren
 implementiert und analysiert.
 Diese Verfahren werden hinsichtlich ihrer Laufzeit, ihres Speicherbedarfs,
 ihres Konvergenzverhaltens und des Verhältnisses von Rechenaufwand zu
-Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen
+Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen.
 
 
 \section{Theorie}
@@ -126,7 +126,7 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen
   \[a_{n+1} = \frac{a_n + b_n}{2}, \;\;\; b_{n+1} = \sqrt{a_n b_n}\]
   Dann heißt \(\lim_{n \to \infty}a_n = \lim_{n \to \infty} b_n =: M(a,b) \) das arithmetisch-geometrische Mittel von a und b.
   Das die beiden Grenzwerte konvergieren, und dass sie gegen denselben Grenzwert konvergieren lässt sich recht einfach zeigen und kann 
-  hier \cite{AGM} nachgelesen werden
+  hier \cite{AGM} nachgelesen werden.
 \end{definition}
 
 
@@ -163,50 +163,56 @@ Abweichungen führen.
 \end{approximation sequence}
 
 \begin{approximation sequence}[Leibniz-Formel]
-Mit Fortschritten der Analysis wurde die Leibniz Reihe für \(\pi\) bereits im 14. oder 15. Jahrhundert von indischen Mathematikern entdeckt, und später
-dann in Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und James Gregory.
+Mit Fortschritten der Analysis wurde die Leibniz Reihe für \(\pi\) bereits im 14. 
+oder 15. Jahrhundert von indischen Mathematikern entdeckt, und später dann in 
+Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und James Gregory.
 Sie lautet:
 \[ \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
 und basiert auf der Taylor-Reihe für den Arkustangens \(arctanx = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \)
 Für \(x = 1\) erhält man das obige Ergebnis.
-Ein recht simpler Beweis für die Reihendarstellung von \(arctanx\) wird im folgenden aufgeführt:
-\[arctanx = \int_{0}^{x} \frac{1}{1+t^2}\,dt \]
-\[arctanx = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt  \]
-\[arctanx = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt  \]
+Ein recht simpler Beweis für die Reihendarstellung von \(arctanx\) wird im folgenden aufgeführt: \cite{Leibniz}
+\begin{equation} 
+    \begin{split}
+    arctanx & = \int_{0}^{x} \frac{1}{1+t^2}\,dt \\
+    & = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt \\
+    & = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt
+    \end{split}
+    \end{equation}
 Da aber für \(|x| \leqslant 1\) gilt: \(|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt| \leqslant |\int_{0}^{x}t^{2n+2}\,dt| = \frac{|x|^{2n+3}}{2n+3} \rightarrow 0 \text{ für } n \rightarrow \infty \)
 folgt die obige Aussage
 \[arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots \] 
-Und die Reihe \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine Approximationsreihe für \(\pi\)
+Und die Folge \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine Approximationsfolge für \(\pi\).
 Außerdem lässt sich mit Definition 3 leicht nachrechnen, dass die Leibnizreihe logarithmisch konvergiert. 
 \end{approximation sequence}
 
 
 \begin{approximation sequence}[Gauß-Legendre]
-Der Gauß-Legendre Algorithmus, benannt nach den beiden Mathematikern Carl Friedrich Gauß und Adrien-Marie Legendre, die inviduell Arbeit dazubeigetragen haben, auf denen dieser Algorithmus basiert.
-Dieser Algorithmus bedient sich vier verschiedener Folgen, sowie dem arithmetisch-geomtrischen Mittels, wie in Definition ..., um \(\pi\) zu approximieren.
+Der Gauß-Legendre Algorithmus, benannt nach den beiden Mathematikern Carl Friedrich Gauß 
+und Adrien-Marie Legendre, die inviduell Arbeit dazubeigetragen haben, auf denen dieser Algorithmus basiert.
+Dieser Algorithmus bedient sich vier verschiedener Folgen, sowie dem arithmetisch-geometrischen Mittels, 
+wie in Definition 4, um \(\pi\) zu approximieren.
+Im folgenden wird der Algorithmus aufgeführt: \cite{AGM-Gauß-Legendre}
 Die Startwerte lauten wie folgt:
 \[a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1 \]
 Mit den Iterationsvorschriften:
 \[a_{n+1} = \frac{a_n + b_n}{2} \] 
 \[b_{n+1} = \sqrt{a_nb_n} \]
 \[t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \]
-\[p_{n+1} = 2p_n \]
+\[p_{n+1} = 2p_n \] 
 
 Dann gilt für \(g_n := \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}}\):
-\[\lim_{n \to \infty}g_n = \pi \]
+\[\lim_{n \to \infty}g_n = \pi \] \cite{AGM-Gauß-Legendre}
 
-
-Als mathematische Grundlage für diesen Algorithmus dienen zum einen das arithmetische-geometrische Mittel welches für \(a_0 = 1 \text{ und } b_0 = \cos(\phi)\) gegen \(\frac{\pi}{2K(\sin(\phi))}\) konvergiert, wobei
-\(K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}},d\theta \) das elliptische Integral erster Art ist und zum anderen
+Als mathematische Grundlagen \cite{Eugene-Salamin} für diesen Algorithmus dienen zum einen das arithmetische-geometrische Mittel welches 
+für \(a_0 = 1 \text{ und } b_0 = \cos(\phi)\) gegen \(\frac{\pi}{2K(\sin(\phi))}\) konvergiert, wobei
+\(K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}}d\theta \) das elliptische Integral erster Art ist und zum anderen
 der Fakt, dass für \(c_0 = \sin(\phi), c_{i+1} = a_i - a_{i+1}\)
 \[ \sum_{i= 0}^{\infty} 2^{i-1} c_{i}^{2} = 1 - \frac{E(sin(\phi))}{K(sin(\phi))} \]
-wobei \(E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta),d\theta}\) das elliptische Integral zweiter Art ist,
+wobei \(E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta)}d\theta\) das elliptische Integral zweiter Art ist,
 und einer Identität, die Legendre bewies:
-\[K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2} \]
-Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\) konvergiert ist zu lang für diese Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und
-hier nachgelesen werden. 
-Es lässt sich dann mit Definition 3 zeigen, dass die Folge \(g_n\) quadratisch gegen \(\pi\) konvergiert.
-
+\[K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2} \] 
+Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\) konvergiert und dazu noch quadratisch konvergiert, ist zu lang 
+für diese Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und hier \cite{Gauß-Legendre} nachgelesen werden. 
 \end{approximation sequence}
 
 
