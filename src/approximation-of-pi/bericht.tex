@@ -1,6 +1,5 @@
 \documentclass{scrartcl}
 \usepackage{scrhack}
-
 \subject{Bericht}
 \titlehead{%
   Humboldt-Universität zu Berlin\\
@@ -13,26 +12,25 @@
 }
 \date{\today}
 
-
-
+\usepackage{csquotes}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{microtype}
+\usepackage{float}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{booktabs}
 \usepackage[
 backend=biber,
 style=alphabetic,
 sorting=ynt
 ]{biblatex}
-\usepackage{pdfpages}
+\usepackage{svg}
 
 \addbibresource{./bericht.bib}
 \newtheorem{definition}{Definition}
 \newtheorem{approximation sequence}{Annäherungsfolge}
+\newtheorem{observation}{Beobachtung}
 
 \parskip = \baselineskip
 \parindent = 0pt
@@ -47,13 +45,12 @@ sorting=ynt
 
 Die Konstante \(\pi\) hat eine natürliche Definition in der euklidischen
 Geometrie als das Verhältnis zwischen dem Umfang und dem Durchmesser eines
-Kreises.
-Sie ist von fundamentaler Bedeutung in vielen Bereichen der Mathematik und
-Physik.
-Beispielsweise tritt \(\pi\) im Gaußschen Integral auf, bei den komplexen
-Einheitswurzeln und in der Cauchy-Verteilung in der Wahrscheinlichkeitstheorie.
-Die Relevanz von \(\pi\) erstreckt sich dabei über zahlreiche Disziplinen
-hinweg, was sie zu einer der wichtigsten Konstanten in der Wissenschaft macht.
+Kreises. Sie ist von fundamentaler Bedeutung in vielen Bereichen der Mathematik
+und Physik. Beispielsweise tritt \(\pi\) im Gaußschen Integral auf, bei den
+komplexen Einheitswurzeln und in der Cauchy-Verteilung in der
+Wahrscheinlichkeitstheorie. Die Relevanz von \(\pi\) erstreckt sich dabei über
+zahlreiche Disziplinen hinweg, was sie zu einer der wichtigsten Konstanten in
+der Wissenschaft macht.
 
 \subsection{Historie}
 Historisch gesehen haben sich Mathematiker stets bemüht, \(\pi\) immer genauer
@@ -72,10 +69,10 @@ die neueste Entwicklung ist von März 2024, als Jordan Ranous, Kevin O’Brien u
 
 \subsection{Motivation}
 Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
-wissenschaftlichen Fortschritt in der Annäherung von \(\pi\).
-Die genaue Berechnung von \(\pi\) bleibt nicht nur eine mathematische
-Herausforderung, sondern ist auch für viele praktische Anwendungen relevant,
-etwa in der Ingenieurwissenschaft, der Physik und der Informatik.
+wissenschaftlichen Fortschritt in der Annäherung von \(\pi\). Die genaue
+Berechnung von \(\pi\) bleibt nicht nur eine mathematische Herausforderung,
+sondern ist auch für viele praktische Anwendungen relevant, etwa in der
+Ingenieurwissenschaft, der Physik und der Informatik.
 
 Ziel dieses Berichts ist es, verschiedene mathematische Annäherungsmethoden zur
 Berechnung von \(\pi\) zu untersuchen und miteinander zu vergleichen.
@@ -91,9 +88,8 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen
 \subsection{Einführung und Einordnung von Fachbegriffen}
 
 \begin{definition}[Annäherungsfolge]
-  Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in \mathbb{R}\), sodass
-  \[\lim_{n \to \infty} a_n = P \] gilt.
-  Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
+    Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in \mathbb{R}\), sodass
+    \[\lim_{n \to \infty} a_n = P \] gilt. Die Folge \(a_n\) heißt dann Annäherungsfolge für den Punkt \(P\)
 
 \end{definition}
 
@@ -137,16 +133,17 @@ Approximationsgenauigkeit sowohl analytisch als auch experimentell verglichen
 \subsection{Wahl eines angemessenen Datentypen}
 
 Für die präzise Berechnung von \(\pi\) ist die Wahl eines angemessenen
-Datentyps von entscheidender Bedeutung.
-Datentypen wie \texttt{float32} oder \texttt{float64} bieten eine begrenzte
-Genauigkeit, die für viele wissenschaftliche Anwendungen ausreichend sein mag,
-aber für die exakte Annäherung von \(\pi\) über \(n\) beliebige Dezimalstellen
-hinweg nicht ausreicht.
+Datentyps von entscheidender Bedeutung. Datentypen wie \texttt{float32} oder
+\texttt{float64} bieten eine begrenzte Genauigkeit, die für viele
+wissenschaftliche Anwendungen ausreichend sein mag, aber für die exakte
+Annäherung von \(\pi\) über \(n\) beliebige Dezimalstellen hinweg nicht
+ausreicht.
 % TODO: Können wie hier die float Darstellung aus der Vorlesung nutzen?
 Diese Datentypen nutzen eine feste Anzahl von Bits für die Mantisse und den
 Exponenten, was ihre Präzision einschränkt.
 
-\texttt{float32} hat eine Genauigkeit von etwa 7 Dezimalstellen, während \texttt{float64} etwa 16 Dezimalstellen bietet.
+\texttt{float32} hat eine Genauigkeit von etwa 7 Dezimalstellen, während
+\texttt{float64} etwa 16 Dezimalstellen bietet.
 Um \(\pi\) jedoch auf eine exakte Anzahl von Stellen genau zu approximieren,
 benötigt man eine höhere Präzision, die durch diese Datentypen nicht erreicht
 werden kann.
@@ -219,7 +216,74 @@ Es lässt sich dann mit Definition 3 zeigen, dass die Folge \(g_n\) quadratisch 
 
 \section{Experimente}
 
-\subsection{Beobachtungen}
+\subsection{Laufzeitverhalten und Rechenaufwand}
+
+\begin{observation}
+
+\end{observation}
+
+\subsection{Konvergenzanalyse}
+
+In diesem Experiment wird die Konvergenz verschiedener Pi-Annäherungsfolgen
+analysiert. Ziel ist es, die Anzahl der korrekt approximierten Stellen von Pi
+in Abhängigkeit von der Position innerhalb der Sequenz auf einer
+logarithmischen Skala darzustellen. Die verwendeten Sequenzen umfassen Leibniz,
+Monte Carlo, Gauss-Legendre und Chudnovsky.
+
+Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
+werden:
+\begin{verbatim}
+approximation-of-pi convergence --precision 50 --stop 4
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.6\textwidth]{figures/convergence.svg}
+    \caption{Konvergenzanalyse der verschiedenen Pi-Annäherungsmethoden in Abhängigkeit von der Position innerhalb der Sequenz (logarithmische Skala).}
+    \label{fig:convergence-analysis}
+\end{figure}
+
+\begin{observation}
+    Die Analyse zeigt, dass die Gauss-Legendre- und Chudnovsky-Sequenzen sehr
+    schnell konvergieren und eine hohe Anzahl korrekt approximierter Stellen von Pi
+    bereits bei niedrigen Positionen innerhalb der Sequenz erreichen.
+    Die Gauss-Legendre-Sequenz zeigt hierbei die beste Konvergenz.
+    Die Leibniz-Sequenz weist eine deutlich langsamere Konvergenz auf, während die
+    Monte-Carlo-Sequenz erwartungsgemäß die geringste Anzahl korrekt approximierter
+    Stellen liefert, was auf ihre probabilistische Natur zurückzuführen ist.
+\end{observation}
+
+\subsection{Speicherbedarf}
+
+In diesem Experiment wird der Speicherbedarf der oben genannten
+Annäherungsfolgen in Abhängigkeit von der Mantissenlänge analysiert. Jede
+Sequenz wird hinsichtlich des Speicherbedarfs bei unterschiedlichen
+Mantissenlängen untersucht.
+
+Um die Ergebnisse zu reproduzieren, können die folgenden Parameter verwendet
+werden:
+\begin{verbatim}
+approximation-of-pi memory-usage --digits 512
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.6\textwidth]{figures/memory-usage.svg}
+    \caption{Speicherbedarf der verschiedenen Pi-Annäherungsfolgen in Abhängigkeit von der Anzahl der Dezimalstellen.}
+    \label{fig:memory-usage}
+\end{figure}
+
+\begin{observation}
+    Die Analyse zeigt, dass der Speicherbedarf mit zunehmender Anzahl der
+    Dezimalstellen für alle Sequenzen linear ansteigt.
+    Dabei ist der Speicherbedarf der Gauss-Legendre-Sequenz am höchsten, gefolgt
+    von der Chudnovsky-Sequenz.
+    Die Leibniz- und Monte-Carlo-Sequenzen zeigen einen vergleichsweise geringeren
+    Anstieg des Speicherbedarfs.
+    Besonders hervorzuheben ist, dass die Monte-Carlo-Sequenz den geringsten
+    Speicherbedarf aufweist, was auf ihre probabilistische Natur und geringere
+    Genauigkeit bei höherer Präzision hinweist.
+\end{observation}
 
 \section{Auswertung}
 

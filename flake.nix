@@ -54,19 +54,22 @@
                   coreutils
                   ncurses
                   texliveFull
+                  inkscape
                 ];
 
                 TEXMFHOME = "./cache";
                 TEXMFVAR = "./cache/var";
 
+                XDG_CACHE_HOME = "$(mktemp -d)";
+
                 buildPhase = ''
-                  export PATH="/usr/sbin:$PATH"
                   runHook preBuild
 
                   SOURCE_DATE_EPOCH="${toString self.lastModified}" latexmk \
                     -interaction=nonstopmode \
                     -pdf \
                     -lualatex \
+                    -shell-escape \
                     -pretex="\pdfvariable suppressoptionalinfo 512\relax" \
                     -usepretex \
                     "${toString root-filename}"
@@ -148,7 +151,8 @@
               poetry
               pyright
               texlab
-              texlive
+              black
+              texliveFull
             ];
           };
         }
