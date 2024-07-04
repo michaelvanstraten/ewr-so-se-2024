@@ -346,8 +346,25 @@ entschieden diese wegzulassen, da sie über den Rahmen dieser Arbeit hinausgeht.
 
 \subsection{Laufzeitverhalten und Rechenaufwand}
 
-\begin{observation}
+Das erste Auswahlkriterium, das wir uns für die Folgen anschauen werden, ist
+die Laufzeit in Relation zum Rechenaufwand. In diesem Experiment wird für jede
+Folge die Laufzeit berechnet, die benötigt wird, um \(n\) Dezimalstellen
+korrekt zu approximieren. Zusätzlich wird die relative Laufzeit für eine
+einzelne Dezimalstelle berechnet. Die Mantissenlänge \(m\) wird hierbei
+festgelegt und hängt von der Anzahl der zu approximierenden Dezimalstellen ab.
 
+\begin{figure}[htp]
+    \centering
+    \subfloat[\centering \(n = 2^{11}\)]{{\includesvg[width=0.45\textwidth]{figures/runtime-only-fast.svg} }}
+    \hspace{5cm}
+    \subfloat[\centering \(n = 7\)]{{\includesvg[width=0.45\textwidth]{figures/runtime-only-slow.svg} }}
+    \caption{%
+        Laufzeit in Abhängigkeit von der Anzahl der zu approximierenden Dezimalstellen mit \(n\) (Parameter \texttt{--digits} im Skript) und \(k = 20\) (Parameter \texttt{--samples} im Skript).
+    }
+\end{figure}
+
+\begin{observation}
+    Die Analyse zeigt, dass die Laufzeit stark von der Anzahl der zu approximierenden Dezimalstellen abhängt. Für größere Werte von \(n\) (z. B. \(n = 2^{11}\)) steigt die Laufzeit erheblich an, während für kleinere Werte von \(n\) (z. B. \(n = 7\)) die Laufzeit relativ gering bleibt. Diese Ergebnisse deuten darauf hin, dass die Wahl des Parameters \(n\) entscheidend für die Effizienz der Approximationsfolge ist.
 \end{observation}
 
 \subsection{Konvergenzanalyse}
