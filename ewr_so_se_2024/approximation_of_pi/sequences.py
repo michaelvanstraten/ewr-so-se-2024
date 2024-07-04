@@ -1,29 +1,19 @@
-"""This module provides various algorithms to approximate the value of pi.
+"""
+Pi Approximation Sequences
 
-The module defines an abstract base class `ApproximationSequence` and several 
-concrete implementations of this class, each representing a different algorithm 
-for approximating pi. These algorithms include:
-- Leibniz series
-- Monte Carlo method
-- Gauss-Legendre algorithm
-- Chudnovsky algorithm
-
-The module also provides a command-line interface (CLI) using the `click` library
+This module provides various classes for approximating the value of Pi using different
+sequences and algorithms. It also includes an example command-line interface (CLI) 
 to run the approximations and display the results.
 
 Classes:
-    ApproximationSequence: Abstract base class for pi approximation sequences.
-    Leibniz: Implements the Leibniz series for pi approximation.
-    MonteCarlo: Implements the Monte Carlo method for pi approximation.
-    GaussLegendre: Implements the Gauss-Legendre algorithm for pi approximation.
-    Chudnovsky: Implements the Chudnovsky algorithm for pi approximation.
+    ApproximationSequence: Abstract base class for Pi approximation sequences.
+    Leibniz: Implements the Leibniz series for Pi approximation.
+    MonteCarlo: Implements the Monte Carlo method for Pi approximation.
+    GaussLegendre: Implements the Gauss-Legendre algorithm for Pi approximation.
+    Chudnovsky: Implements the Chudnovsky algorithm for Pi approximation.
 
-Functions:
-    sequences_option: CLI option for selecting approximation sequences.
-
-Usage:
-    Run the module as a script to print the 20th partial sum of each pi 
-    approximation sequence.
+Attributes:
+    APPROXIMATION_SEQUENCES (dict): A dictionary mapping sequence names to their classes.
 """
 
 import decimal

@@ -1,3 +1,39 @@
+"""
+Convergence Analysis of Pi Approximation Methods CLI
+
+This module provides a command-line interface (CLI) for performing a convergence 
+analysis of various Pi approximation sequences. It calculates the number of correctly 
+approximated digits of Pi for different sequences and plots the results on a 
+logarithmic scale. The results can be displayed or saved to a file.
+
+Usage: approximation-of-pi convergence [OPTIONS]
+
+  Perform a convergence analysis of Pi approximation methods.
+
+  This script calculates the number of correctly approximated digits of Pi for
+  various sequences and plots the results on a logarithmic scale.
+
+Options:
+  -s, --sequence [Leibniz|MonteCarlo|GaussLegendre|Chudnovsky]
+                                  The sequence(s) to use for approximation.
+                                  [default: Leibniz, MonteCarlo,
+                                  GaussLegendre, Chudnovsky]
+  --samples INTEGER RANGE         The number of samples to take from the
+                                  underlying sequence.  [default: 20; x>=1]
+  --export-to FILE                Export the generated plot to a specified
+                                  file.
+  --precision INTEGER RANGE       The precision to use for decimal
+                                  calculations.  [default: 50; x>=1]
+  --stop INTEGER RANGE            The maximum exponent for the logarithmic
+                                  scale of the sequence positions.  [default:
+                                  4; 1<=x<=12]
+  --help                          Show this message and exit.
+
+
+Example:
+    approximation-of-pi convergence -s Leibniz -s MonteCarlo --precision 100 --stop 5
+"""
+
 import click
 from matplotlib import pyplot as plt
 from numpy import logspace
@@ -69,7 +105,6 @@ def main(sequence_names, precision, stop, number_of_samples, export_to):
     plt.legend()
     # Add grid lines
     plt.grid(linestyle="--", linewidth=0.5)
-
     plt.tight_layout()
 
     if export_to:
@@ -80,4 +115,5 @@ def main(sequence_names, precision, stop, number_of_samples, export_to):
 
 
 if __name__ == "__main__":
+    # pylint: disable=no-value-for-parameter
     main()

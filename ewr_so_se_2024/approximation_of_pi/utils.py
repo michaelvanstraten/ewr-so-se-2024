@@ -1,10 +1,27 @@
-"""This module provides utility functions and options for pi approximation analysis.
-Functions:
-    find_first_mismatch: Find the first mismatch between two iterables.
+"""
+Utility Functions and Click Options for Pi Approximation Analysis
 
-Variables:
-    PI: The value of pi read from a file and stored as a Decimal.
-    number_of_samples: Click option for specifying the number of samples to take from the sequence.
+This module provides utility functions and predefined Click options for analyzing
+Pi approximation sequences. It includes functions for finding mismatches between
+sequences, setting up the decimal context, and retrieving color and marker settings
+for plotting. It also loads the value of Pi from a file.
+
+Functions:
+    find_first_mismatch(xs, ys):
+        Find the first mismatch between two iterables.
+    get_color_and_marker(sequence_name, number_of_samples):
+        Get color and marker settings based on sequence name.
+    setup_decimal_context(precision):
+        Set up the decimal context with the given precision.
+
+Click Options:
+    samples: Click option for specifying the number of samples to take from the sequence.
+    sequence_names: Click option for specifying the sequence names to analyze.
+    digits: Click option to specify the number of digits to approximate.
+    export_to: Click option to specify a file for exporting to.
+
+Attributes:
+    PI (Decimal): The value of Pi loaded from a file.
 """
 
 from collections.abc import Iterable
