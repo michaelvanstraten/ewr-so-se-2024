@@ -44,11 +44,11 @@ poetry install
 
 ### Running a File in This Repository
 
-To run a module within this repository, use the following command:
+To run a script or module within this repository, use the following command:
 
 ```sh
-# Execute `python -m ewr_so_se_2024.approximation_of_pi convergence` within the virtual environment.
-poetry run python -m ewr_so_se_2024.approximation_of_pi convergence
+# Spawns an interactive shell with all dependencies installed in it
+poetry shell
 ```
 
 To see what command-line interface (CLI) options are available with each module,
@@ -56,7 +56,9 @@ you can add `--help` to the end of the command, like this:
 
 ```sh
 # Prints help for the `ewr_so_se_2024.approximation_of_pi` module
-poetry run python -m ewr_so_se_2024.approximation_of_pi --help
+approximation-of-pi --help
+# or
+python -m ewr_so_se_2024.approximation_of_pi --help
 ```
 
 The above command will run the
