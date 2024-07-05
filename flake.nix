@@ -1,5 +1,5 @@
 {
-  description = "Application packaged using poetry2nix";
+  description = "Einführung in das wissenschaftliche Rechnen";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
