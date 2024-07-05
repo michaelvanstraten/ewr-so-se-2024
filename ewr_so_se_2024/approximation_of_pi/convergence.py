@@ -105,6 +105,7 @@ def main(sequence_names, precision, stop, number_of_samples, export_to):
     plt.legend()
     # Add grid lines
     plt.grid(linestyle="--", linewidth=0.5)
+    # pylint: disable=duplicate-code
     plt.tight_layout()
 
     if export_to:
