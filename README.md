@@ -101,8 +101,7 @@ To build one of these LaTeX documents using Nix, you can follow the installation
 instructions for Nix and then execute the following command:
 
 ```sh
-nix build github:michaelvanstraten/ewr-so-se-2024#approximation-of-pi-report
-
+nix build github:michaelvanstraten/ewr-so-se-2024#'"tex/approximation-of-pi/bericht.tex"'
 ```
 
 This command will compile the LaTeX
