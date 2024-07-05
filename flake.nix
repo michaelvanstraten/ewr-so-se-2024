@@ -24,6 +24,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
+        python = pkgs.python312;
         poetryOverrides = overrides.withDefaults (
           final: prev: {
             docutils = prev.docutils.overridePythonAttrs (orignal: {
@@ -33,6 +34,7 @@
         );
         ewr-so-se-2024 = mkPoetryApplication {
           projectDir = ./.;
+          inherit python;
           overrides = poetryOverrides;
         };
       in
@@ -128,6 +130,7 @@
         let
           poetry-enviorment = mkPoetryEnv {
             projectDir = ./.;
+            inherit python;
             overrides = poetryOverrides;
           };
         in
