@@ -35,6 +35,20 @@ sorting=ynt
 \newtheorem{approximation sequence}{Annäherungsfolge}
 \newtheorem{observation}{Beobachtung}
 
+\DeclarePairedDelimiter{\paren}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\tuple}{\lparen}{\rparen}
+
+\DeclarePairedDelimiterXPP{\abs}[1]
+    {}
+    {\lvert}{\rvert}
+    {}
+    {\ifblank{#1}{\anyarg}{#1}}
+
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\nats}{\field{N}}
+\newcommand{\reals}{\field{R}}
+
 \parskip = \baselineskip
 \parindent = 0pt
 
@@ -74,6 +88,7 @@ Brian Beeler es sogar schafften \(\pi\) auf 105,000,000,000,000 Dezimalstellen
 zu approximieren. \cite{Chronology}
 
 \subsection{Motivation}
+
 Diese historischen Entwicklungen zeigen die Bedeutung und den anhaltenden
 wissenschaftlichen Fortschritt in der Annäherung von \(\pi\). Die genaue
 Berechnung von \(\pi\) bleibt nicht nur eine mathematische Herausforderung,
@@ -93,8 +108,8 @@ experimentell verglichen.
 \subsection{Einführung und Einordnung von Fachbegriffen}
 
 \begin{definition}[Annäherungsfolge]
-    Sei \((a_n)_{n \in \mathbb{N}}\) eine Folge reeller Zahlen und \(P \in
-    \mathbb{R}\), sodass
+    Sei \(\paren{a_n}_{n \in \nats}\) eine Folge reeller Zahlen und \(P \in
+    \reals\), sodass
     \begin{equation}
         \lim_{n \to \infty} a_n = P
     \end{equation}
@@ -109,41 +124,50 @@ experimentell verglichen.
 \end{definition}
 
 \begin{definition}[Konvergenzgeschwindigkeit \cite{Konvergenzgeschwindigkeit}]
-    Sei \((s_n)_{n \in \mathbb{N}}\) eine Approximationsfolge mit Grenzwert s,
-    wobei O. B. d. A. alle Folgeglieder paarweise verschieden und ungleich dem
-    Grenzwert selbst sind. Dann konvergiert \(s_n\) linear, falls
+    \label{def:convergence-rate}
+    Sei \(\paren{s_n}_{n \in \nats}\) eine Approximationsfolge mit Grenzwert s,
+    wobei ohne Beschränkung der Allgemeinheit alle Folgeglieder paarweise
+    verschieden und ungleich dem Grenzwert selbst sind. Dann konvergiert \(s_n\)
+    linear, falls
     \begin{equation*}
-        \limsup_{n \to \infty} c_n < 1 \text{ mit } c_n \coloneq \frac{|s_{n+1}-s|}{|s_k-s|}
+        \limsup_{n \to \infty} c_n < 1 \quad \text{mit} \quad c_n
+        \coloneq \frac{\abs{s_{n+1} - s}}{\abs{s_k - s}}
     \end{equation*}
-    Falls c = 1, so konvergiert die Folge sublinear. Gilt zusätzlich
+    Falls \(c = 1\), so konvergiert die Folge sublinear. Gilt zusätzlich
     \begin{equation*}
-        \lim_{n \to \infty} \frac{|s_{n+2}-s_{n+1}|}{|s_{n+1}-s_n|} = 1
+        \lim_{n \to \infty} \frac{\abs{s_{n+2} - s_{n+1}}}{\abs{s_{n+1} - s_n}}
+        = 1
     \end{equation*}
     so heißt die Folge logarithmisch konvergent. \(c\) wird öfter auch als
     Konvergenz Rate bezeichnet, denn je kleiner c, desto schneller konvergiert
-    die Folge gegen ihren Grenzwert, d.h. für eine gewünschte Präzision werden
-    weniger Iterationen benötigt. Zudem lässt sich die Konvergenz der Ordnung q
-    wie folgt definieren: Eine Folge \(s_n\) konvergiert mit Ordnung q, falls
-    \(s_n\) gegen einen Wert s konvergiert und ein \(c \le 0\) existiert,
-    sodass
+    die Folge gegen ihren Grenzwert, das heißt für eine gewünschte Präzision
+    werden weniger Iterationen benötigt. Zudem lässt sich die Konvergenz der
+    Ordnung \(q\) wie folgt definieren: Eine Folge \(s_n\) konvergiert mit
+    Ordnung \(q\), falls \(s_n\) gegen einen Wert \(s\) konvergiert und ein
+    \(c \le 0\) existiert, sodass
     \begin{equation*}
-        |s_{n+1} - s| \leqslant c|s_n - s|^q \text{ für alle } n \in \mathbb{N}
+        \abs{s_{n+1} - s} \leqslant c \cdot \abs{s_n - s}^q \quad
+        \text{für alle} \quad n \in \nats.
     \end{equation*}
     Falls
     \begin{equation*}
-        q = \lim_{n \to \infty} \frac{\log|{\frac{s_{k+1} - s_k}{s_k - s_{k-1}}|}}{\log{|\frac{s_k - s_{k-1}}{s_{k-1} - s_{k-2}}|}}
+        q = \lim_{n \to \infty} \frac{%
+            \log\abs*{\frac{s_{k+1} - s_k}{s_k - s_{k-1}}}
+        }{%
+            \log\abs*{\frac{s_k - s_{k-1}}{s_{k-1} - s_{k-2}}}
+        }
     \end{equation*}
-    existiert, so heißt dieser Grenzwert exakte q-Ordnung. Für \(q = 2\) heißt
-    die Folge quadratisch konvergent, für \(q = 3 \) kubisch usw. \\ Eine
-    exakte q-Ordnung größer 1 bedeutet, dass sich die Anzahl der genauen
-    Dezimalstellen mit jeder Iteration ver-q-facht.
+    existiert, so heißt dieser Grenzwert exakte \(q\)-Ordnung. Für \(q = 2\)
+    heißt die Folge quadratisch konvergent, für \(q = 3 \) kubisch usw.
+    Eine exakte \(q\)-Ordnung größer 1 bedeutet, dass sich die Anzahl der genauen
+    Dezimalstellen mit jeder Iteration ver-\(q\)-facht.
 \end{definition}
 
 \begin{definition}[Arithmetisch-Geometrisches Mittel]
-    Seien \(a, b \in \mathbb{R}, a,b > 0\). Definieren wir
+    Seien \(a, b \in \reals, a,b > 0\). Definieren wir
     \begin{align*}
-        a_0     & = a,                                                    & b_0 & = b \\
-        a_{n+1} & = \frac{a_n + b_n}{2}, \qquad b_{n+1} = \sqrt{a_n b_n},
+        a_0     & = a                   & b_0     & = b              \\
+        a_{n+1} & = \frac{a_n + b_n}{2} & b_{n+1} & = \sqrt{a_n b_n}
     \end{align*}
     dann heißt \(\lim_{n \to \infty} a_n = \lim_{n \to \infty} b_n =: M(a,b)\)
     das arithmetisch-geometrische Mittel von a und b. Dass die beiden
@@ -153,10 +177,10 @@ experimentell verglichen.
 \end{definition}
 
 \begin{definition}[Lineare Stichproben einer Folge]
-    Für eine Folge \(S_n\) und \(a, b \in \mathbb{R}\) sowie \(k \in
-    \mathbb{N}\) heißt das \(k\)-Tupel
+    Für eine Folge \(s_n\) und \(a, b \in \reals\) sowie \(k \in
+    \nats\) heißt das \(k\)-Tupel
     \begin{equation}
-        \left(S_{a + i \cdot \frac{b}{k}}\right)_{i \in \{0, \ldots, k\}}
+        \tuple*{S_{a + i \cdot \frac{b}{k}}}_{i \in \set{0, \ldots, k}}
     \end{equation}
     \(k\) lineare Stichproben der Folge über dem Intervall \([a, b]\).
 \end{definition}
@@ -258,8 +282,8 @@ schwer oder nur mit großem Aufwand zu lösen sind, durch die Ziehung von
 Stichproben.
 
 Um die Konstante \(\pi\) mit diesem Verfahren zu approximieren, betrachten wir
-zunächst die Menge \(M \coloneq \{(x, y) \mid 0 \le x,y \le 1, x, y \in
-\mathbb{R}\}\), also die Menge der Punkte innerhalb des Einheitsquadrats.
+zunächst die Menge \(M \coloneq \set{\tuple{x, y} \mid 0 \le x,y \in \reals \le
+1 }\), also die Menge der Punkte innerhalb des Einheitsquadrats.
 
 Wir betrachten nun die Wahrscheinlichkeit \(P(M)\), dass ein Punkt in \(M\)
 innerhalb des ersten Quadranten des Einheitskreises liegt, also eine Distanz
@@ -268,8 +292,9 @@ zum Ursprung \(\le 1\) hat:
 \begin{equation}
     P(M)
     = \frac{\text{Rote Punkte}}{\text{Gesamte Punkte}}
-    = \frac{|\{(x, y) \in M \mid \sqrt{x^2 + y^2} \le 1\}|}{|M|}
-    = \frac{\frac{\pi \cdot 1^2}{4}}{1} = \frac{\pi}{4}
+    = \frac{\abs*{\set*{(x, y) \in M \mid \sqrt{x^2 + y^2} \le 1}}}{\abs*{M}}
+    = \frac{\frac{\pi \cdot 1^2}{4}}{1}
+    = \frac{\pi}{4}
 \end{equation}
 
 Für eine Folge von gleichmäßig verteilten Teilmengen
@@ -291,7 +316,9 @@ Definieren wir beispielsweise die Teilmenge \(U_{1400} \coloneq \text{Rote
 Punkte} \cup \text{Gesamte Punkte}\) als die Vereinigung der roten und gesamten
 Punkte aus Abbildung \autoref{fig:monte-carlo-approximation}, so folgt daraus:
 \begin{equation}
-    P(U_{1400}) = \frac{r}{n} \Rightarrow \pi \approx \frac{4 \cdot r}{n} = \frac{4 \cdot 1100}{1400} = 3.1429
+    P(U_{1400})
+    = \frac{r}{n} \Rightarrow \pi \approx \frac{4 \cdot r}{n}
+    = \frac{4 \cdot 1100}{1400} = 3.1429
 \end{equation}
 ist.
 
@@ -303,32 +330,36 @@ Mit Fortschritten der Analysis wurde die Leibniz-Reihe für \(\pi\) bereits im
 in Mitte des 17. Jahrhunderts unabhängig voneinander von Wilhelm Leibniz und
 James Gregory. Sie lautet:
 \begin{equation*}
-    \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1}
+    \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{{(-1)}^k}{2k+1}
 \end{equation*}
-und basiert auf der Taylor-Reihe für den Arkustangens \(arctanx = x -
-\frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots\).
-Für \(x = 1\) erhält man das obige Ergebnis. Ein recht simpler Beweis für die
-Reihendarstellung von \(arctanx\) wird im Folgenden aufgeführt:
-\cite{Leibniz}
-\begin{equation}
-    \begin{split}
-        arctanx & = \int_{0}^{x} \frac{1}{1+t^2}\,dt                                                               \\
-                & = \int_{0}^{x}\sum_{k=0}^{n}(-1)^k t^{2k} + \frac{(-1)^{n+1}t^{2n+2}}{1+t^2}\,dt                 \\
-                & = \sum_{k=0}^{n}(-1)^k \frac{x^{2k+1}}{2k+1} + (-1)^{n+1}\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt.
-    \end{split}
-\end{equation}
-Da aber für \(|x| \leqslant 1\) gilt:
+und basiert auf der Taylor-Reihe für den Arkustangens
 \begin{equation*}
-    \left|\int_{0}^{x}\frac{t^{2n+2}}{1+t^2}\,dt\right| \leqslant \left|\int_{0}^{x}t^{2n+2}\,dt\right|
-    = \frac{|x|^{2n+3}}{2n+3} \rightarrow 0 \quad \text{für} \quad n \rightarrow \infty
+    \arctan(x) = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots.
+\end{equation*}
+Für \(x = 1\) erhält man das obige Ergebnis. Ein recht simpler Beweis für die
+Reihendarstellung von \(\arctan(x)\) wird im Folgenden aufgeführt: \cite{Leibniz}
+\begin{align*}
+    \arctan(x) & = \int_0^x \frac{1}{1+t^2} \, dt                                                                    \\
+               & = \int_0^x \sum_{k=0}^n {(-1)}^k t^{2k} + \frac{{(-1)}^{n+1}t^{2n+2}}{1+t^2} \, dt                  \\
+               & = \sum_{k=0}^n {(-1)}^k \frac{x^{2k+1}}{2k+1} + {(-1)}^{n+1} \int_0^x \frac{t^{2n+2}}{1+t^2} \, dt.
+\end{align*}
+Da aber für \(\abs{x} \leqslant 1\) gilt:
+\begin{equation*}
+    \abs*{\int_0^x \frac{t^{2n+2}}{1+t^2} \, dt} \leqslant \abs*{\int_0^x t^{2n+2} \, dt}
+    = \frac{\abs{x}^{2n+3}}{2n+3} \to 0 \quad \text{für} \quad n \to \infty
 \end{equation*}
 folgt die obige Aussage
 \begin{equation*}
-    arctanx = \sum_{k=0}^{\infty}(-1)^k \frac{x^{2k+1}}{2k+1} = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots
+    \arctan(x) = \sum_{k=0}^\infty {(-1)}^k \frac{x^{2k+1}}{2k+1}
+    = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots
 \end{equation*}
-und die Folge \(L_n := 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1} \) ist eine
-Approximationsfolge für \(\pi\). Außerdem lässt sich mit Definition 3 leicht
-nachrechnen, dass die Leibniz-Reihe logarithmisch konvergiert.
+und die Folge
+\begin{equation*}
+    L_n \coloneq 4 \cdot \sum_{k=0}^{n} \frac{(-1)^k}{2k+1}
+\end{equation*}
+ist eine Approximationsfolge für \(\pi\). Außerdem lässt sich mit
+\autoref{def:convergence-rate} leicht nachrechnen, dass die Leibniz-Reihe
+logarithmisch konvergiert.
 \end{approximation sequence}
 
 \begin{approximation sequence}[Gauß-Legendre]
@@ -340,51 +371,65 @@ vier verschiedener Folgen, sowie dem arithmetisch-geometrischen Mittels, wie in
 Definition 4, um \(\pi\) zu approximieren. Im Folgenden wird der Algorithmus
 aufgeführt: \cite{AGM-Gauß-Legendre}. Die Startwerte lauten wie folgt:
 \begin{equation*}
-    a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1.
+    a_0 = 1, \quad b_0 = \frac{1}{\sqrt{2}}, \quad t_0 = \frac{1}{4}, \quad p_0 = 1.
 \end{equation*}
 Mit den Iterationsvorschriften:
-\[a_{n+1} = \frac{a_n + b_n}{2} \]
-\[b_{n+1} = \sqrt{a_nb_n} \]
-\[t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \]
-\[p_{n+1} = 2p_n \]
+\begin{align*}
+    a_{n+1} & = \frac{a_n + b_n}{2}                 \\
+    b_{n+1} & = \sqrt{a_n b_n}                      \\
+    t_{n+1} & = t_n - p_n \cdot {(a_n - a_{n+1})}^2 \\
+    p_{n+1} & = 2 p_n
+\end{align*}
 
-Dann gilt für \(g_n := \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}}\):
+Dann gilt für
 \begin{equation*}
-    \lim_{n \to \infty}g_n = \pi
+    g_n \coloneq \frac{{(a_{n+1} + b_{n+1})}^2}{4 \cdot t_{n+1}}
+\end{equation*}
+das
+\begin{equation*}
+    \lim_{n \to \infty} g_n = \pi.
 \end{equation*}
 
 Als mathematische Grundlagen \cite{Eugene-Salamin} für diesen Algorithmus
 dienen zum einen das arithmetische-geometrische Mittel welches für \(a_0 = 1
-\text{ und } b_0 = \cos(\phi)\) gegen \(\frac{\pi}{2K(\sin(\phi))}\)
+\text{ und } b_0 = \cos(\phi)\) gegen
+\begin{equation*}
+    \frac{\pi}{2K(\sin(\phi))}
+\end{equation*}
 konvergiert, wobei
 \begin{equation*}
-    K(k) = \int_{0}^{\frac{\pi}{2}} \frac{1}{\sqrt{1-k^2sin^2(\theta)}}d\theta
+    K(k) = \int_0^{\frac{\pi}{2}} \frac{1}{\sqrt{1 - k^2 \sin^2(\theta)}} \, d\theta
 \end{equation*}
 das elliptische Integral erster Art ist und zum anderen der Fakt, dass für
-\(c_0 = \sin(\phi), \\ c_{i+1} = a_i - a_{i+1}\)
+\begin{align*}
+    c_0 & = \sin(\phi), \\ c_{i+1} &= a_i - a_{i+1}
+\end{align*}
 \begin{equation*}
-    \sum_{i= 0}^{\infty} 2^{i-1} c_{i}^{2} = 1 - \frac{E(sin(\phi))}{K(sin(\phi))}
+    \sum_{i = 0}^\infty 2^{i-1} c_{i}^{2} = 1 - \frac{E(\sin(\phi))}{K(\sin(\phi))}
 \end{equation*}
 wobei
 \begin{equation*}
-    E(k) = \int_{0}^{\frac{\pi}{2}}\sqrt{1-k^2sin^2(\theta)}d\theta
+    E(k) = \int_0^{\frac{\pi}{2}}\sqrt{1 - k^2 \sin^2(\theta)} \, d\theta
 \end{equation*}
 das elliptische Integral zweiter Art ist, und einer Identität, die Legendre
 bewies:
 \begin{equation*}
-    K(\cos(\theta))E(\sin(\theta)) + K(\sin(\theta))E(cos(\theta)) - K(\cos(\theta))K(\sin(\theta)) = \frac{\pi}{2}
+    K(\cos(\theta)) \cdot E(\sin(\theta))
+    + K(\sin(\theta)) \cdot E(cos(\theta))
+    - K(\cos(\theta)) \cdot K(\sin(\theta))
+    = \frac{\pi}{2}.
 \end{equation*}
 Der Beweis, dass der oben genannte Algorithmus tatsächlich gegen \(\pi\)
 konvergiert und dazu noch quadratisch konvergiert, ist zu lang für diese
 Arbeit, kann jedoch mit der Integralrechnung durchgeführt werden und hier
-\cite{Gauß-Legendre} nachgelesen werden. \\ Die Laufzeit für den
-Gauß-Legendre Algorithmus für eine gegebene Präzision n beträgt
-\(\mathcal{O}(\frac{15}{2}M(n)log_2(n))\), wobei \(M(n)\) die Zeit ist, um
-floating-point Zahlen mit n-Bit Bruchteil zu multiplizieren.
-\cite{AGM-Gauß-Legendre} Für den Datentyp Decimal gilt \(M(n) =
-n^{\log_{2}(3)}\) mit der Karatsuba Multiplikation für \texttt{Decimals}
+\cite{Gauß-Legendre} nachgelesen werden. \\ Die Laufzeit für den Gauß-Legendre
+Algorithmus für eine gegebene Präzision \(n\) beträgt
+\[\mathcal{O}\paren*{\frac{15}{2} \cdot M(n) \cdot log_2(n)}\], wobei \(M(n)\)
+die Zeit ist, um floating-point Zahlen mit \(n\)-Bit Bruchteil zu multiplizieren.
+\cite{AGM-Gauß-Legendre}. Für den Datentyp \texttt{Decimal} gilt \(M(n) =
+n^{\log_2(3)}\) mit der Karatsuba Multiplikation für \texttt{Decimals}
 \cite{Decimal-Multiplication}. Also liegt die Laufzeit insgesamt in
-\(\mathcal{O}(\frac{15}{2}n^{\log_{2}(3)}log_2(n))\).
+\[\mathcal{O}\paren*{\frac{15}{2} \cdot n^{\log_{2}(3)} \cdot log_2(n)}.\]
 \end{approximation sequence}
 
 \begin{approximation sequence}[Chudnovsky-Algorithmus]
@@ -393,11 +438,15 @@ Brüdern, ist eine schnelle Methode um \(\pi\) zu berechnen. Der Algorithmus
 basiert auf folgender Reihe\cite{Chudnovsky}:
 \begin{equation*}
     \frac{1}{\pi}
-    = \frac{1}{426880 \sqrt{10005}}
-    \sum_{k = 0}^{\infty}
-    \frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}.
+    = \frac{1}{426880 \cdot \sqrt{10005}}
+    \cdot \sum_{k = 0}^\infty
+    \frac{%
+        {(-1)}^k \cdot (6k)! \cdot (545140134 \cdot k + 13591409)
+    }{%
+        (3k)! \cdot (k!)^3 \cdot {(640320)}^{3k}
+    }.
 \end{equation*}
-Die Laufzeitkomplexität liegt in \(\mathcal{O}(n(logn)^3)\)
+Die Laufzeitkomplexität liegt in \[\mathcal{O}\paren*{n{(\log n)}^3}\]
 \cite{Runtime-Chudnovsky} und der Algorithmus produziert mit jeder Iteration
 durchschnittlich 14.81 weitere korrekte Dezimalstellen
 \cite{Nachkommastellen-Chudnovsky}, was ihn zu einem sehr guten
@@ -459,7 +508,7 @@ Ein sehr relevanter Faktor für die Auswahl einer Approximationsfolge ist deren
 Konvergenz verhalten.
 
 In diesem Experiment werden \(k\) lineare Stichproben der Folgen für das
-Intervall \([0, b]\) für eine festgesetzte Mantissenlänge \(m \in \mathbb{N}\)
+Intervall \([0, b]\) für eine festgesetzte Mantissenlänge \(m \in \nats\)
 genommen. Ziel ist es, experimentell eine Darstellung der
 Konvergenzgeschwindigkeit zu approximieren. Eine höhere
 Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
@@ -527,10 +576,10 @@ berechnen, unabhängig von der Rechenzeit.
 In diesem Experiment wird der Speicherbedarf der verschiedenen
 Annäherungsfolgen in Abhängigkeit von der zu approximierenden
 Dezimalstellenanzahl analysiert. Jede Sequenz wird auf dem Intervall \((0,
-n)\), wobei \(n \in \mathbb{N}\) die Anzahl der zu approximierenden
-Dezimalstellen ist, \(k \in \mathbb{N}\)-mal mit einer Mantissenlänge von
-\(\left(i \frac{n}{k}\right)_{i \in \{0, \ldots, k\}}\) zu einer festen
-Position ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
+n)\), wobei \(n \in \nats\) die Anzahl der zu approximierenden Dezimalstellen
+ist, \(k \in \nats\)-mal mit einer Mantissenlänge von \(\left(i
+\frac{n}{k}\right)_{i \in \{0, \ldots, k\}}\) zu einer festen Position
+ausgewertet und ihr benötigter Speicherbedarf wird festgehalten.
 
 \begin{figure}[H]
     \centering
