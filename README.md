@@ -105,5 +105,5 @@ nix build github:michaelvanstraten/ewr-so-se-2024#'"tex/approximation-of-pi/beri
 ```
 
 This command will compile the LaTeX
-[`approximation-of-pi/bericht.tex`](./src/approximation-of-pi/bericht.tex)
+[`approximation-of-pi/bericht.tex`](./tex/approximation-of-pi/bericht.tex)
 Document using the configurations specified in the Nix setup.
