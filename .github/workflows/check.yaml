@@ -1,0 +1,16 @@
+name: Flake checks
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+    push:
+        branches: [master]
+
+jobs:
+    checks:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: cachix/install-nix-action@V27
+            - name: flake check
+              run: nix flake check --all-systems
