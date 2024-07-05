@@ -92,23 +92,23 @@
             default = ewr-so-se-2024;
 
             approximation-of-pi-report = build {
-              src = ./src/approximation-of-pi;
+              src = ./tex/approximation-of-pi;
               name = "Approximation of Pi (Report)";
               root-filename = "bericht.tex";
             };
             approximation-of-pi-presentation = build {
-              src = ./src/approximation-of-pi;
+              src = ./tex/approximation-of-pi;
               name = "Approximation of Pi (Presentation)";
               root-filename = "presentation.tex";
             };
 
             harmonic-series-report = build {
-              src = ./src/harmonic-series;
+              src = ./tex/harmonic-series;
               name = "Harmonic series (Report)";
               root-filename = "bericht.tex";
             };
             harmonic-series-handout = build {
-              src = ./src/harmonic-series;
+              src = ./tex/harmonic-series;
               name = "Harmonic series (Handout)";
               root-filename = "bericht_handout.tex";
             };
