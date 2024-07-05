@@ -23,8 +23,18 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-        inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv;
-        ewr-so-se-2024 = mkPoetryApplication { projectDir = ./.; };
+        inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication mkPoetryEnv overrides;
+        poetryOverrides = overrides.withDefaults (
+          final: prev: {
+            docutils = prev.docutils.overridePythonAttrs (orignal: {
+              buildInputs = (orignal.buildInputs or [ ]) ++ [ final.flit-core ];
+            });
+          }
+        );
+        ewr-so-se-2024 = mkPoetryApplication {
+          projectDir = ./.;
+          overrides = poetryOverrides;
+        };
       in
       {
         apps = {
@@ -116,7 +126,10 @@
       }
       // (
         let
-          poetry-enviorment = mkPoetryEnv { projectDir = ./.; };
+          poetry-enviorment = mkPoetryEnv {
+            projectDir = ./.;
+            overrides = poetryOverrides;
+          };
         in
         rec {
           checks = {

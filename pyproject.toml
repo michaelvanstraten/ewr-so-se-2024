@@ -17,8 +17,8 @@ tqdm = "^4.66.4"
 numpy = "^1.26.4"
 pytest = "^8.2.0"
 pylint = "^3.1.0"
-mypy = "^1.1.0"
-pdoc = "^14.5.0"
+sphinx = "^7.3.7"
+myst-parser = "^3.0.1"
 
 [tool.poetry.scripts]
 approximation-of-pi = "ewr_so_se_2024.approximation_of_pi.__main__:cli"
