@@ -44,53 +44,46 @@ sorting=ynt
 \cleardoublepage{}
 
 \section{Einleitung und Motivation}
-Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist
-eine klassische unendliche Reihe, die in vielen Bereichen der Mathematik und
-Informatik von Interesse ist.
-Obwohl sie divergiert, bietet die Untersuchung ihrer Partialsummen wertvolle
-Einblicke in numerische Methoden und deren Präzision.
-Das Konvergenzverhalten der Folge der Partialsummen bei Berechnung mittels
-Computern ist von besonderem Interesse, da es die Grenzen und Genauigkeit
-numerischer Berechnungen darstellt.
-In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen und Datentypen,
-insbesondere diejenigen, die von NumPy bereitgestellt werden, die Berechnung
-der Partialsummen der harmonischen Reihe beeinflussen.
-Dies hat praktische Relevanz für numerische Mathematik, Algorithmendesign und
-die Implementierung in wissenschaftlicher Software.
+Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist eine klassische unendliche Reihe, die in vielen Bereichen der
+    Mathematik und Informatik von Interesse ist. Obwohl sie divergiert, bietet
+    die Untersuchung ihrer Partialsummen wertvolle Einblicke in numerische
+    Methoden und deren Präzision. Das Konvergenzverhalten der Folge der
+    Partialsummen bei Berechnung mittels Computern ist von besonderem
+    Interesse, da es die Grenzen und Genauigkeit numerischer Berechnungen
+    darstellt. In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen
+    und Datentypen, insbesondere diejenigen, die von NumPy bereitgestellt
+    werden, die Berechnung der Partialsummen der harmonischen Reihe
+    beeinflussen. Dies hat praktische Relevanz für numerische Mathematik,
+    Algorithmendesign und die Implementierung in wissenschaftlicher Software.
 
 \section{Theorie}
 \subsection{Darstellung reeller Zahlen auf Rechnern}
 Reelle Zahlen werden üblicherweise im Dezimalsystem (Basis 10) dargestellt, das
 heißt, sie werden mit den Ziffern aus \( B_{10} = \{0, 1, 2, \dots, 9\} \)
-beschrieben.
-Computer hingegen stellen reelle Zahlen mit Bits dar, die entweder \(0\) oder
-\(1\) annehmen können.
-Die Anzahl der Bits hängt vom jeweiligen Rechner bzw.
-\ dem gewählten Datentyp ab, typisch sind aber 32 Bit bzw. 64 Bit.
+beschrieben. Computer hingegen stellen reelle Zahlen mit Bits dar, die entweder
+\(0\) oder \(1\) annehmen können. Die Anzahl der Bits hängt vom jeweiligen
+Rechner bzw. \ dem gewählten Datentyp ab, typisch sind aber 32 Bit bzw. 64 Bit.
 Da man aber nur beschränkt viele Bits hat, folgt, dass man nur beschränkt viele
-reelle Zahlen darstellen kann.
-Wir unterscheiden zwischen den normalisierten Gleitkommazahlen und den
-subnormalen Gleitkommazahlen.
+reelle Zahlen darstellen kann. Wir unterscheiden zwischen den normalisierten
+Gleitkommazahlen und den subnormalen Gleitkommazahlen.
 
-Für \( v \in \{0, 1\} \) und \( N \in \mathbb{Z} \) mit \( -1021 < N \leq 1024 \) gilt für eine normalisierte \( t \)-stellige Gleitkommazahl \( x \):
+Für \( v \in \{0, 1\} \) und \( N \in \mathbb{Z} \) mit \( -1021 < N \leq 1024
+\) gilt für eine normalisierte \( t \)-stellige Gleitkommazahl \( x \):
 \begin{align*}
     x & = {(-1)}^v \sum_{i=1}^t x_i 2^{-i}                                                                                                \\
       & = (-1)^v 2^N (0.x_1 x_2 \ldots x_t)_2 \qquad \text{für alle} \qquad i = \{1, \ldots, t\} \quad \text{mit} \quad x_i \in \{0, 1\}.
 \end{align*}
 
 Die Zahl \( m = \sum_{i=1}^{t}x_i 2^{-i} = (0.x_1x_2\ldots x_t)_2 \) wird die
-Mantisse von \( x \) und \( t \) die Mantissenlänge genannt.
-Man schreibt \( x \in \mathbb{R}_N \), die Menge der normalisierten
-Gleitkommazahlen.
-Für eine subnormale Gleitkommazahl \( x \) gilt: \[ x = (-1)^v 2^{N_{min}}
-    (0.x_2 x_3 \ldots x_t) = (-1)^v 2^{N_{min}+1} \sum_{i=1}^{t} 2^{-i} x_i \] mit
-\( x_1 = 0 \) und \( N_{min} + 1 = -1021 \).
-Man schreibt \( x \in \mathbb{R}_D \), die Menge der subnormalen
-Gleitkommazahlen.
+Mantisse von \( x \) und \( t \) die Mantissenlänge genannt. Man schreibt \( x
+\in \mathbb{R}_N \), die Menge der normalisierten Gleitkommazahlen. Für eine
+subnormale Gleitkommazahl \( x \) gilt: \[ x = (-1)^v 2^{N_{min}}
+    (0.x_2 x_3 \ldots x_t) = (-1)^v 2^{N_{min}+1} \sum_{i=1}^{t} 2^{-i} x_i \] mit \( x_1 = 0 \) und \( N_{min} + 1 = -1021 \). Man schreibt \( x \in
+    \mathbb{R}_D \), die Menge der subnormalen Gleitkommazahlen.
 
 Die Menge der Maschinenzahlen wird definiert als: \[ \mathcal{M} = \mathbb{R}_N
-    \cup \mathbb{R}_D \] also der Vereinigung der normalisierten und der
-subnormalen Gleitkommazahlen.
+    \cup \mathbb{R}_D \] also der Vereinigung der normalisierten und der subnormalen
+    Gleitkommazahlen.
 
 \subsubsection{\texttt{np.float16}, \texttt{np.float32} und \texttt{np.float64}}
 Bei den verschiedenen Float-Typen handelt es sich um von der Bibliothek NumPy
@@ -125,12 +118,10 @@ mit höherer Präzision dargestellt werden können als die der anderen Datentype
 
 \subsection{Runden von Gleitkommazahlen und Rundungsfehler}
 Da nur beschränkt viele Bits zur Darstellung von Gleitkommazahlen verwendet
-werden, können einige reelle Zahlen gar nicht dargestellt werden.
-Zum Beispiel ist \( (0.1)_{10} = (0.
-\overline{0011})_2 \).
-Da sich in der Darstellung die \(0011\) wiederholt, kann diese Zahl nicht exakt
-vom Rechner dargestellt werden; sie muss also gerundet werden.
-Dafür wird eine Rundungsvorschrift
+werden, können einige reelle Zahlen gar nicht dargestellt werden. Zum Beispiel
+ist \( (0.1)_{10} = (0. \overline{0011})_2 \). Da sich in der Darstellung die
+\(0011\) wiederholt, kann diese Zahl nicht exakt vom Rechner dargestellt
+werden; sie muss also gerundet werden. Dafür wird eine Rundungsvorschrift
 \begin{equation*}
     rd_t: \mathbb{R}_N \cup \mathbb{R}_D \rightarrow \mathbb{R}_N \cup \mathbb{R}_D
 \end{equation*}
@@ -139,27 +130,31 @@ Maschinenzahl ist.
 
 Diese Rundungsvorschrift erfüllt folgende Eigenschaften:
 \begin{itemize}
-    \item Eine vorgegebene reelle Zahl wird zur nächstgelegenen Maschinenzahl gerundet.
-    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet.
+    \item Eine vorgegebene reelle Zahl wird zur nächstgelegenen Maschinenzahl
+          gerundet.
+    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird
+          sie zur nächstgrößeren Maschinenzahl gerundet.
 \end{itemize}
 
 Außerdem kann man herleiten, dass: \[ rd_t(x) = x(1+\varepsilon(x)) =
     \frac{x}{1-\eta(x)} \] mit \[ \varepsilon(x) = \frac{rd_t(x) - x}{x} \text{ und
     } \eta(x) = \frac{rd_t(x) - x}{rd_t(x)} \]
 
-\subsection{Summationsmethoden} \subsubsection{Vorwärtssummation} Die
-Vorwärtssummation ist, wie der Name auch sagt, eine recht simple Methode,
-Zahlen aufzuaddieren.
-Die Terme werden hintereinander addiert, das heißt zuerst werden die ersten
-beiden Summanden addiert, der Rechner entscheidet dann, ob es sich um eine
-Maschinenzahl handelt, und falls nicht, rundet er auf die nächste
-Maschinenzahl.
-Danach erst wird die dritte Zahl auf diese, gegebenenfalls neue Zahl,
-aufaddiert und es wird wieder geschaut, ob es sich um eine Maschinenzahl
-handelt.
-Dieser Prozess wird bis zum letzten Summanden durchgeführt.
-Mithilfe von Klammerung lässt sich dies für die harmonische Reihe wie folgt
-ausdrücken:
+\subsection{Summationsmethoden} \subsubsection{Vorwärtssummation} Die Vorwärtssummation ist, wie der Name auch
+                                  sagt, eine recht simple Methode, Zahlen
+                                  aufzuaddieren. Die Terme werden
+                                  hintereinander addiert, das heißt zuerst
+                                  werden die ersten beiden Summanden addiert,
+                                  der Rechner entscheidet dann, ob es sich um
+                                  eine Maschinenzahl handelt, und falls nicht,
+                                  rundet er auf die nächste Maschinenzahl.
+                                  Danach erst wird die dritte Zahl auf diese,
+                                  gegebenenfalls neue Zahl, aufaddiert und es
+                                  wird wieder geschaut, ob es sich um eine
+                                  Maschinenzahl handelt. Dieser Prozess wird
+                                  bis zum letzten Summanden durchgeführt.
+                                  Mithilfe von Klammerung lässt sich dies für
+                                  die harmonische Reihe wie folgt ausdrücken:
 \begin{equation*}
     \sum_{k=1}^{n} \frac{1}{k} = ((\ldots((1 + \frac{1}{2}) + \frac{1}{3}) + \ldots) + \frac{1}{n}).
 \end{equation*}
@@ -168,10 +163,9 @@ ausdrücken:
 Da die Maschinenzahlen unter den vier grundlegenden arithmetischen Operationen
 nicht abgeschlossen sind und der Rechner möglicherweise runden muss, so wird
 sich, vor allem bei einer sehr großen Anzahl an Zahlen, bei der Addition ein
-Genauigkeitsfehler einschleichen.
-Um diesen Fehler auszugleichen, wird bei der Kahan-Summation eine Laufvariable
-eingeführt, in die nach jeder Addition der Fehler eingespeichert wird, um ihn
-in der nächsten Addition wieder zu beheben.
+Genauigkeitsfehler einschleichen. Um diesen Fehler auszugleichen, wird bei der
+Kahan-Summation eine Laufvariable eingeführt, in die nach jeder Addition der
+Fehler eingespeichert wird, um ihn in der nächsten Addition wieder zu beheben.
 Natürlich kann diese Laufvariable nur so genau sein, wie der jeweilige
 Datentyp, mit dem gerechnet wird.
 
@@ -180,12 +174,12 @@ Datentyp, mit dem gerechnet wird.
 \subsection{Versuchsaufbau}
 Um zu untersuchen, wie sich das Verhalten von Gleitkommazahlen auf die
 Konvergenz der harmonischen Reihe auswirken, haben wir mittels Python zwei
-Programme zu den eben vorgestellten Summationsmethoden geschrieben.
-Aufsummiert haben wir bis zu verschiedenen Werten, die logarithmisch den
-gleichen Abstand haben.
-Generiert haben wir uns diese Zahlen mittels unseres pylogspace-Programms,
-welches eine Liste an ganzen Zahlen in einer gegebenen Basis (hier
-standardmäßig \(10\)) zwischen einer oberen und unteren Grenze generiert.
+Programme zu den eben vorgestellten Summationsmethoden geschrieben. Aufsummiert
+haben wir bis zu verschiedenen Werten, die logarithmisch den gleichen Abstand
+haben. Generiert haben wir uns diese Zahlen mittels unseres
+pylogspace-Programms, welches eine Liste an ganzen Zahlen in einer gegebenen
+Basis (hier standardmäßig \(10\)) zwischen einer oberen und unteren Grenze
+generiert.
 
 \subsection{Daten}
 
@@ -203,74 +197,98 @@ Die folgenden Beobachtungen basieren auf den Ergebnissen der Summationsmethoden
 
 \textbf{Verhalten}
 \begin{itemize}
-    \item Die Summation konvergiert schnell und erreicht einen Punkt, ab dem keine signifikante Änderung mehr erfolgt.
-    \item Die Konvergenz tritt bereits bei relativ kleinen Summanden (ab etwa \(10^3\)) ein.
+    \item Die Summation konvergiert schnell und erreicht einen Punkt, ab dem
+          keine signifikante Änderung mehr erfolgt.
+    \item Die Konvergenz tritt bereits bei relativ kleinen Summanden (ab etwa
+          \(10^3\)) ein.
 \end{itemize}
 
 \textbf{Ursache}
 \begin{itemize}
-    \item Bei der Verwendung von \texttt{float16} treten aufgrund der geringen Präzision früh Rundungsfehler auf.
-          Diese führen dazu, dass kleine Summanden ab einem bestimmten Punkt ignoriert
-          werden, da sie auf Null gerundet werden.
+    \item Bei der Verwendung von \texttt{float16} treten aufgrund der geringen
+          Präzision früh Rundungsfehler auf. Diese führen dazu, dass kleine
+          Summanden ab einem bestimmten Punkt ignoriert werden, da sie auf Null
+          gerundet werden.
 \end{itemize}
 
 \textbf{Ergebnis}
 \begin{itemize}
-    \item Die harmonische Reihe scheint zu konvergieren, was jedoch auf die beschränkte Genauigkeit und das frühe Auftreten von Rundungsfehlern bei \texttt{float16} zurückzuführen ist.
+    \item Die harmonische Reihe scheint zu konvergieren, was jedoch auf die
+          beschränkte Genauigkeit und das frühe Auftreten von Rundungsfehlern
+          bei \texttt{float16} zurückzuführen ist.
 \end{itemize}
 
 \subsubsection{Kahan Summation using float16}
 
 \textbf{Verhalten}
 \begin{itemize}
-    \item Die Summation zeigt eine stetigere Zunahme im Vergleich zur Vorwärtssummation und konvergiert langsamer.
-    \item Der Rundungsfehler wird bei jeder Addition kompensiert, was zu einer genaueren Summation führt.
+    \item Die Summation zeigt eine stetigere Zunahme im Vergleich zur
+          Vorwärtssummation und konvergiert langsamer.
+    \item Der Rundungsfehler wird bei jeder Addition kompensiert, was zu einer
+          genaueren Summation führt.
 \end{itemize}
 
 \textbf{Ursache}
 \begin{itemize}
-    \item Die Kahan-Summation kompensiert die Rundungsfehler durch eine zusätzliche Laufvariable, die den Fehler speichert und in die nächste Addition einbezieht.
+    \item Die Kahan-Summation kompensiert die Rundungsfehler durch eine
+          zusätzliche Laufvariable, die den Fehler speichert und in die nächste
+          Addition einbezieht.
 \end{itemize}
 
 \textbf{Ergebnis}
 \begin{itemize}
-    \item Trotz der besseren Genauigkeit gegenüber der Vorwärtssummation ist die Präzision von \texttt{float16} immer noch begrenzt, was zu einer Verzögerung, aber nicht zu einer Verhinderung der scheinbaren Konvergenz führt.
+    \item Trotz der besseren Genauigkeit gegenüber der Vorwärtssummation ist
+          die Präzision von \texttt{float16} immer noch begrenzt, was zu einer
+          Verzögerung, aber nicht zu einer Verhinderung der scheinbaren
+          Konvergenz führt.
 \end{itemize}
 
 \subsubsection{Forward Summation using float32}
 
 \textbf{Verhalten}
 \begin{itemize}
-    \item Die Summation zeigt zunächst eine stetige Zunahme und erreicht dann einen Punkt, an dem keine signifikante Änderung mehr erfolgt.
-    \item Der Konvergenzpunkt tritt später auf als bei \texttt{float16}, aber dennoch deutlich.
+    \item Die Summation zeigt zunächst eine stetige Zunahme und erreicht dann
+          einen Punkt, an dem keine signifikante Änderung mehr erfolgt.
+    \item Der Konvergenzpunkt tritt später auf als bei \texttt{float16}, aber
+          dennoch deutlich.
 \end{itemize}
 
 \textbf{Ursache}
 \begin{itemize}
-    \item Die höhere Präzision von \texttt{float32} verzögert das Auftreten von Rundungsfehlern, führt jedoch letztendlich zu einem ähnlichen Effekt, bei dem kleine Summanden ignoriert werden.
+    \item Die höhere Präzision von \texttt{float32} verzögert das Auftreten von
+          Rundungsfehlern, führt jedoch letztendlich zu einem ähnlichen Effekt,
+          bei dem kleine Summanden ignoriert werden.
 \end{itemize}
 
 \textbf{Ergebnis}
 \begin{itemize}
-    \item Die harmonische Reihe scheint auch hier zu konvergieren, was auf die begrenzte Genauigkeit und die später auftretenden Rundungsfehler bei \texttt{float32} zurückzuführen ist.
+    \item Die harmonische Reihe scheint auch hier zu konvergieren, was auf die
+          begrenzte Genauigkeit und die später auftretenden Rundungsfehler bei
+          \texttt{float32} zurückzuführen ist.
 \end{itemize}
 
 \subsubsection{Kahan Summation using float32}
 
 \textbf{Verhalten}
 \begin{itemize}
-    \item Die Summation zeigt eine stetige und lineare Zunahme ohne Anzeichen von Konvergenz im beobachteten Bereich.
-    \item Die Kahan-Summation kompensiert effektiv die Rundungsfehler und ermöglicht eine genauere Summation über einen längeren Bereich.
+    \item Die Summation zeigt eine stetige und lineare Zunahme ohne Anzeichen
+          von Konvergenz im beobachteten Bereich.
+    \item Die Kahan-Summation kompensiert effektiv die Rundungsfehler und
+          ermöglicht eine genauere Summation über einen längeren Bereich.
 \end{itemize}
 
 \textbf{Ursache}
 \begin{itemize}
-    \item Durch die höhere Präzision von \texttt{float32} und die Kahan-Summation werden die Rundungsfehler wesentlich besser ausgeglichen, wodurch eine scheinbare Konvergenz verhindert wird.
+    \item Durch die höhere Präzision von \texttt{float32} und die
+          Kahan-Summation werden die Rundungsfehler wesentlich besser
+          ausgeglichen, wodurch eine scheinbare Konvergenz verhindert wird.
 \end{itemize}
 
 \textbf{Ergebnis}
 \begin{itemize}
-    \item Die harmonische Reihe zeigt keine Anzeichen von Konvergenz im beobachteten Bereich, was die Effektivität der Kahan-Summation bei Verwendung von \texttt{float32} bestätigt.
+    \item Die harmonische Reihe zeigt keine Anzeichen von Konvergenz im
+          beobachteten Bereich, was die Effektivität der Kahan-Summation bei
+          Verwendung von \texttt{float32} bestätigt.
 \end{itemize}
 
 \subsection{Zusammenfassung des Vergleichs}
@@ -293,26 +311,24 @@ Die folgenden Beobachtungen basieren auf den Ergebnissen der Summationsmethoden
 \section{Zusammenfassung}
 Zusammengefasst kann man sagen, dass der Rechner reelle Zahlen im Binärsystem
 darstellt und diese je nach Größe entweder als normalisierte oder subnormale
-Gleitkommazahl darstellt.
-Abhängig vom gewählten Datentyp können Zahlen genauer dargestellt werden, da
-ihnen mehr Bits zur Verfügung stehen.
-Außerdem sind diese Maschinenzahlen nicht abgeschlossen bezüglich Addition,
-Subtraktion, Multiplikation oder Division, weshalb die Summe, das Produkt,
-etc.\ vom Rechner auf die nächstgelegene Gleitkommazahl gerundet werden muss.
+Gleitkommazahl darstellt. Abhängig vom gewählten Datentyp können Zahlen genauer
+dargestellt werden, da ihnen mehr Bits zur Verfügung stehen. Außerdem sind
+diese Maschinenzahlen nicht abgeschlossen bezüglich Addition, Subtraktion,
+Multiplikation oder Division, weshalb die Summe, das Produkt, etc.\ vom Rechner
+auf die nächstgelegene Gleitkommazahl gerundet werden muss.
 
 Die Auswirkungen auf die harmonische Summe, die bekannterweise divergiert, sind
-sehr deutlich.
-Die Summanden werden sehr klein und werden für bestimmte Datentypen dann auf
-Null abgerundet, was dazu führt, dass die harmonische Reihe für eben diese
-Datentypen konvergiert, da ab einem bestimmten Punkt nur noch Nullen addiert
-werden.
+sehr deutlich. Die Summanden werden sehr klein und werden für bestimmte
+Datentypen dann auf Null abgerundet, was dazu führt, dass die harmonische Reihe
+für eben diese Datentypen konvergiert, da ab einem bestimmten Punkt nur noch
+Nullen addiert werden.
 
 Die Genauigkeit des Aufsummierens kann im Vergleich zur Vorwärtssummation
 erhöht werden, indem man eine andere Summationsmethode verwendet, wie zum
-Beispiel die Kahan-Summation.
-Dadurch kann das Konvergieren zwar verzögert, aber nicht gestoppt werden, da
-die Kahan-Summation von einer Laufvariable abhängt, die den Rundungsfehler
-ausgleicht, jedoch nur so genau sein kann wie der jeweilige Datentyp.
+Beispiel die Kahan-Summation. Dadurch kann das Konvergieren zwar verzögert,
+aber nicht gestoppt werden, da die Kahan-Summation von einer Laufvariable
+abhängt, die den Rundungsfehler ausgleicht, jedoch nur so genau sein kann wie
+der jeweilige Datentyp.
 
 \printbibliography
 

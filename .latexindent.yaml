@@ -4,4 +4,3 @@ modifyLineBreaks:
         columns: 80
         when: after
 onlyOneBackUp: 1
-

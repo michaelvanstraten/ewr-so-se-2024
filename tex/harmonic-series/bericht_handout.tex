@@ -106,66 +106,58 @@ mithilfe von Maschinenzahlen}
 \cleardoublepage{}
 
 \chapter{Einführung und Motivation}
-Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist
-eine klassische unendliche Reihe, die in vielen Bereichen der Mathematik und
-Informatik von Interesse ist.
-Obwohl sie divergiert, bietet die Untersuchung ihrer Partialsummen wertvolle
-Einblicke in numerische Methoden und deren Präzision.
-Das Konvergenzverhalten der Folge der Partialsummen bei Berechnung mittels
-Computern ist von besonderem Interesse, da es die Grenzen und Genauigkeit
-numerischer Berechnungen darstellt.
-In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen und Datentypen,
-insbesondere diejenigen die von numpy bereitgestellt werden, die Berechnung der
-Partialsummen der harmonischen Reihe beeinflussen.
-Dies hat praktische Relevanz für numerische Mathematik, Algorithmendesign und
-die Implementierung in wissenschaftlicher Software.
+Die harmonische Reihe, definiert als: \[ \sum_{n=1}^{\infty} \frac{1}{n} \] ist eine klassische unendliche Reihe, die in vielen Bereichen der
+    Mathematik und Informatik von Interesse ist. Obwohl sie divergiert, bietet
+    die Untersuchung ihrer Partialsummen wertvolle Einblicke in numerische
+    Methoden und deren Präzision. Das Konvergenzverhalten der Folge der
+    Partialsummen bei Berechnung mittels Computern ist von besonderem
+    Interesse, da es die Grenzen und Genauigkeit numerischer Berechnungen
+    darstellt. In dieser Arbeit untersuchen wir, wie verschiedene Algorithmen
+    und Datentypen, insbesondere diejenigen die von numpy bereitgestellt
+    werden, die Berechnung der Partialsummen der harmonischen Reihe
+    beeinflussen. Dies hat praktische Relevanz für numerische Mathematik,
+    Algorithmendesign und die Implementierung in wissenschaftlicher Software.
 \chapter{Theoretische Grundlagen}
 
 \section{Darstellung reeller Zahlen}
 Computer stellen Zahlen mithilfe von Bits dar, die entweder den Wert 0 oder 1
-annehmen können.
-Die Anzahl der Bits hängt vom jeweiligen Rechner ab und ist heutzutage 64bit
-bzw.
-32bit.
-Das heißt man kann nur eingeschränkt viele reelle Zahlen darstellen.
-Diese durch einen Rechner dargestellten reellen Zahlen heißen Gleitkommazahlen.
-Und die Menge aller Gleitkommazahlen \[\mathcal{M} = \mathbb{R}_N \cup
-    \mathbb{R}_D \] bestehend aus der Vereinigung der normalisierten
-Gleitkommazahlen und den subnormalen Gleitkommazahlen, also Zahlen, die sehr
-nah an der Null liegen, heißt die Menge der Maschinenzahlen
+annehmen können. Die Anzahl der Bits hängt vom jeweiligen Rechner ab und ist
+heutzutage 64bit bzw. 32bit. Das heißt man kann nur eingeschränkt viele reelle
+Zahlen darstellen. Diese durch einen Rechner dargestellten reellen Zahlen
+heißen Gleitkommazahlen. Und die Menge aller Gleitkommazahlen \[\mathcal{M} = \mathbb{R}_N \cup
+    \mathbb{R}_D \] bestehend aus der Vereinigung der normalisierten Gleitkommazahlen und den
+    subnormalen Gleitkommazahlen, also Zahlen, die sehr nah an der Null liegen,
+    heißt die Menge der Maschinenzahlen
 
-\section{Runden von Gleitkommazahlen} Da die Anzahl an Bits, die für die
-Darstellung einer Gleitkommazahl verantwortlich ist, beschränkt ist, können zum
-einen einige Zahlen, gar nicht dargestellt werden, und zum anderen bedeutet
-dies insbesondere, dass Maschinenzahlen unter den grundlegenden arithmetischen
-Operation nicht abgeschlossen sind.
-Daher muss eine Rundungsvorschrift \[rd_t: \mathbb{R}_N \cup \mathbb{R}_D
-    \rightarrow \mathbb{R}_N \cup \mathbb{R}_D\] eingeführt werden, sodass man nach
-diesen arithmetischen Operationen wieder eine Maschinenzahl erhält.
-Für diese Rundungsvorschrift sind folgende Punkte wichtig:
+\section{Runden von Gleitkommazahlen} Da die Anzahl an Bits, die für die Darstellung einer Gleitkommazahl
+verantwortlich ist, beschränkt ist, können zum einen einige Zahlen, gar nicht
+dargestellt werden, und zum anderen bedeutet dies insbesondere, dass
+Maschinenzahlen unter den grundlegenden arithmetischen Operation nicht
+abgeschlossen sind. Daher muss eine Rundungsvorschrift \[rd_t: \mathbb{R}_N \cup \mathbb{R}_D
+    \rightarrow \mathbb{R}_N \cup \mathbb{R}_D\] eingeführt werden, sodass man nach diesen arithmetischen Operationen wieder
+   eine Maschinenzahl erhält. Für diese Rundungsvorschrift sind folgende Punkte
+   wichtig:
 \begin{itemize}
-    \item Eine vorgegebene reelle Zahl wird zur nächstgelegen Maschinenzahl gerundet
-    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird sie zur nächstgrößeren Maschinenzahl gerundet
+    \item Eine vorgegebene reelle Zahl wird zur nächstgelegen Maschinenzahl
+          gerundet
+    \item Falls eine Zahl genau zwischen zwei Maschinenzahlen liegt, so wird
+          sie zur nächstgrößeren Maschinenzahl gerundet
 \end{itemize}
 
 \chapter{Experimente}
-Definiere \[H_n := \sum_{i=1}^{n} \frac{1}{i} \] als die n-te harmonische
-Summe.
-Nach Ergenissen der Analysis, ist bekannt dass diese Folge an Partialsummen
-bestimmt divergiert.
-Deshalb haben wir uns angeschaut, wie das Ändern des Datentyps der Summanden,
-sowie die Summationsmethode, das Konvergenzverhalten beeinflussen.
-Hierfür haben wir diese Summe für mehrere Werte von n, die einen logarithmisch
-konstanten Abstand haben, angeschaut.
+Definiere \[H_n := \sum_{i=1}^{n} \frac{1}{i} \] als die n-te harmonische Summe. Nach Ergenissen der Analysis, ist bekannt
+    dass diese Folge an Partialsummen bestimmt divergiert. Deshalb haben wir
+    uns angeschaut, wie das Ändern des Datentyps der Summanden, sowie die
+    Summationsmethode, das Konvergenzverhalten beeinflussen. Hierfür haben wir
+    diese Summe für mehrere Werte von n, die einen logarithmisch konstanten
+    Abstand haben, angeschaut.
 
 \section{Verwendete Summationsmethoden}
 \subsection{Vorwärtssummation}
 Zur Berechnung der n-ten harmonischen Summe haben wir zum einen die
-Vorwärtssummation benutzt.
-Dies ist die am einfachsten, jedoch aber auch die naivste Methode, Summen
-auszurechnen.
-Die Vorwärtssummation, erfolgt durch Addieren der Summanden, die jeweils in
-einer Klammer stehen.
+Vorwärtssummation benutzt. Dies ist die am einfachsten, jedoch aber auch die
+naivste Methode, Summen auszurechnen. Die Vorwärtssummation, erfolgt durch
+Addieren der Summanden, die jeweils in einer Klammer stehen.
 \[ H_n = (...((\frac{1}{1} + \frac{1}{2}) + \frac{1}{3}) + ... ) + \frac{1}{n} \]
 \subsection{Kahansummation}
 Der Kahansummation Algorithmus addiert zwar auch wie die Vorwärtssummation die
@@ -185,17 +177,16 @@ entgegengewirkt.
 \section{Auswertung}
 Wie zu beobachten ist, stagniert die harmonische Summe bei der
 Vorwärtssummatiion für den Datentyp np.float32 und bleibt irgendwann konstant,
-während sie für die Kahansummation noch weiter wächst.
-Für den Datentyp np.float64 hingegen wachsen beide Summationsmethoden und
-stagnieren nicht für unsere Eingaben von n.
+während sie für die Kahansummation noch weiter wächst. Für den Datentyp
+np.float64 hingegen wachsen beide Summationsmethoden und stagnieren nicht für
+unsere Eingaben von n.
 
 Eine Erklärung dafür ist, dass die einzelnen Terme der harmonischen Reihe
 irgendwann so klein sind, dass die Präzision vom Datentyp np.float32, nicht
 ausreicht und die Summanden kleiner als die kleinste von Null verschiedene
 Maschinenzahl des Typs np.float32 sind, und dann auf die Null abgerundet
-werden.
-Das heißt ab einem bestimmten Punkt werden bei der Vorwärtssummation nur noch
-Nullen summiert, was nichts an dem Wert der Reihe ändert.
+werden. Das heißt ab einem bestimmten Punkt werden bei der Vorwärtssummation
+nur noch Nullen summiert, was nichts an dem Wert der Reihe ändert.
 
 Bei der Kahan Summation hingegen stagniert die Summe jedoch trotz Datentyps
 np.float32 nicht, was diesem Korrekturterm zuzuschreiben ist, da dieser dem
@@ -208,13 +199,12 @@ sich dann in einem stetigen Wachstum der harmonischen Reihe wiederspiegelt.
 \chapter{Zusammenfassung}
 Zusammengefasst haben wir in dieser Untersuchung zur harmonischen Reihe
 gesehen, dass der jeweilige Datentyp mit dem man seine Rechnungen durchführt
-eine bedeutende Rolle spielt.
-Ferner haben wir jedoch auch erkennnen können, dass die Wahl der
-Summationsmethode wichtig ist, und eben auch dafür sorgen kann, dass man
-weitestgehend Präzision behält, obwohl man einen eher unpräzisen Datentyp
-verwendet.
-Von weiterem Interesse wäre es diese Analyse auf eine Vielzahl weiterer
-Datentypen und noch bessere Summationsalgorithmen auszuweiten.
+eine bedeutende Rolle spielt. Ferner haben wir jedoch auch erkennnen können,
+dass die Wahl der Summationsmethode wichtig ist, und eben auch dafür sorgen
+kann, dass man weitestgehend Präzision behält, obwohl man einen eher unpräzisen
+Datentyp verwendet. Von weiterem Interesse wäre es diese Analyse auf eine
+Vielzahl weiterer Datentypen und noch bessere Summationsalgorithmen
+auszuweiten.
 
 \chapter{Literaturverzeichnis}
 \url{https://en.wikipedia.org/wiki/Kahan_summation_algorithm} [letzer Aufruf: 20.05.2024]
