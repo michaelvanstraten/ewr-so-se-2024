@@ -156,13 +156,18 @@
           devShells.default = pkgs.mkShell {
             inputsFrom = [ ewr-so-se-2024 ];
             inherit (checks.pre-commit-check) shellHook;
-            packages = with pkgs; [
-              poetry
-              pyright
-              texlab
-              black
-              texliveFull
-            ];
+            packages =
+              with pkgs;
+              [
+                # Python tools
+                poetry
+                pyright
+                # Building LaTeX inputs
+                texlab
+                texliveFull
+                inkscape
+              ]
+              ++ checks.pre-commit-check.enabledPackages;
           };
         }
       )
