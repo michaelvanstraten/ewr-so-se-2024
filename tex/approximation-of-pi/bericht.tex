@@ -120,7 +120,7 @@ experimentell verglichen.
         \lim_{n \to \infty} \frac{|s_{n+2}-s_{n+1}|}{|s_{n+1}-s_n|} = 1
     \end{equation*}
     so heißt die Folge logarithmisch konvergent. \(c\) wird öfter auch als
-    Konvergenz rate bezeichnet, denn je kleiner c, desto schneller konvergiert
+    Konvergenz Rate bezeichnet, denn je kleiner c, desto schneller konvergiert
     die Folge gegen ihren Grenzwert, d.h. für eine gewünschte Präzision werden
     weniger Iterationen benötigt. Zudem lässt sich die Konvergenz der Ordnung q
     wie folgt definieren: Eine Folge \(s_n\) konvergiert mit Ordnung q, falls
@@ -140,7 +140,7 @@ experimentell verglichen.
 \end{definition}
 
 \begin{definition}[Arithmetisch-Geometrisches Mittel]
-    Seien \(a, b \in \mathbb{R}, a,b > 0\). Definiere wir
+    Seien \(a, b \in \mathbb{R}, a,b > 0\). Definieren wir
     \begin{align*}
         a_0     & = a,                                                    & b_0 & = b \\
         a_{n+1} & = \frac{a_n + b_n}{2}, \qquad b_{n+1} = \sqrt{a_n b_n},
@@ -334,11 +334,11 @@ nachrechnen, dass die Leibniz-Reihe logarithmisch konvergiert.
 \begin{approximation sequence}[Gauß-Legendre]
 
 Der Gauß-Legendre Algorithmus ist benannt nach den beiden Mathematikern Carl
-Friedrich Gauß und Adrien-Marie Legendre, die inviduell Arbeit beigetragen
+Friedrich Gauß und Adrien-Marie Legendre, die individuell Arbeit beigetragen
 haben, auf denen dieser Algorithmus basiert. Dieser Algorithmus bedient sich
 vier verschiedener Folgen, sowie dem arithmetisch-geometrischen Mittels, wie in
-Definition 4, um \(\pi\) zu approximieren. Im folgenden wird der Algorithmus
-aufgeführt: \cite{AGM-Gauß-Legendre} Die Startwerte lauten wie folgt:
+Definition 4, um \(\pi\) zu approximieren. Im Folgenden wird der Algorithmus
+aufgeführt: \cite{AGM-Gauß-Legendre}. Die Startwerte lauten wie folgt:
 \begin{equation*}
     a_0 = 1, \;\;\; b_0 = \frac{1}{\sqrt{2}}, \;\;\; t_0 = \frac{1}{4}, \;\;\; p_0 = 1.
 \end{equation*}
@@ -395,7 +395,7 @@ basiert auf folgender Reihe\cite{Chudnovsky}:
     \frac{1}{\pi}
     = \frac{1}{426880 \sqrt{10005}}
     \sum_{k = 0}^{\infty}
-    \frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}
+    \frac{(-1)^k(6k)!(545140134k+13591409)}{(3k)!(k!)^3(640320)^{3k}}.
 \end{equation*}
 Die Laufzeitkomplexität liegt in \(\mathcal{O}(n(logn)^3)\)
 \cite{Runtime-Chudnovsky} und der Algorithmus produziert mit jeder Iteration
@@ -492,7 +492,7 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
     Beide Algorithmen müssen erst ein mal mehrere Iterationen ausführen um eine
     Dezimalstelle korrekt zu approximieren, ca. 30 für die Leibniz-Reihe und
     fast 200 für die Monte-Carlo Simulation. Beide approximieren dann nach
-    mehreren hundert Iteration zwar zwei korrekte Dezimalstellen, fallen dann
+    mehreren hundert Iterationen zwar zwei korrekte Dezimalstellen, fallen dann
     jedoch wieder auf eine herab. Während die Leibniz-Reihe hiernach, ab ca.
     400 Iteration kontinuierlich, wenn auch langsam, an Präzision gewinnt, so
     schwankt die Monte-Carlo Simulation, was korrekt approximierte
@@ -500,9 +500,9 @@ Konvergenzgeschwindigkeit impliziert hier eine bessere Approximationsfolge.
     Leibniz-Reihe \(\pi\) auf insgesamt sechs korrekte Dezimalstellen zu
     approximieren, während die Monte-Carlo Simulation nur auf zwei kommt.
 
-    Als nächstes vergleichen wir den Gauß-Legendre Algorithmus mit dem
+    Als Nächstes vergleichen wir den Gauß-Legendre Algorithmus mit dem
     Chudnovsky Algorithmus. Beide Algorithmen gewinnen sehr schnell an
-    Genauigkeit und während Chudnovsky für die ersten drei Iteration genauer
+    Genauigkeit und während Chudnovsky für die ersten drei Iterationen genauer
     ist als Gauß-Legendre, so wird für vier oder mehr Iterationen der letztere
     Algorithmus deutlich besser. So hat der Gauß-Legendre Algorithmus die
     eingestellte Präzision von 512 Dezimalstellen schon nach acht Iterationen
@@ -581,7 +581,7 @@ bemerkbar, dafür sieben korrekte Dezimalstellen fast \(10^7\) Iterationen
 benötigt werden. Auch das probabilistische Verhalten des Monte-Carlo
 Algorithmus macht sich in diesem Experiment bemerkbar, denn die Anzahl an
 korrekten Dezimalstellen geht mal hoch und mal runter, wie im Graphen zu sehen
-ist. Auch das extrem schnelle Konvergieren des Chudnovsky und des Gauß-Legendre
+ist. Das extrem schnelle Konvergieren des Chudnovsky und des Gauß-Legendre
 Algorithmus ist deutlich zu erkennen. Was aber interessanter ist, ist die
 Tatsache, dass sich die Verdoppelung der korrekten Dezimalstellen für den
 Gauß-Legendre Algorithmus, was auf seine quadratische Konvergenz zurückzuführen
