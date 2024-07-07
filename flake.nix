@@ -40,6 +40,25 @@
       in
       {
         apps = {
+          watch-latex =
+            let
+              watch-script = pkgs.writeShellApplication {
+                name = "watch-latex";
+
+                runtimeInputs = with pkgs; [
+                  texliveFull
+                  inkscape
+                ];
+
+                text = ''
+                  latexmk -interaction=nonstopmode -lualatex -shell-escape -pvc "$@"
+                '';
+              };
+            in
+            {
+              type = "app";
+              program = "${watch-script}/bin/watch-latex";
+            };
           approximation-of-pi = {
             type = "app";
             program = "${ewr-so-se-2024}/bin/approximation-of-pi";
