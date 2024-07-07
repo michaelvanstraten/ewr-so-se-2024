@@ -1,0 +1,13 @@
+\DeclarePairedDelimiter{\paren}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\set}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\tuple}{\lparen}{\rparen}
+
+\DeclarePairedDelimiterXPP{\abs}[1]
+{}
+{\lvert}{\rvert}
+{}
+{\ifblank{#1}{\anyarg}{#1}}
+
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\nats}{\field{N}}
+\newcommand{\reals}{\field{R}}

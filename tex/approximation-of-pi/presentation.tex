@@ -10,6 +10,10 @@ style=alphabetic,
 sorting=ynt
 ]{biblatex}
 \bibliography{presentation.bib}
+\usepackage{svg}
+
+\usepackage{import}
+\import{./}{common.tex}
 
 % Disable navigation buttons
 \setbeamertemplate{navigation symbols}{}
@@ -26,7 +30,6 @@ sorting=ynt
 \date{\today}
 
 \usetheme{Berlin}
-
 
 \begin{document}
 
@@ -141,22 +144,36 @@ sorting=ynt
 \end{frame}
 
 \begin{frame}{Monte-Carlo Simulation}
-    Basierend auf dem Gesetz der Großen Zahl\footnote{Das Gesetz der Großen Zahl
-        besagt, dass sich die relative Häufigkeit eines Ereignisses bei großer Anzahl
-        von Versuchen dem Erwartungswert annähert.
-    } wird versucht, über eine unbekannte Menge \(M\) analytische Aussagen zu treffen,
-    indem man sich auf eine endliche uniforme Teilmenge beschränkt.
-    \begin{itemize}
-        \item<1-> In diesem Fall ist \(M \coloneq \{(x, y) \mid 0 \le x,y \in \mathbb{R} \le 1\}\)
-        \item<2-> Mit dem Flächeninhalt eines Kreises folgt, dass
-              \begin{equation*}
-                  \frac{\pi}{4} = \frac{
-                      |\{(x,y) \in M \only<3->{\text{\ mit } \sqrt{x^2 + y^2} \le 1} \}|
-                  }{|M|}
-              \end{equation*}
-              \only<3->{ist.}
-        \item<4-> \(\pi\) lässt sich somit approximieren, indem dieses Verhältnis über eine uniforme Teilmenge von \(M\) gebildet wird.
-    \end{itemize}
+    \begin{minipage}{0.64\textwidth}
+        Gegeben der Menge \( \{ (x, y) \mid 0 \le x,y \le 1 \} \eqcolon M \),
+        was ist die Wahrscheinlichkeit \( P(M) \), dass ein Punkt in \( M \)
+        innerhalb des Einheitskreises liegt?
+        \pause
+        {%
+            \tiny
+            \begin{equation*}
+                P(M) = \frac{\text{Rote Fläche}}{\text{Gesamte Fläche}}
+                = \frac{\pi}{4}
+                \pause
+                = \frac{\left| \{ (x, y) \in M \mid \sqrt{x^2 + y^2} \le 1 \} \right|}{|M|}
+            \end{equation*}
+        }
+        \pause
+        Problem: \( M \) ist überabzählbar\pause, aber für
+        \begin{equation*}
+            U_1 \subset U_2 \subset \cdots \subset U_n \subset M
+        \end{equation*}
+        folgt nach dem Gesetz der großen Zahlen, dass
+        \begin{equation*}
+            \lim_{n \to \infty} P(U_n) = P(M)
+        \end{equation*}
+        gilt (wenn \( U_n \) eine uniforme Teilmenge von \( M \) ist).
+    \end{minipage}
+    \begin{minipage}{0.35\textwidth}
+        \begin{figure}[H]
+            \includesvg[width=\textwidth]{figures/monte-carlo-pi.svg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Leibniz-Reihe}
