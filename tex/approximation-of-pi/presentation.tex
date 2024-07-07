@@ -243,14 +243,33 @@ sorting=ynt
 
 \subsection{Konvergenz}
 
-\begin{frame}{Daten}
-    \begin{figure}
-        \begin{center}
-            \leavevmode
-            \onslide<1>\includegraphics[width=\textwidth]{runtime.png}
-            \onslide<2>\includegraphics[width=\textwidth]{convergence.png}
-        \end{center}
+\begin{frame}{Konvergenzanalyse}
+    \small
+    \textbf{Was wir experimentell analysieren wollen:}
+    \pause
+    \begin{itemize}
+        \item Relative zur Position in der Folge: Wie genau approximiert sie
+              \(\pi\)?
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \subfloat{%
+            \includesvg[width=0.45\textwidth]{figures/convergence-only-fast.svg}
+        }
+        \subfloat{%
+            \includesvg[width=0.45\textwidth]{figures/convergence-only-slow.svg}
+        }
+        \caption{%
+            Dezimalstellen relative zur Position innerhalb der Folge mit Mantissenlänge \(2^9\)
+        }
     \end{figure}
+    \pause
+    \textbf{Fazit:}
+    \begin{itemize}
+        \item Gauss-Legendre und Chudnovsky konvergieren beide nach weniger als
+              50 Folgengliedern.
+        \item Leibniz und Monte-Carlo konvergieren nicht monoton.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Auswertung und Zusammenfassung}
