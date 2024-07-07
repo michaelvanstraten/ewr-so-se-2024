@@ -299,9 +299,35 @@ sorting=ynt
     \end{minipage}
 \end{frame}
 
-\subsection{Präzision}
+\section{Zusammenfassung}
 
-\subsection{Speicherbedarf}
+\begin{frame}{Zusammenfassung}
+    \textbf{Erkenntnisse aus den Experimenten:}
+
+    \begin{itemize}
+        \item Quadratische Konvergenz des Gauß-Legendre-Algorithmus:
+              Verdoppelung der korrekten Dezimalstellen pro Iteration.
+        \item Chudnovsky-Algorithmus: ca. 14 weitere korrekte Dezimalstellen
+              pro Iteration.
+    \end{itemize}
+
+    \textbf{Speicherbedarf:}
+    \begin{itemize}
+        \item Linearer Anstieg mit zunehmenden Dezimalstellen bei allen
+              Algorithmen.
+        \item Größter Speicherbedarf beim Gauß-Legendre-Algorithmus, gefolgt
+              von Chudnovsky, Monte-Carlo und Leibniz-Reihe.
+    \end{itemize}
+
+    \textbf{Fazit:}
+    \begin{itemize}
+        \item Gauß-Legendre und Chudnovsky sind zur Approximation von \(\pi\)
+              besser geeignet als die anderen Algorithmen.
+        \item Aufgrund des höheren Speicherbedarfs des
+              Gauß-Legendre-Algorithmus ist der Chudnovsky-Algorithmus
+              wahrscheinlich die bessere Wahl.
+    \end{itemize}
+\end{frame}
 
 \begin{frame}{Literaturverzeichnis}
     \printbibliography
