@@ -15,6 +15,8 @@ sorting=ynt
 \usepackage{import}
 \import{./}{common.tex}
 
+\usepackage{subcaption}
+
 % Disable navigation buttons
 \setbeamertemplate{navigation symbols}{}
 \setbeamercovered{transparent}
@@ -205,71 +207,129 @@ sorting=ynt
 
 \subsection{Laufzeitanalyse}
 
-\begin{frame}
-    \textbf{Überblick:}
+\begin{frame}[allowframebreaks]{Laufzeitanalyse}
+    \textbf{Was wir experimentell analysieren wollen:}
     \begin{itemize}
-        \item Führt Laufzeitanalyse für verschiedene Algorithmen zur
-              Approximation von \(\pi\) durch:
-              \begin{itemize}
-                  \item Leibniz-Reihe, Monte Carlo, Gauss-Legendre, Chudnovsky
-              \end{itemize}
-        \item Misst Zeit zur Approximation von \(\pi\) auf bestimmte
-              Dezimalstellen.
+        \item Wie lange dauert es, \(n\) Dezimalstellen korrekt zu
+              approximieren?
+        \item Wie lange dauert es durchschnittlich, eine Dezimalstelle korrekt
+              zu approximieren?
     \end{itemize}
-
-    \visible<2->{
-        \begin{figure}<2->
-            \centering
-            \includegraphics[width=0.6\textwidth]{runtime.png}
-            \caption{Laufzeitanalyse und durchschnittliche Zeit pro Stelle für verschiedene Algorithmen zur Approximation von \(\pi\).}
-        \end{figure}
-    }
-\end{frame}
-
-\begin{frame}{Auswertung}
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.6\textwidth]{figures/runtime-only-slow.svg}
+        \caption{Laufzeit, um 7 Dezimalstellen zu approximieren}
+    \end{figure}
+    \framebreak
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.6\textwidth]{figures/runtime-only-fast.svg}
+        \caption{Laufzeit, um \(2^{11}\) Dezimalstellen zu approximieren}
+    \end{figure}
+    \textbf{Fazit:}
     \begin{itemize}
-        \item<1-> \textbf{Leibniz-Reihe}
-              \begin{itemize}
-                  \item Konvergiert langsam
-                  \item Einfache Implementierung
-              \end{itemize}
-        \item<2-> \textbf{Monte-Carlo Simulation}
-              \begin{itemize}
-                  \item Zufällige Punktestreuung zur Flächenberechnung
-                  \item Konvergenz verbessert sich mit Anzahl der Punkte
-              \end{itemize}
-        \item<3-> \textbf{Gauss-Legendre Algorithmus}
-              \begin{itemize}
-                  \item Schnelle Konvergenz
-                  \item Komplexere Implementierung
-              \end{itemize}
-        \item<4-> \textbf{Chudnovsky Algorithmus}
-              \begin{itemize}
-                  \item Extrem schnelle Konvergenz
-                  \item Sehr komplexe Implementierung
-              \end{itemize}
+        \item Die Verdoppelung der korrekten Dezimalstellen mit jeder Iteration
+              des Gauss-Legendre-Algorithmus wird im Graphen deutlich.
+        \item Weniger deutlich aber doch noch zu sehen: der Zuwachs von etwa 14
+              Dezimalstellen des Chudnovsky-Algorithmus
+        \item Die Leibniz-Reihe benötigt über 10 Sekunden, um 7 Stellen korrekt
+              zu approximieren.
+        \item Leibniz-Reihe und Monte-Carlo benötigen für jede weitere
+              Dezimalstelle exponentiell mehr Zeit.
+        \item Der Gauss-Legendre- und der Chudnovsky-Algorithmus laufen in
+              polynomialer Zeit.
+        \item Die Zeit des Gauss-Legendre-Algorithmus für jede weitere
+              Dezimalstelle nimmt ab.
     \end{itemize}
 \end{frame}
 
 \subsection{Konvergenz}
 
-\begin{frame}{Daten}
-    \begin{figure}
-        \begin{center}
-            \leavevmode
-            \onslide<1>\includegraphics[width=\textwidth]{runtime.png}
-            \onslide<2>\includegraphics[width=\textwidth]{convergence.png}
-        \end{center}
+\begin{frame}{Konvergenzanalyse}
+    \small
+    \textbf{Was wir experimentell analysieren wollen:}
+    \pause
+    \begin{itemize}
+        \item Relative zur Position in der Folge: Wie genau approximiert sie
+              \(\pi\)?
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \subfloat{%
+            \includesvg[width=0.45\textwidth]{figures/convergence-only-fast.svg}
+        }
+        \subfloat{%
+            \includesvg[width=0.45\textwidth]{figures/convergence-only-slow.svg}
+        }
+        \caption{%
+            Dezimalstellen relative zur Position innerhalb der Folge mit Mantissenlänge \(2^9\)
+        }
     \end{figure}
+    \pause
+    \textbf{Fazit:}
+    \begin{itemize}
+        \item Gauss-Legendre und Chudnovsky konvergieren beide nach weniger als
+              50 Folgengliedern.
+        \item Leibniz und Monte-Carlo konvergieren nicht monoton.
+    \end{itemize}
 \end{frame}
-
-\begin{frame}{Auswertung und Zusammenfassung}
-
-\end{frame}
-
-\subsection{Präzision}
 
 \subsection{Speicherbedarf}
+
+\begin{frame}{Speicherbedarf}
+    \begin{minipage}{0.6\textwidth}
+        \textbf{Was wir experimentell analysieren wollen:}
+        \pause
+        \begin{itemize}
+            \item Arbeitsspeicher benötigt, um mit einer festen Mantissenlänge
+                  eine beliebige Position auszuwerten
+        \end{itemize}
+        \pause
+        \textbf{Fazit:}
+        \begin{itemize}
+            \item Alle Algorithmen benötigen linear mehr Arbeitsspeicher in
+                  Abhängigkeit der Mantissenlänge.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.39\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figures/memory-usage.svg}
+            \caption{Speicherbedarf in Abhängigkeit der Mantissenlänge}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\section{Zusammenfassung}
+
+\begin{frame}{Zusammenfassung}
+    \textbf{Erkenntnisse aus den Experimenten:}
+
+    \begin{itemize}
+        \item Quadratische Konvergenz des Gauß-Legendre-Algorithmus:
+              Verdoppelung der korrekten Dezimalstellen pro Iteration.
+        \item Chudnovsky-Algorithmus: ca. 14 weitere korrekte Dezimalstellen
+              pro Iteration.
+    \end{itemize}
+
+    \textbf{Speicherbedarf:}
+    \begin{itemize}
+        \item Linearer Anstieg mit zunehmenden Dezimalstellen bei allen
+              Algorithmen.
+        \item Größter Speicherbedarf beim Gauß-Legendre-Algorithmus, gefolgt
+              von Chudnovsky, Monte-Carlo und Leibniz-Reihe.
+    \end{itemize}
+
+    \textbf{Fazit:}
+    \begin{itemize}
+        \item Gauß-Legendre und Chudnovsky sind zur Approximation von \(\pi\)
+              besser geeignet als die anderen Algorithmen.
+        \item Aufgrund des höheren Speicherbedarfs des
+              Gauß-Legendre-Algorithmus ist der Chudnovsky-Algorithmus
+              wahrscheinlich die bessere Wahl.
+    \end{itemize}
+\end{frame}
 
 \begin{frame}{Literaturverzeichnis}
     \printbibliography
