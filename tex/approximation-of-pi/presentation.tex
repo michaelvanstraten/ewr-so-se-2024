@@ -272,8 +272,31 @@ sorting=ynt
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Auswertung und Zusammenfassung}
+\subsection{Speicherbedarf}
 
+\begin{frame}{Speicherbedarf}
+    \begin{minipage}{0.6\textwidth}
+        \textbf{Was wir experimentell analysieren wollen:}
+        \pause
+        \begin{itemize}
+            \item Arbeitsspeicher benötigt, um mit einer festen Mantissenlänge
+                  eine beliebige Position auszuwerten
+        \end{itemize}
+        \pause
+        \textbf{Fazit:}
+        \begin{itemize}
+            \item Alle Algorithmen benötigen linear mehr Arbeitsspeicher in
+                  Abhängigkeit der Mantissenlänge.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.39\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includesvg[width=\textwidth]{figures/memory-usage.svg}
+            \caption{Speicherbedarf in Abhängigkeit der Mantissenlänge}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \subsection{Präzision}
