@@ -57,7 +57,7 @@ sorting=ynt
     }
 \end{frame}
 
-\begin{frame}{Historie}
+\begin{frame}{Historie \cite{Chronology}}
     \begin{tabular}{|c||c||c|}
         \hline
         Datum       & Person                          & Korrekte Dezimalstellen \\
@@ -70,15 +70,14 @@ sorting=ynt
         \hline
         1981        & Jean Guilloud                   & 2,000,050               \\
         \hline
-        Januar 1988 & \shortstack{Yasumasa Kanada und                           \\ Yoshiaki Tamura} & 201.326.551\\
+        1988 & \shortstack{Yasumasa Kanada und                                  \\ Yoshiaki Tamura} & 201,326,551\\
         \hline
-        31.12.2009  & Fabrice Bellard                 & 2,699,999,990,000       \\
+        2009  & Fabrice Bellard                       & 2,699,999,990,000       \\
         \hline
-        14.03.2024  & \shortstack{Jordan Ranous,                                \\
+        2024  & \shortstack{Jordan Ranous,                                      \\
         Kevin O’Brien                                                           \\ und Brian Beeler} & 105,000,000,000,000\\
         \hline
     \end{tabular}
-    \cite{Chronology}
 \end{frame}
 
 \begin{frame}{Motivation}
@@ -104,7 +103,10 @@ sorting=ynt
 \begin{frame}{Definitionen}
     \only<1>{%
         \begin{definition}[\(\pi\) in der euklidischen Geometrie]
-            Verhältnis zwischen Umfang und Durchmesser eines Kreises
+            Sei U der Umfang und d der Durchmesser eines Kreises. Dann ist \(\pi\) definiert als
+            \begin{center}
+                \(\pi := \frac{U}{d}\)
+            \end{center}
         \end{definition}
         % TODO: cite Analysis I Skript
         Äquivalente Definitionen zum Beispiel in der Analysis über bestimmte
@@ -178,24 +180,24 @@ sorting=ynt
 
 \begin{frame}{Leibniz-Reihe}
     Durch Ergebnisse der Analysis leitete Leibniz folgedendes Ergebnis her \cite{Leibniz}
-    \[ \pi = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
-    \uncover<2->{Annäherung von \(\pi\) über \(n\)-te Partialsumme \(\pi \approx \sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\) }
+    \[ \frac{\pi}{4} = \sum_{k=0}^{\infty} \frac{(-1)^k}{2k+1} \]
+    \uncover<2->{Annäherung von \(\pi\) über \(n\)-te Partialsumme \(\pi \approx 4\sum_{k=0}^{n} \frac{(-1)^k}{2k+1}\) }
     \begin{itemize}
-        \item<3-> Konvergiert sehr langsam, präzise: Sublineare Konvergenz \\
-        \item<3-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren
+        \item<3-> Logarithmische Konvergenz \\
+        \item<3-> Benötigt grob 5 Milliarden Terme um auf 10 korrekte Nachkommastellen zu approximieren \cite{Leibniz-Approximation}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Gauß-Legendre}                                                                                                        %https://web.archive.org/web/20080726033059/http://wwwmaths.anu.edu.au/~brent/pd/rpb028.pdf
     \begin{itemize}
-        \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen- und geometrischen Mittels zweier Zahlen bedienen
-        \item<2-> \( a_0 = 1 \;\;\; b_0 = \frac{1}{\sqrt{2}} \;\;\; t_0 = \frac{1}{4} \;\;\; p_0 = 1 \)
-        \item<3-> \( a_{n+1} = \frac{a_n + b_n}{2} \)
-        \item<4-> \( b_{n+1} = \sqrt{a_nb_n} \)
-        \item<5-> \( t_{n+1} = t_n - p_n(a_n - a_{n+1})^2 \)
-        \item<6-> \( p_{n+1} = 2p_n \)
-        \item<7-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
-        \item<8-> Konvergiert quadratisch gegen \(\pi\) \cite{Gauß-Legendre}
+        \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen-geometrischen Mittels zweier Zahlen bedienen
+        \item<2->
+            \begin{align*}
+            a_0     & = 1                   & b_0     & = \frac{1}{\sqrt{2}}                   & t_0     & = \frac{1}{4}                           & p_0     & = 1            \\
+            a_{n+1} & = \frac{a_n + b_n}{2} & b_{n+1} & = \sqrt{a_n b_n}                       & t_{n+1} & =t_n - p_n(a_n - a_{n+1})^2             & p_{n+1} & = 2p_n
+            \end{align*}    
+        \item<3-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
+        \item<4-> Konvergiert quadratisch gegen \(\pi\) \cite{Gauß-Legendre}
     \end{itemize}
 \end{frame}
 
