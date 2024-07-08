@@ -62,22 +62,22 @@ sorting=ynt
 \begin{frame}{Historie \cite{Chronology}}
     \begin{tabular}{|c||c||c|}
         \hline
-        Datum       & Person                          & Korrekte Dezimalstellen \\
+        Datum & Person                          & Korrekte Dezimalstellen \\
         \hline
         ca. 250 v.
         Chr.
-                    & Archimedes                      & 2                       \\
+              & Archimedes                      & 2                       \\
         \hline
-        1400        & Madhava                         & 10                      \\
+        1400  & Madhava                         & 10                      \\
         \hline
-        1981        & Jean Guilloud                   & 2,000,050               \\
+        1981  & Jean Guilloud                   & 2,000,050               \\
         \hline
-        1988 & \shortstack{Yasumasa Kanada und                                  \\ Yoshiaki Tamura} & 201,326,551\\
+        1988  & \shortstack{Yasumasa Kanada und                           \\ Yoshiaki Tamura} & 201,326,551\\
         \hline
-        2009  & Fabrice Bellard                       & 2,699,999,990,000       \\
+        2009  & Fabrice Bellard                 & 2,699,999,990,000       \\
         \hline
-        2024  & \shortstack{Jordan Ranous,                                      \\
-        Kevin O’Brien                                                           \\ und Brian Beeler} & 105,000,000,000,000\\
+        2024  & \shortstack{Jordan Ranous,                                \\
+        Kevin O’Brien                                                     \\ und Brian Beeler} & 105,000,000,000,000\\
         \hline
     \end{tabular}
 \end{frame}
@@ -115,12 +115,12 @@ sorting=ynt
         Nullstellen trigonometrischer Funktionen
     }
     %\only<2>{%
-        %\begin{definition}[Algorithmus]
-            % TODO: cite https://de.wikipedia.org/wiki/Algorithmus see citation [1]
-            %Handlungsvorschrift bestehend aus einer Menge an wohldefinierten
-            %Schritten
-        %\end{definition}
-        %Nützlich, da Algorithmen von Rechnern ausgeführt werden können
+    %\begin{definition}[Algorithmus]
+    % TODO: cite https://de.wikipedia.org/wiki/Algorithmus see citation [1]
+    %Handlungsvorschrift bestehend aus einer Menge an wohldefinierten
+    %Schritten
+    %\end{definition}
+    %Nützlich, da Algorithmen von Rechnern ausgeführt werden können
     %}
     \only<2>{%
         \begin{definition}[Uniforme Teilmenge]
@@ -159,7 +159,7 @@ sorting=ynt
                 P(M) = \frac{\text{Rote Fläche}}{\text{Gesamte Fläche}}
                 = \frac{\pi}{4}
                 \pause
-                = \frac{\left| \{ (x, y) \in M \mid \sqrt{x^2 + y^2} \le 1 \} \right|}{|M|}
+                = \frac{\abs*{\set*{ (x, y) \in M \mid \sqrt{x^2 + y^2} \le 1}}}{|M|}
             \end{equation*}
         }
         \pause
@@ -194,10 +194,10 @@ sorting=ynt
     \begin{itemize}
         \item<1-> Approximiert \(\pi\) mittels Folgen, die sich des arithmetischen-geometrischen Mittels zweier Zahlen bedienen
         \item<2->
-            \begin{align*}
-            a_0     & = 1                   & b_0     & = \frac{1}{\sqrt{2}}                   & t_0     & = \frac{1}{4}                           & p_0     & = 1            \\
-            a_{n+1} & = \frac{a_n + b_n}{2} & b_{n+1} & = \sqrt{a_n b_n}                       & t_{n+1} & =t_n - p_n(a_n - a_{n+1})^2             & p_{n+1} & = 2p_n
-            \end{align*}    
+              \begin{align*}
+                  a_0     & = 1                   & b_0     & = \frac{1}{\sqrt{2}} & t_0     & = \frac{1}{4}               & p_0     & = 1    \\
+                  a_{n+1} & = \frac{a_n + b_n}{2} & b_{n+1} & = \sqrt{a_n b_n}     & t_{n+1} & =t_n - p_n(a_n - a_{n+1})^2 & p_{n+1} & = 2p_n
+              \end{align*}
         \item<3-> \(\pi\) wird dann approximiert durch \[ \pi \approx \frac{(a_{n+1} + b_{n+1})^2}{4t_{n+1}} \]
         \item<4-> Konvergiert quadratisch gegen \(\pi\) \cite{Gauß-Legendre}
     \end{itemize}
